@@ -1,18 +1,23 @@
 <template>
   <v-container>
-    <v-row>
+    <v-row
+      class="pb-4"
+      no-gutters
+    >
       <h1>
         View Booking Portal
       </h1>
       <v-spacer />
       <v-btn
         color="#BDBDBD"
+        class="justify-end"
       >
         Sign Out
       </v-btn>
     </v-row>
     <v-btn
       color="#E0E0E0"
+      class="mb-4"
     >
       My Current and Future Reservations
     </v-btn>
@@ -30,7 +35,7 @@
           <v-icon
             large
             color="blue-grey darken-2"
-            padding-right
+            class="pr-4"
           >
             mdi-laptop
           </v-icon>
@@ -41,6 +46,7 @@
           <v-icon
             large
             color="blue-grey darken-2"
+            class="pr-4"
           >
             mdi-laptop
           </v-icon>
