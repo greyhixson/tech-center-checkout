@@ -1,6 +1,18 @@
 <template>
   <v-container>
-    <h1> Admin Dashboard </h1>
+    <v-card
+      elevation="6"
+      outlined
+      max-width="500"
+    >
+      <template slot="progress">
+        <v-progress-linear
+          color="deep-purple"
+          height="10"
+          indeterminate
+        />
+      </template>
+    </v-card>
   </v-container>
 </template>
 
