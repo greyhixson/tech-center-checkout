@@ -16,6 +16,11 @@ const routes = [
     name: 'AdminView',
     component: AdminView,
   },
+  {
+    path: '/Profile',
+    name: 'Profile',
+    // add component later
+  },
 ];
 
 const router = new VueRouter({
