@@ -2,6 +2,7 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import AdminView from '../views/AdminView.vue';
 import UserView from '../views/UserView.vue';
+import UserResView from '../views/UserResView.vue';
 
 Vue.use(VueRouter);
 
@@ -20,6 +21,11 @@ const routes = [
     path: '/Profile',
     name: 'Profile',
     // add component later
+  },
+  {
+    path: '/UserResView',
+    name: 'UserResView',
+    component: UserResView,
   },
 ];
 
