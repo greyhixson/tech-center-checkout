@@ -1,6 +1,12 @@
 <template>
-  <v-app>
+  <v-app :style="{background: $vuetify.theme.themes.light.background}">
     <v-main>
+      <v-btn to="/UserView">
+        User View
+      </v-btn>
+      <v-btn to="/AdminView">
+        Admin View
+      </v-btn>
       <router-view />
     </v-main>
   </v-app>
@@ -10,9 +16,13 @@
 
 export default {
   name: 'App',
-
   data: () => ({
     //
   }),
+  computed: {
+    theme() {
+      return (this.$vuetify.theme.light) ? 'dark' : 'light';
+    },
+  },
 };
 </script>

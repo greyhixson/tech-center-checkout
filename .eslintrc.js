@@ -17,6 +17,7 @@ module.exports = {
   rules: {
     'no-console': 'off',
     'no-debugger': 'off',
+    'vue/no-multiple-template-root': 'off',
   },
 
 };
