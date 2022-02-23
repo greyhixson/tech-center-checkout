@@ -39,46 +39,155 @@
         height="75%"
       />
     </v-card>
-    <v-btn
-      color="#E0E0E0"
+    <v-card
       class="mb-8"
-      href="/#/UserResView"
-      block
-      large
     >
-      My Reservations
-    </v-btn>
-    <v-card>
       <v-toolbar
-        color="#01579B"
+        color="black"
         dark
       >
         <v-toolbar-side-icon />
 
-        <v-toolbar-title>Available Reservations</v-toolbar-title>
+        <v-toolbar-title>Items Checked Out</v-toolbar-title>
       </v-toolbar>
       <v-list three-line>
-        <v-subheader :inset="inset">
-          <v-icon
-            large
-            color="blue-grey darken-2"
-            class="pr-4"
+        <v-col>
+          <v-row>
+            <v-subheader :inset="inset">
+              <v-icon
+                large
+                color="blue-grey darken-2"
+                class="pr-4"
+              >
+                mdi-laptop
+              </v-icon>
+              Computer (5 hours)
+            </v-subheader>
+          </v-row>
+          <v-row
+            class="ml-10"
           >
-            mdi-laptop
-          </v-icon>
-          Computer (5 hours)
-        </v-subheader>
+            <v-subheader :inset="inset">
+              Return Date: 2/22/2022
+            </v-subheader>
+          </v-row>
+          <v-row
+            class="ml-10"
+          >
+            <v-subheader :inset="inset">
+              Duration: 5 hours
+            </v-subheader>
+          </v-row>
+        </v-col>
         <v-divider />
-        <v-subheader :inset="inset">
-          <v-icon
-            large
-            color="blue-grey darken-2"
-            class="pr-4"
+        <v-col>
+          <v-row>
+            <v-subheader :inset="inset">
+              <v-icon
+                large
+                color="blue-grey darken-2"
+                class="pr-4"
+              >
+                mdi-laptop
+              </v-icon>
+              Computer (7 days)
+            </v-subheader>
+          </v-row>
+          <v-row
+            class="ml-10"
           >
-            mdi-laptop
-          </v-icon>
-          Computer (7 days)
-        </v-subheader>
+            <v-subheader :inset="inset">
+              Return Date: 2/24/2022
+            </v-subheader>
+          </v-row>
+          <v-row
+            class="ml-10"
+          >
+            <v-subheader :inset="inset">
+              Duration: 7 days
+            </v-subheader>
+          </v-row>
+        </v-col>
+      </v-list>
+    </v-card>
+
+    <v-card>
+      <v-toolbar
+        color="black"
+        dark
+      >
+        <v-toolbar-side-icon />
+
+        <v-toolbar-title>Upcoming Reservation(s)</v-toolbar-title>
+      </v-toolbar>
+      <v-list three-line>
+        <v-col>
+          <v-row>
+            <v-subheader :inset="inset">
+              <v-icon
+                large
+                color="blue-grey darken-2"
+                class="pr-4"
+              >
+                mdi-laptop
+              </v-icon>
+              Computer (5 hours)
+            </v-subheader>
+          </v-row>
+          <v-row
+            class="ml-10"
+          >
+            <v-subheader :inset="inset">
+              Return Date: 2/22/2022
+            </v-subheader>
+          </v-row>
+          <v-row
+            class="ml-10"
+          >
+            <v-subheader :inset="inset">
+              Duration: 5 hours
+            </v-subheader>
+          </v-row>
+        </v-col>
+        <v-btn
+          class="ml-14 mb-5"
+        >
+          Cancel Reservation
+        </v-btn>
+        <v-divider />
+        <v-col>
+          <v-row>
+            <v-subheader :inset="inset">
+              <v-icon
+                large
+                color="blue-grey darken-2"
+                class="pr-4"
+              >
+                mdi-laptop
+              </v-icon>
+              Computer (7 days)
+            </v-subheader>
+          </v-row>
+          <v-row
+            class="ml-10"
+          >
+            <v-subheader :inset="inset">
+              Return Date: 2/24/2022
+            </v-subheader>
+          </v-row>
+          <v-row
+            class="ml-10"
+          >
+            <v-subheader :inset="inset">
+              Duration: 7 days
+            </v-subheader>
+          </v-row>
+        </v-col>
+        <v-btn
+          class="ml-14 mb-3"
+        >
+          Cancel Reservation
+        </v-btn>
       </v-list>
     </v-card>
   </v-container>
