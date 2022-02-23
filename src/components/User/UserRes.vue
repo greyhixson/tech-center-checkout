@@ -28,6 +28,7 @@
           depressed
           :right="true"
           :absolute="true"
+          href="/#/"
         >
           Sign Out
         </v-btn>
