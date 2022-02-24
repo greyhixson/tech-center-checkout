@@ -195,7 +195,23 @@
 </template>
 
 <script>
+import getCollection from '../../firebase/techCenterCheckout.Data';
+
 export default {
   name: 'UserRes',
+  created() {
+    console.log('Try collection');
+    this.getFirebaseCollection();
+  },
+  methods: {
+    async getFirebaseCollection() {
+      try {
+        const firebaseCollection = await getCollection();
+        console.log(firebaseCollection);
+      } catch (e) {
+        console.log('Error occures');
+      }
+    },
+  },
 };
 </script>

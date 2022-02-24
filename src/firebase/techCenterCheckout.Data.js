@@ -5,7 +5,7 @@ import {
 import db from './techCenterCheckout.Firestore';
 
 // Read all items from inventory
-async function getCollection() {
+export default async function getCollection() {
   const querySnapshot = await getDocs(collection(db, 'All Devices'));
   const allDevices = [];
   querySnapshot.forEach((doc) => {
