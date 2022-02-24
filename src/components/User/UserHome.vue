@@ -9,16 +9,13 @@
         flat
         height="65%"
       >
-        <v-toolbar-side-icon
-          :left="true"
+        <img
+          class="mr-3"
+          src="https://brand.uark.edu/_resources/images/shield.jpg"
+          height="55px"
+          width="55px"
         >
-          <img
-            class="mr-3"
-            src="https://brand.uark.edu/_resources/images/shield.jpg"
-            height="55px"
-            width="55px"
-          >
-        </v-toolbar-side-icon>
+
         <v-toolbar-title
           class="text-h5"
         >
@@ -36,7 +33,6 @@
       </v-toolbar>
       <v-banner
         single-line
-        :sticky="sticky"
         height="75%"
       />
     </v-card>
@@ -54,12 +50,10 @@
         color="black"
         dark
       >
-        <v-toolbar-side-icon />
-
         <v-toolbar-title>Available Reservations</v-toolbar-title>
       </v-toolbar>
       <v-list three-line>
-        <v-subheader :inset="inset">
+        <v-subheader>
           <v-icon
             large
             color="blue-grey darken-2"
@@ -70,7 +64,7 @@
           Computer (5 hours)
         </v-subheader>
         <v-divider />
-        <v-subheader :inset="inset">
+        <v-subheader>
           <v-icon
             large
             color="blue-grey darken-2"
