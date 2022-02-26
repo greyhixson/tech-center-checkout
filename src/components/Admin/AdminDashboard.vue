@@ -171,6 +171,7 @@
                           width: 320px;"
                 href="/#/AvailableDevices"
               >
+                <!-- eventually get rid of the Available button; functionality is in All Devices -->
                 Available
               </v-btn>
               <br>
