@@ -159,6 +159,7 @@
                 style="font-size: 30px;
                           color: black;
                           width: 320px;"
+                to="AllDevices"
               >
                 All Devices
               </v-btn>
@@ -168,6 +169,7 @@
                           color: black;
                           text-align: left;
                           width: 320px;"
+                to="/Available"
               >
                 Available
               </v-btn>
@@ -178,6 +180,7 @@
                           color: black;
                           text-align: left;
                           width: 320px;"
+                to="/ModifyDevices"
               >
                 Modify
               </v-btn>
