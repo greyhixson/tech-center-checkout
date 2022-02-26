@@ -19,6 +19,7 @@
             src="https://brand.uark.edu/_resources/images/shield.jpg"
             height="55px"
             width="55px"
+            alt="University of Arkansas Logo"
           >
         </v-toolbar-side-icon>
         <v-toolbar-title
@@ -87,9 +88,10 @@
                   font-size: 12px;"
               >
                 <v-btn
+                  href="/#/AdminActiveRes"
                   class="font-weight-light"
                   style="font-size: 30px;
-                          color: black;
+                           color: black;
                           width: 320px;"
                 >
                   Active
@@ -105,6 +107,7 @@
                 </v-btn>
                 <br>
                 <v-btn
+                  href="/#/AdminLogRes"
                   class="font-weight-light"
                   style="font-size: 30px;
                           color: black;
