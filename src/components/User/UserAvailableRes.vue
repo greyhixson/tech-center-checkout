@@ -36,15 +36,19 @@
             Apple MacBook Air
           </v-expansion-panel-header>
           <v-expansion-panel-content
-            class="text-right"
+            class="mt-4 mx-auto"
           >
-            Lorem ipsum dolor sit amet
-            <v-btn
-              to="/UserReviewResView"
-              class="mt-2 mx-auto"
-            >
-              Reserve
-            </v-btn>
+            <v-row>
+              This can be checked out for a maximum of 7 days.
+            </v-row>
+            <v-row>
+              <v-btn
+                to="/UserReviewResView"
+                class="mt-2 mb-2"
+              >
+                Reserve
+              </v-btn>
+            </v-row>
           </v-expansion-panel-content>
         </v-expansion-panel>
         <v-expansion-panel>
@@ -52,15 +56,19 @@
             Lenovo Mouse
           </v-expansion-panel-header>
           <v-expansion-panel-content
-            class="text-right"
+            class="mt-4 mx-auto"
           >
-            Lorem ipsum dolor sit amet
-            <v-btn
-              to="/UserReviewResView"
-              class="mt-2 mx-auto"
-            >
-              Reserve
-            </v-btn>
+            <v-row>
+              This can be checked out for a maximum of 5 hours.
+            </v-row>
+            <v-row>
+              <v-btn
+                to="/UserReviewResView"
+                class="mt-2 mb-2"
+              >
+                Reserve
+              </v-btn>
+            </v-row>
           </v-expansion-panel-content>
         </v-expansion-panel>
       </v-expansion-panels>

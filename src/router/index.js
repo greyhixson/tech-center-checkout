@@ -2,6 +2,7 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import AdminView from '../views/AdminView.vue';
 import UserAvailableResView from '../views/UserAvailableResView.vue';
+import UserConfirmResView from '../views/UserConfirmResView.vue';
 import UserResView from '../views/UserResView.vue';
 import UserReviewResView from '../views/UserReviewResView.vue';
 
@@ -32,6 +33,11 @@ const routes = [
     path: '/UserReviewResView',
     name: 'UserReviewResView',
     component: UserReviewResView,
+  },
+  {
+    path: '/UserConfirmResView',
+    name: 'UserConfirmResView',
+    component: UserConfirmResView,
   },
 ];
 
