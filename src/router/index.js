@@ -1,15 +1,17 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import AdminView from '../views/AdminView.vue';
-import UserView from '../views/UserView.vue';
+import UserAvailableResView from '../views/UserAvailableResView.vue';
+import UserResView from '../views/UserResView.vue';
+import UserReviewResView from '../views/UserReviewResView.vue';
 
 Vue.use(VueRouter);
 
 const routes = [
   {
-    path: '/UserView',
-    name: 'UserView',
-    component: UserView,
+    path: '/UserAvailableResView',
+    name: 'UserAvailableResView',
+    component: UserAvailableResView,
   },
   {
     path: '/AdminView',
@@ -20,6 +22,16 @@ const routes = [
     path: '/Profile',
     name: 'Profile',
     // add component later
+  },
+  {
+    path: '/UserResView',
+    name: 'UserResView',
+    component: UserResView,
+  },
+  {
+    path: '/UserReviewResView',
+    name: 'UserReviewResView',
+    component: UserReviewResView,
   },
 ];
 

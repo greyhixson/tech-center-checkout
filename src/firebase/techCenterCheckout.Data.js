@@ -31,10 +31,11 @@ async function retrieveUserCurrentRes(username) {
       checkOutDate: doc.data().checkOutDate,
       deviceName: doc.data().deviceName,
       deviceTag: doc.data().deviceTag,
+      firstName: doc.data().firstName,
+      lastName: doc.data().lastName,
       reservationID: doc.data().reservationID,
       status: doc.data().status,
-      studentID: doc.data().studentID,
-      studentName: doc.data().studentName,
+      username: doc.data().username,
     };
     currentRes.push(data);
   });
@@ -53,10 +54,11 @@ async function retrieveUserPastRes(username) {
       checkOutDate: doc.data().checkOutDate,
       deviceName: doc.data().deviceName,
       deviceTag: doc.data().deviceTag,
+      firstName: doc.data().firstName,
+      lastName: doc.data().lastName,
       reservationID: doc.data().reservationID,
       status: doc.data().status,
-      studentID: doc.data().studentID,
-      studentName: doc.data().studentName,
+      username: doc.data().username,
     };
     pastRes.push(data);
   });

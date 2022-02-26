@@ -1,15 +1,14 @@
 <template>
-  <user-home />
+  <user-res />
 </template>
 
 <script>
-import UserHome from '../components/User/UserHome.vue';
+import UserRes from '../components/User/UserRes.vue';
 
 export default {
   name: 'UserView',
-
   components: {
-    UserHome,
+    UserRes,
   },
 };
 </script>

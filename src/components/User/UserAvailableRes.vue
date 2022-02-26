@@ -1,0 +1,75 @@
+<template>
+  <v-container>
+    <v-row
+      class="pb-4"
+      no-gutters
+    >
+      <h1>
+        Booking Portal
+      </h1>
+      <v-spacer />
+      <v-btn
+        color="#BDBDBD"
+        class="justify-end"
+      >
+        Sign Out
+      </v-btn>
+    </v-row>
+    <v-btn
+      color="#E0E0E0"
+      class="mb-4"
+      to="/UserResView"
+    >
+      My Current and Future Reservations
+    </v-btn>
+    <v-card>
+      <v-toolbar
+        color="#01579B"
+        dark
+      >
+        <v-toolbar-side-icon />
+        <v-toolbar-title>Available Reservations</v-toolbar-title>
+      </v-toolbar>
+      <v-expansion-panels focusable>
+        <v-expansion-panel>
+          <v-expansion-panel-header>
+            Apple MacBook Air
+          </v-expansion-panel-header>
+          <v-expansion-panel-content
+            class="text-right"
+          >
+            Lorem ipsum dolor sit amet
+            <v-btn
+              to="/UserReviewResView"
+              class="mt-2 mx-auto"
+            >
+              Reserve
+            </v-btn>
+          </v-expansion-panel-content>
+        </v-expansion-panel>
+        <v-expansion-panel>
+          <v-expansion-panel-header>
+            Lenovo Mouse
+          </v-expansion-panel-header>
+          <v-expansion-panel-content
+            class="text-right"
+          >
+            Lorem ipsum dolor sit amet
+            <v-btn
+              to="/UserReviewResView"
+              class="mt-2 mx-auto"
+            >
+              Reserve
+            </v-btn>
+          </v-expansion-panel-content>
+        </v-expansion-panel>
+      </v-expansion-panels>
+    </v-card>
+  </v-container>
+</template>
+
+<script>
+export default {
+  name: 'UserAvailableRes',
+};
+</script>

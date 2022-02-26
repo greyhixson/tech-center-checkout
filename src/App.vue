@@ -1,7 +1,7 @@
 <template>
   <v-app :style="{background: $vuetify.theme.themes.light.background}">
     <v-main>
-      <v-btn to="/UserView">
+      <v-btn to="/UserAvailableResView">
         User View
       </v-btn>
       <v-btn to="/AdminView">
