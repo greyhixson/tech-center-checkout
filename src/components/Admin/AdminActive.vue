@@ -12,13 +12,14 @@
         height="65%"
       >
         <v-toolbar-side-icon
-          :left="true"
+          left
         >
           <img
             class="mr-3"
             src="https://brand.uark.edu/_resources/images/shield.jpg"
             height="55px"
             width="55px"
+            alt="University of Arkansas Logo"
           >
         </v-toolbar-side-icon>
         <v-toolbar-title
@@ -34,8 +35,8 @@
         </v-toolbar-title>
         <v-btn
           depressed
-          :right="true"
-          :absolute="true"
+          right
+          absolute
         >
           Sign Out
         </v-btn>
@@ -43,7 +44,6 @@
       </v-toolbar>
       <v-banner
         single-line
-        :sticky="sticky"
         height="75%"
       />
     </v-card>
@@ -55,6 +55,7 @@
       item-key="reservationID"
       show-select
       class="elevation-1"
+      dark
     >
       <template v-slot:top>
         <v-switch
@@ -90,7 +91,7 @@ export default {
         { text: 'Check In Date', value: 'checkInDate' },
         { text: 'Status', value: 'status' },
       ],
-      devices: [
+      devices: [ // data entered manually, will be replaced with functions calling from database
         {
           reservationID: 'XT3456',
           deviceName: 'Sony Camera',
