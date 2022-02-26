@@ -159,7 +159,7 @@
                 style="font-size: 30px;
                           color: black;
                           width: 320px;"
-                to="AllDevices"
+                href="/#/AllDevices"
               >
                 All Devices
               </v-btn>
@@ -169,7 +169,7 @@
                           color: black;
                           text-align: left;
                           width: 320px;"
-                to="/Available"
+                href="/#/AvailableDevices"
               >
                 Available
               </v-btn>
@@ -180,7 +180,7 @@
                           color: black;
                           text-align: left;
                           width: 320px;"
-                to="/ModifyDevices"
+                href="/#/ModifyInventory"
               >
                 Modify
               </v-btn>

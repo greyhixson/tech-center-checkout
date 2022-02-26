@@ -6,7 +6,7 @@
 import AllDevices from '../components/Admin/AllDevices.vue';
 
 export default {
-  name: 'AllDevices',
+  name: 'AllDevicesView',
   components: {
     AllDevices,
   },
