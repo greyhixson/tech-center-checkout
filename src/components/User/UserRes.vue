@@ -22,8 +22,8 @@
         </v-toolbar-title>
         <v-btn
           depressed
-          :right="true"
-          :absolute="true"
+          right
+          true
           href="/#/"
         >
           Sign Out

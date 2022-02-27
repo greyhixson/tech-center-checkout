@@ -23,8 +23,8 @@
         </v-toolbar-title>
         <v-btn
           depressed
-          :right="true"
-          :absolute="true"
+          right
+          true
           href="/#/"
         >
           Sign Out
@@ -39,7 +39,7 @@
     <v-btn
       color="#E0E0E0"
       class="mb-8"
-      href="/#/UserResView"
+      href="/#/UserRes"
       block
       large
     >
