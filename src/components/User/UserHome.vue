@@ -24,6 +24,7 @@
         <v-btn
           depressed
           right
+          class="text-right"
           true
           href="/#/"
         >
