@@ -1,18 +1,18 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import AdminView from '../views/AdminView.vue';
-import UserAvailableResView from '../views/UserAvailableResView.vue';
-import UserConfirmResView from '../views/UserConfirmResView.vue';
-import UserResView from '../views/UserResView.vue';
-import UserReviewResView from '../views/UserReviewResView.vue';
+import UserView from '../views/UserView.vue';
+import UserConfirmRes from '../components/User/UserConfirmRes.vue';
+import UserRes from '../components/User/UserRes.vue';
+import UserReviewRes from '../components/User/UserReviewRes.vue';
 
 Vue.use(VueRouter);
 
 const routes = [
   {
-    path: '/UserAvailableResView',
-    name: 'UserAvailableResView',
-    component: UserAvailableResView,
+    path: '/UserView',
+    name: 'UserView',
+    component: UserView,
   },
   {
     path: '/AdminView',
@@ -25,19 +25,19 @@ const routes = [
     // add component later
   },
   {
-    path: '/UserResView',
-    name: 'UserResView',
-    component: UserResView,
+    path: '/UserRes',
+    name: 'UserRes',
+    component: UserRes,
   },
   {
-    path: '/UserReviewResView',
-    name: 'UserReviewResView',
-    component: UserReviewResView,
+    path: '/UserReviewRes',
+    name: 'UserReviewRes',
+    component: UserReviewRes,
   },
   {
-    path: '/UserConfirmResView',
-    name: 'UserConfirmResView',
-    component: UserConfirmResView,
+    path: '/UserConfirmRes',
+    name: 'UserConfirmRes',
+    component: UserConfirmRes,
   },
 ];
 

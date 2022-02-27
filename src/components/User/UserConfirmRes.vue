@@ -28,7 +28,7 @@
     <v-btn
       color="#E0E0E0"
       class="mt-6"
-      to="/UserResView"
+      to="/UserRes"
     >
       My Current and Future Reservations
     </v-btn>

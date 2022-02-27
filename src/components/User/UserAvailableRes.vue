@@ -18,7 +18,7 @@
     <v-btn
       color="#E0E0E0"
       class="mb-4"
-      to="/UserResView"
+      to="/UserRes"
     >
       My Current and Future Reservations
     </v-btn>
@@ -43,7 +43,7 @@
             </v-row>
             <v-row>
               <v-btn
-                to="/UserReviewResView"
+                to="/UserReviewRes"
                 class="mt-2 mb-2"
               >
                 Reserve
@@ -63,7 +63,7 @@
             </v-row>
             <v-row>
               <v-btn
-                to="/UserReviewResView"
+                to="/UserReviewRes"
                 class="mt-2 mb-2"
               >
                 Reserve

@@ -58,7 +58,7 @@
       />
     </v-card>
     <v-btn
-      to="/UserConfirmResView"
+      to="/UserConfirmRes"
       class="mt-6 ml-2"
     >
       Submit

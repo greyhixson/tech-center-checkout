@@ -6,7 +6,7 @@
 import UserAvailableRes from '../components/User/UserAvailableRes.vue';
 
 export default {
-  name: 'UserAvailableResView',
+  name: 'UserView',
 
   components: {
     UserAvailableRes,
