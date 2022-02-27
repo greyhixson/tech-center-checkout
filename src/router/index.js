@@ -2,6 +2,8 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import AdminView from '../views/AdminView.vue';
 import UserView from '../views/UserView.vue';
+import AllDevices from '../components/Admin/AllDevices.vue';
+import ModifyInventory from '../components/Admin/ModifyInventory.vue';
 
 Vue.use(VueRouter);
 
@@ -17,9 +19,14 @@ const routes = [
     component: AdminView,
   },
   {
-    path: '/Profile',
-    name: 'Profile',
-    // add component later
+    path: '/AllDevices',
+    name: 'AllDevices',
+    component: AllDevices,
+  },
+  {
+    path: '/ModifyInventory',
+    name: 'ModifyInventory',
+    component: ModifyInventory,
   },
 ];
 
