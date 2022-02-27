@@ -22,7 +22,6 @@
         >
           Welcome,
           <a
-            href="/#/Profile"
             class="text-decoration-none red--text text--darken-4"
           >
             Admin
@@ -30,8 +29,8 @@
         </v-toolbar-title>
         <v-btn
           depressed
-          :right="true"
-          :absolute="true"
+          right
+          absolute
         >
           Sign Out
         </v-btn>
@@ -169,7 +168,6 @@
                           color: black;
                           text-align: left;
                           width: 320px;"
-                href="/#/AvailableDevices"
               >
                 <!-- eventually get rid of the Available button; functionality is in All Devices -->
                 Available

@@ -26,6 +26,7 @@
           depressed
           right
           absolute
+          to="/AdminView"
         >
           <v-icon
             size="50"
