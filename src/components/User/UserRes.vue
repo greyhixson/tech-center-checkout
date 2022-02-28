@@ -24,6 +24,7 @@
           depressed
           right
           true
+          absolute
           href="/#/"
         >
           Sign Out

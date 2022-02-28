@@ -23,6 +23,7 @@
         </v-toolbar-title>
         <v-btn
           depressed
+          absolute
           right
           class="text-right"
           true
