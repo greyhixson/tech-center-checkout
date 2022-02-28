@@ -27,7 +27,6 @@
         color="#01579B"
         dark
       >
-        <v-toolbar-side-icon />
         <v-toolbar-title>Available Reservations</v-toolbar-title>
       </v-toolbar>
       <v-expansion-panels focusable>

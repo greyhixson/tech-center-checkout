@@ -20,7 +20,6 @@
         color="#01579B"
         dark
       >
-        <v-toolbar-side-icon />
         <v-toolbar-title>Apple MacBook Air</v-toolbar-title>
       </v-toolbar>
       <v-menu
@@ -34,7 +33,7 @@
         <template v-slot:activator="{ on, attrs }">
           <v-text-field
             v-model="date"
-            label="Date?"
+            label="Picker without buttons"
             prepend-icon="mdi-calendar"
             readonly
             v-bind="attrs"
@@ -48,12 +47,12 @@
       </v-menu>
       <v-select
         :items="items"
-        label="Time?"
+        label="Time"
         prepend-icon="mdi-clock"
       />
       <v-select
         :items="items"
-        label="Duration?"
+        label="Duration"
         prepend-icon="mdi-timer"
       />
     </v-card>
@@ -70,8 +69,9 @@
 export default {
   name: 'UserReviewRes',
   data: () => ({
-    showMenu: false,
+    menu2: false,
     items: ['Foo', 'Bar', 'Fizz', 'Buzz'],
+    date: new Date(Date.now()).toISOString().substr(0, 10),
   }),
 };
 </script>
