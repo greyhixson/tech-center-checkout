@@ -25,8 +25,6 @@
           depressed
           absolute
           right
-          class="text-right"
-          true
           href="/#/"
         >
           Sign Out

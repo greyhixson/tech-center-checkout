@@ -23,7 +23,6 @@
         <v-btn
           depressed
           right
-          true
           absolute
           href="/#/"
         >
