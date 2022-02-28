@@ -22,8 +22,8 @@
         </v-toolbar-title>
         <v-btn
           depressed
-          :right="true"
-          :absolute="true"
+          right
+          absolute
           href="/#/"
         >
           Sign Out
@@ -62,7 +62,7 @@
             class="ml-10"
           >
             <v-subheader>
-              Return Date: 2/22/2022
+              Return Date: 2/22/2022 at 2:00 PM
             </v-subheader>
           </v-row>
           <v-row
@@ -91,7 +91,7 @@
             class="ml-10"
           >
             <v-subheader>
-              Return Date: 2/24/2022
+              Return Date: 2/24/2022 at 12:00 PM
             </v-subheader>
           </v-row>
           <v-row
@@ -130,7 +130,7 @@
             class="ml-10"
           >
             <v-subheader>
-              Return Date: 2/22/2022
+              Return Date: 2/22/2022 at 2:00 PM
             </v-subheader>
           </v-row>
           <v-row
@@ -164,7 +164,7 @@
             class="ml-10"
           >
             <v-subheader>
-              Return Date: 2/24/2022
+              Return Date: 2/24/2022 at 12:00 PM
             </v-subheader>
           </v-row>
           <v-row

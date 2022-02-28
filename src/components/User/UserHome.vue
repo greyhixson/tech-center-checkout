@@ -1,30 +1,53 @@
 <template>
   <v-container>
-    <v-row
-      class="pb-4"
-      no-gutters
+    <v-card
+      class="mb-8 mt-4 grey lighten-4"
+      style="height: 100%;"
     >
-      <h1>
-        Booking Portal
-      </h1>
-      <v-spacer />
-      <v-btn
-        color="#BDBDBD"
-        class="justify-end"
+      <v-system-bar />
+      <v-toolbar
+        flat
+        height="65%"
       >
-        Sign Out
-      </v-btn>
-    </v-row>
+        <img
+          class="mr-3"
+          src="https://brand.uark.edu/_resources/images/shield.jpg"
+          height="55px"
+          width="55px"
+        >
+
+        <v-toolbar-title
+          class="text-h5"
+        >
+          View Booking Portal
+        </v-toolbar-title>
+        <v-btn
+          depressed
+          absolute
+          right
+          href="/#/"
+        >
+          Sign Out
+        </v-btn>
+        <v-spacer />
+      </v-toolbar>
+      <v-banner
+        single-line
+        height="75%"
+      />
+    </v-card>
     <v-btn
       color="#E0E0E0"
-      class="mb-4"
-      to="/UserRes"
+      class="mb-8"
+      href="/#/UserRes"
+      block
+      large
     >
-      My Current and Future Reservations
+      My Reservations
     </v-btn>
     <v-card>
       <v-toolbar
-        color="#01579B"
+        color="black"
         dark
       >
         <v-toolbar-title>Available Reservations</v-toolbar-title>
