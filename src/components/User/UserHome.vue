@@ -77,6 +77,6 @@
 
 <script>
 export default {
-  name: 'UserAvailableRes',
+  name: 'UserHome',
 };
 </script>
