@@ -1,23 +1,44 @@
 <template>
   <v-container>
-    <v-row
-      class="pb-4"
-      no-gutters
+    <v-card
+      class="mb-8 mt-4 grey lighten-4"
+      style="height: 100%;"
     >
-      <h1>
-        Review Reservation
-      </h1>
-      <v-spacer />
-      <v-btn
-        color="#BDBDBD"
-        class="justify-end"
+      <v-system-bar />
+      <v-toolbar
+        flat
+        height="65%"
       >
-        Sign Out
-      </v-btn>
-    </v-row>
+        <img
+          class="mr-3"
+          src="https://brand.uark.edu/_resources/images/shield.jpg"
+          height="55px"
+          width="55px"
+        >
+
+        <v-toolbar-title
+          class="text-h5"
+        >
+          Review Reservation
+        </v-toolbar-title>
+        <v-btn
+          depressed
+          absolute
+          right
+          href="/#/"
+        >
+          Sign Out
+        </v-btn>
+        <v-spacer />
+      </v-toolbar>
+      <v-banner
+        single-line
+        height="75%"
+      />
+    </v-card>
     <v-card>
       <v-toolbar
-        color="#01579B"
+        color="black"
         dark
       >
         <v-toolbar-title>Apple MacBook Air</v-toolbar-title>
@@ -33,7 +54,7 @@
         <template v-slot:activator="{ on, attrs }">
           <v-text-field
             v-model="date"
-            label="Picker without buttons"
+            label="Date"
             prepend-icon="mdi-calendar"
             readonly
             v-bind="attrs"
@@ -57,7 +78,7 @@
       />
     </v-card>
     <v-btn
-      to="/UserConfirmRes"
+      href="/#/UserConfirmRes"
       class="mt-6 ml-2"
     >
       Submit

@@ -1,20 +1,40 @@
 <template>
   <v-container>
-    <v-row
-      class="pb-4"
-      no-gutters
+    <v-card
+      class="mb-8 mt-4 grey lighten-4"
+      style="height: 100%;"
     >
-      <h1>
-        Reservation Successful
-      </h1>
-      <v-spacer />
-      <v-btn
-        color="#BDBDBD"
-        class="justify-end"
+      <v-system-bar />
+      <v-toolbar
+        flat
+        height="65%"
       >
-        Sign Out
-      </v-btn>
-    </v-row>
+        <img
+          class="mr-3"
+          src="https://brand.uark.edu/_resources/images/shield.jpg"
+          height="55px"
+          width="55px"
+        >
+        <v-toolbar-title
+          class="text-h5"
+        >
+          Reservation Successful
+        </v-toolbar-title>
+        <v-btn
+          depressed
+          right
+          absolute
+          href="/#/"
+        >
+          Sign Out
+        </v-btn>
+        <v-spacer />
+      </v-toolbar>
+      <v-banner
+        single-line
+        height="75%"
+      />
+    </v-card>
     <h2
       class="white--text text--darken-2"
     >
@@ -28,7 +48,7 @@
     <v-btn
       color="#E0E0E0"
       class="mt-6"
-      to="/UserRes"
+      href="/#/UserRes"
     >
       My Current and Future Reservations
     </v-btn>

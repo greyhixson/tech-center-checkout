@@ -2,11 +2,11 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import AdminView from '../views/AdminView.vue';
 import UserView from '../views/UserView.vue';
-import UserConfirmRes from '../components/User/UserConfirmRes.vue';
 import UserRes from '../components/User/UserRes.vue';
-import UserReviewRes from '../components/User/UserReviewRes.vue';
 import AllDevices from '../components/Admin/AllDevices.vue';
 import ModifyInventory from '../components/Admin/ModifyInventory.vue';
+import UserConfirmRes from '../components/User/UserConfirmRes.vue';
+import UserReviewRes from '../components/User/UserReviewRes.vue';
 
 Vue.use(VueRouter);
 
@@ -37,19 +37,14 @@ const routes = [
     component: UserRes,
   },
   {
-    path: '/UserRes',
-    name: 'UserRes',
-    component: UserRes,
+    path: '/UserConfirmRes',
+    name: 'UserConfirmRes',
+    component: UserConfirmRes,
   },
   {
     path: '/UserReviewRes',
     name: 'UserReviewRes',
     component: UserReviewRes,
-  },
-  {
-    path: '/UserConfirmRes',
-    name: 'UserConfirmRes',
-    component: UserConfirmRes,
   },
 ];
 

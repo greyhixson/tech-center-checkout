@@ -65,7 +65,7 @@
             </v-row>
             <v-row>
               <v-btn
-                to="/UserReviewRes"
+                href="/#/UserReviewRes"
                 class="mt-2 mb-2"
               >
                 Reserve
@@ -85,7 +85,7 @@
             </v-row>
             <v-row>
               <v-btn
-                to="/UserReviewRes"
+                href="/#/UserReviewRes"
                 class="mt-2 mb-2"
               >
                 Reserve
