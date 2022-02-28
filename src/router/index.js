@@ -2,6 +2,7 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import AdminView from '../views/AdminView.vue';
 import UserView from '../views/UserView.vue';
+import UserRes from '../components/User/UserRes.vue';
 import AllDevices from '../components/Admin/AllDevices.vue';
 import ModifyInventory from '../components/Admin/ModifyInventory.vue';
 
@@ -27,6 +28,11 @@ const routes = [
     path: '/ModifyInventory',
     name: 'ModifyInventory',
     component: ModifyInventory,
+  },
+  {
+    path: '/UserRes',
+    name: 'UserRes',
+    component: UserRes,
   },
 ];
 
