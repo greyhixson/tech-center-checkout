@@ -175,11 +175,42 @@
             </v-subheader>
           </v-row>
         </v-col>
-        <v-btn
-          class="ml-14 mb-3"
+        <v-dialog
+          v-model="dialog"
+          persistent
+          max-width="290"
         >
-          Cancel Reservation
-        </v-btn>
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn
+              dark
+              v-bind="attrs"
+              class="ml-14 mb-5"
+              v-on="on"
+            >
+              Cancel Reservation
+            </v-btn>
+          </template>
+          <v-card>
+            <v-card-title class="text-h6">
+              Are you sure you want to cancel your reservation?
+            </v-card-title>
+            <v-card-actions>
+              <v-spacer />
+              <v-btn
+                text
+                @click="dialog = false"
+              >
+                No
+              </v-btn>
+              <v-btn
+                text
+                @click="dialog = false"
+              >
+                Yes
+              </v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
       </v-list>
     </v-card>
   </v-container>
@@ -188,5 +219,10 @@
 <script>
 export default {
   name: 'UserRes',
+  data() {
+    return {
+      dialog: false,
+    };
+  },
 };
 </script>
