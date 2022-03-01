@@ -4,6 +4,11 @@ import AdminView from '../views/AdminView.vue';
 import AdminActive from '../components/Admin/AdminActive.vue';
 import AdminLog from '../components/Admin/AdminLog.vue';
 import UserView from '../views/UserView.vue';
+import UserRes from '../components/User/UserRes.vue';
+import AllDevices from '../components/Admin/AllDevices.vue';
+import ModifyInventory from '../components/Admin/ModifyInventory.vue';
+import UserConfirmRes from '../components/User/UserConfirmRes.vue';
+import UserReviewRes from '../components/User/UserReviewRes.vue';
 
 Vue.use(VueRouter);
 
@@ -19,9 +24,29 @@ const routes = [
     component: AdminView,
   },
   {
-    path: '/Profile',
-    name: 'Profile',
-    // add component later
+    path: '/AllDevices',
+    name: 'AllDevices',
+    component: AllDevices,
+  },
+  {
+    path: '/ModifyInventory',
+    name: 'ModifyInventory',
+    component: ModifyInventory,
+  },
+  {
+    path: '/UserRes',
+    name: 'UserRes',
+    component: UserRes,
+  },
+  {
+    path: '/UserConfirmRes',
+    name: 'UserConfirmRes',
+    component: UserConfirmRes,
+  },
+  {
+    path: '/UserReviewRes',
+    name: 'UserReviewRes',
+    component: UserReviewRes,
   },
   {
     path: '/AdminActiveRes',

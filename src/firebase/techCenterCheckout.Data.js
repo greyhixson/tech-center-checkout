@@ -31,10 +31,11 @@ async function retrieveUserCurrentRes(username) {
       checkOutDate: doc.data().checkOutDate,
       deviceName: doc.data().deviceName,
       deviceTag: doc.data().deviceTag,
+      firstName: doc.data().firstName,
+      lastName: doc.data().lastName,
       reservationID: doc.data().reservationID,
       status: doc.data().status,
-      studentID: doc.data().studentID,
-      studentName: doc.data().studentName,
+      username: doc.data().username,
     };
     currentRes.push(data);
   });
@@ -53,10 +54,11 @@ async function retrieveUserPastRes(username) {
       checkOutDate: doc.data().checkOutDate,
       deviceName: doc.data().deviceName,
       deviceTag: doc.data().deviceTag,
+      firstName: doc.data().firstName,
+      lastName: doc.data().lastName,
       reservationID: doc.data().reservationID,
       status: doc.data().status,
-      studentID: doc.data().studentID,
-      studentName: doc.data().studentName,
+      username: doc.data().username,
     };
     pastRes.push(data);
   });
@@ -73,4 +75,19 @@ function inventoryStatusChanges() {
     });
   });
   return devices;
+}
+
+export default function getTimeAvailability() {
+  const x = 5; // minutes interval
+  const times = []; // time array
+  let tt = 0; // start time
+  const ap = ['AM', 'PM']; // AM-PM
+  // loop to increment the time and push results in array
+  for (let i = 0; tt < 24 * 60; i += 1) {
+    const hh = Math.floor(tt / 60); // getting hours of day in 0-24 format
+    const mm = (tt % 60); // getting minutes of the hour in 0-55 format
+    times[i] = `${(`0${hh % 12}`).slice(-2)}:${(`0${mm}`).slice(-2)}${ap[Math.floor(hh / 12)]}`;
+    tt += x;
+  }
+  return times;
 }
