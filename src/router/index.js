@@ -1,6 +1,8 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import AdminView from '../views/AdminView.vue';
+import AdminActive from '../components/Admin/AdminActive.vue';
+import AdminLog from '../components/Admin/AdminLog.vue';
 import UserView from '../views/UserView.vue';
 import FirebaseExView from '../views/FirebaseExView.vue';
 import UserRes from '../components/User/UserRes.vue';
@@ -51,6 +53,16 @@ const routes = [
     path: '/UserReviewRes',
     name: 'UserReviewRes',
     component: UserReviewRes,
+  },
+  {
+    path: '/AdminActiveRes',
+    name: 'AdminActiveRes',
+    component: AdminActive,
+  },
+  {
+    path: '/AdminLogRes',
+    name: 'AdminLogRes',
+    component: AdminLog,
   },
 ];
 
