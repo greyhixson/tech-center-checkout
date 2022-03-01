@@ -91,3 +91,11 @@ export default function getTimeAvailability() {
   }
   return times;
 }
+
+export {
+  getCollection,
+  retrieveUserCurrentRes,
+  retrieveUserPastRes,
+  inventoryStatusChanges,
+  getTimeAvailability,
+};
