@@ -1,8 +1,8 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import AdminView from '../views/AdminView.vue';
-import AdminActive from '../components/Admin/AdminActive.vue'; // imported from components-Admin Active Reservations
-import AdminLog from '../components/Admin/AdminLog.vue'; // imported from components-Admin Logged Reservations
+import AdminActive from '../components/Admin/AdminActive.vue';
+import AdminLog from '../components/Admin/AdminLog.vue';
 import UserView from '../views/UserView.vue';
 
 Vue.use(VueRouter);
@@ -26,12 +26,12 @@ const routes = [
   {
     path: '/AdminActiveRes',
     name: 'AdminActiveRes',
-    component: AdminActive, // imported component
+    component: AdminActive,
   },
   {
     path: '/AdminLogRes',
     name: 'AdminLogRes',
-    component: AdminLog, // imported component
+    component: AdminLog,
   },
 ];
 
