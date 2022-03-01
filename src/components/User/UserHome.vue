@@ -52,29 +52,48 @@
       >
         <v-toolbar-title>Available Reservations</v-toolbar-title>
       </v-toolbar>
-      <v-list three-line>
-        <v-subheader>
-          <v-icon
-            large
-            color="blue-grey darken-2"
-            class="pr-4"
+      <v-expansion-panels focusable>
+        <v-expansion-panel>
+          <v-expansion-panel-header>
+            Apple MacBook Air
+          </v-expansion-panel-header>
+          <v-expansion-panel-content
+            class="mt-4 mx-auto"
           >
-            mdi-laptop
-          </v-icon>
-          Computer (5 hours)
-        </v-subheader>
-        <v-divider />
-        <v-subheader>
-          <v-icon
-            large
-            color="blue-grey darken-2"
-            class="pr-4"
+            <v-row>
+              This can be checked out for a maximum of 7 days.
+            </v-row>
+            <v-row>
+              <v-btn
+                href="/#/UserReviewRes"
+                class="mt-2 mb-2"
+              >
+                Reserve
+              </v-btn>
+            </v-row>
+          </v-expansion-panel-content>
+        </v-expansion-panel>
+        <v-expansion-panel>
+          <v-expansion-panel-header>
+            Lenovo Mouse
+          </v-expansion-panel-header>
+          <v-expansion-panel-content
+            class="mt-4 mx-auto"
           >
-            mdi-laptop
-          </v-icon>
-          Computer (7 days)
-        </v-subheader>
-      </v-list>
+            <v-row>
+              This can be checked out for a maximum of 5 hours.
+            </v-row>
+            <v-row>
+              <v-btn
+                href="/#/UserReviewRes"
+                class="mt-2 mb-2"
+              >
+                Reserve
+              </v-btn>
+            </v-row>
+          </v-expansion-panel-content>
+        </v-expansion-panel>
+      </v-expansion-panels>
     </v-card>
   </v-container>
 </template>
