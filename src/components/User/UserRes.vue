@@ -244,6 +244,27 @@
         </v-dialog>
       </v-list>
     </v-card>
+    <v-card
+      class="mt-8"
+    >
+      <v-card-title>
+        Retrieve Collection by Username
+        <v-spacer />
+        <v-text-field
+          v-model="search"
+          append-icon="mdi-magnify"
+          label="Search"
+          single-line
+          hide-details
+        />
+      </v-card-title>
+
+      <v-data-table
+        :headers="headers"
+        :items="inventory"
+        :search="search"
+      />
+    </v-card>
   </v-container>
 </template>
 
