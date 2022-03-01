@@ -77,7 +77,7 @@ function inventoryStatusChanges() {
   return devices;
 }
 
-export default function getTimeAvailability() {
+function getTimeAvailability() {
   const x = 5; // minutes interval
   const times = []; // time array
   let tt = 0; // start time
@@ -91,3 +91,11 @@ export default function getTimeAvailability() {
   }
   return times;
 }
+
+export {
+  getCollection,
+  retrieveUserCurrentRes,
+  retrieveUserPastRes,
+  inventoryStatusChanges,
+  getTimeAvailability,
+};

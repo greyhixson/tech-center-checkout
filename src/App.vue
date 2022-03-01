@@ -7,6 +7,9 @@
       <v-btn to="/AdminView">
         Admin View
       </v-btn>
+      <v-btn to="/FirebaseExView">
+        Firebase Example
+      </v-btn>
       <router-view />
     </v-main>
   </v-app>

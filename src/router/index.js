@@ -2,6 +2,7 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import AdminView from '../views/AdminView.vue';
 import UserView from '../views/UserView.vue';
+import FirebaseExView from '../views/FirebaseExView.vue';
 import UserRes from '../components/User/UserRes.vue';
 import AllDevices from '../components/Admin/AllDevices.vue';
 import ModifyInventory from '../components/Admin/ModifyInventory.vue';
@@ -20,6 +21,11 @@ const routes = [
     path: '/AdminView',
     name: 'AdminView',
     component: AdminView,
+  },
+  {
+    path: '/FirebaseExView',
+    name: 'FirebaseExView',
+    component: FirebaseExView,
   },
   {
     path: '/AllDevices',
