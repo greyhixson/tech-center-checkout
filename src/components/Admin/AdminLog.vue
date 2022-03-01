@@ -11,17 +11,15 @@
         flat
         height="65%"
       >
-        <v-toolbar-side-icon
+        >
+        <img
+          class="mr-3"
+          src="https://brand.uark.edu/_resources/images/shield.jpg"
+          height="55px"
+          width="55px"
+          alt="University of Arkansas Logo"
           left
         >
-          <img
-            class="mr-3"
-            src="https://brand.uark.edu/_resources/images/shield.jpg"
-            height="55px"
-            width="55px"
-            alt="University of Arkansas Logo"
-          >
-        </v-toolbar-side-icon>
         <v-toolbar-title
           class="text-h5"
         >
