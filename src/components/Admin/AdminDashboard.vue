@@ -80,11 +80,11 @@
                   justify-content: center;
                   position: absolute;
                   font-size: 12px;"
-              >
-                <v-btn
-                  href="/#/AdminActiveRes"
-                  class="font-weight-light"
-                  style="font-size: 30px;
+            >
+              <v-btn
+                href="/#/AdminActiveRes"
+                class="font-weight-light"
+                style="font-size: 30px;
                            color: black;
                           width: 320px;"
               >
@@ -96,14 +96,14 @@
                           color: black;
                           text-align: left;
                           width: 320px;"
-                >
-                  Notes
-                </v-btn>
-                <br>
-                <v-btn
-                  href="/#/AdminLogRes"
-                  class="font-weight-light"
-                  style="font-size: 30px;
+              >
+                Notes
+              </v-btn>
+              <br>
+              <v-btn
+                href="/#/AdminLogRes"
+                class="font-weight-light"
+                style="font-size: 30px;
                           color: black;
                           width: 320px;"
               >
