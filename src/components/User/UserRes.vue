@@ -286,6 +286,28 @@
       />
     </v-card>
     <v-card
+      v-if="usernameSubmit && username"
+      class="mt-8"
+    >
+      <v-card-title>
+        Upcoming Reservation(s)
+        <v-spacer />
+        <v-text-field
+          v-model="searchfuture"
+          append-icon="mdi-magnify"
+          label="Search"
+          single-line
+          hide-details
+        />
+      </v-card-title>
+
+      <v-data-table
+        :headers="headers"
+        :items="inventoryFuture"
+        :searchfuture="searchfuture"
+      />
+    </v-card>
+    <v-card
       v-if="username === '' && resetUserSubmit()"
       class="mt-t"
     >
@@ -297,7 +319,7 @@
 </template>
 
 <script>
-import { retrieveUserCurrentRes } from '../../firebase/techCenterCheckout.Data';
+import { retrieveUserCheckedOutItems, retrieveUserUpcomingReservations } from '../../firebase/techCenterCheckout.Data';
 
 export default {
   name: 'UserRes',
@@ -307,6 +329,7 @@ export default {
       usernameSubmit: false,
       dialog: false,
       search: '',
+      searchfuture: '',
       headers: [
         {
           text: 'Device Name',
@@ -346,6 +369,7 @@ export default {
         },
       ],
       inventory: [],
+      inventoryFuture: [],
     };
   },
   /* watch: {
@@ -371,6 +395,7 @@ export default {
     usernameSubmit() {
       if (this.usernameSubmit === true) {
         this.getFBCollection();
+        this.getUpcomingReservations();
         console.log('first IF');
       }
     },
@@ -381,8 +406,18 @@ export default {
       try {
         // This component isn't loaded until the username is sent
         // so username should be guaranteed before the method is called
-        const inventory = await retrieveUserCurrentRes(this.username);
+        const inventory = await retrieveUserCheckedOutItems(this.username);
         this.inventory = inventory;
+      } catch (e) {
+        console.log(e);
+      }
+    },
+    async getUpcomingReservations() {
+      try {
+        // This component isn't loaded until the username is sent
+        // so username should be guaranteed before the method is called
+        const inventoryFuture = await retrieveUserUpcomingReservations(this.username);
+        this.inventoryFuture = inventoryFuture;
       } catch (e) {
         console.log(e);
       }
