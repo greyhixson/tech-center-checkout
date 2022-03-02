@@ -268,7 +268,7 @@
       class="mt-8"
     >
       <v-card-title>
-        Retrieve Collection by Username
+        Items Checked Out
         <v-spacer />
         <v-text-field
           v-model="search"

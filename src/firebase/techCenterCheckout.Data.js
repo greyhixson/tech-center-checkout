@@ -42,6 +42,29 @@ async function retrieveUserCurrentRes(username) {
   return currentRes;
 }
 
+// Read all current reservations for a user
+// Parameter - username
+async function retrieveUserCheckedOutItems(username) {
+  const q = query(collection(db, 'Current Reservations'), where('username', '==', username), where('sstaus', '==', 'Checked Out'));
+  const querySnapshot = await getDocs(q);
+  const currentRes = [];
+  querySnapshot.forEach((doc) => {
+    const data = {
+      checkInDate: doc.data().checkInDate,
+      checkOutDate: doc.data().checkOutDate,
+      deviceName: doc.data().deviceName,
+      deviceTag: doc.data().deviceTag,
+      firstName: doc.data().firstName,
+      lastName: doc.data().lastName,
+      reservationID: doc.data().reservationID,
+      status: doc.data().status,
+      username: doc.data().username,
+    };
+    currentRes.push(data);
+  });
+  return currentRes;
+}
+
 // Read all past reservations from a user
 // Parameter - username
 async function retrieveUserPastRes(username) {
@@ -95,6 +118,7 @@ function getTimeAvailability() {
 export {
   getCollection,
   retrieveUserCurrentRes,
+  retrieveUserCheckedOutItems,
   retrieveUserPastRes,
   inventoryStatusChanges,
   getTimeAvailability,
