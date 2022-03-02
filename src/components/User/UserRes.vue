@@ -285,6 +285,14 @@
         :search="search"
       />
     </v-card>
+    <v-card
+      v-if="username === '' && resetUserSubmit()"
+      class="mt-t"
+    >
+      <v-card-title>
+        No username
+      </v-card-title>
+    </v-card>
   </v-container>
 </template>
 
@@ -340,14 +348,34 @@ export default {
       inventory: [],
     };
   },
+  /* watch: {
+    usernameSubmit() {
+      if (this.usernameSubmit === true) {
+        this.getFBCollection();
+        console.log('first IF');
+      }
+      if (this.usernameSubmit === false) {
+        console.log('userSubmit is false');
+      }
+    },
+    usernameEmpty() {
+      console.log('Second Function');
+      // if user false user submit to false
+      if (this.username === '') {
+        this.resetUserSubmit();
+        console.log('In IF');
+      }
+    },
+  }, */
   watch: {
     usernameSubmit() {
       if (this.usernameSubmit === true) {
         this.getFBCollection();
+        console.log('first IF');
       }
-      // if user false user submit to false
     },
   },
+
   methods: {
     async getFBCollection() {
       try {
@@ -355,6 +383,13 @@ export default {
         // so username should be guaranteed before the method is called
         const inventory = await retrieveUserCurrentRes(this.username);
         this.inventory = inventory;
+      } catch (e) {
+        console.log(e);
+      }
+    },
+    async resetUserSubmit() {
+      try {
+        this.usernameSubmit = false;
       } catch (e) {
         console.log(e);
       }
