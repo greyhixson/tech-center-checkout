@@ -282,6 +282,8 @@ export default {
   },
   data() {
     return {
+      usernameCheck: '',
+      usernameSubmit: false,
       dialog: false,
       search: '',
       headers: [
@@ -324,6 +326,13 @@ export default {
       ],
       inventory: [],
     };
+  },
+  watch: {
+    username() {
+      if (this.usernameCheck === '') {
+        this.usernameSubmit = false;
+      }
+    },
   },
   created() {
     this.getFBCollection();
