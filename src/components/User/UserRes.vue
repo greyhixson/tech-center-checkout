@@ -263,12 +263,8 @@
     </v-form>
     <!-- Concept: Conditional rendering: https://v2.vuejs.org/v2/guide/conditional.html
                   Props: https://v2.vuejs.org/v2/guide/components-props.html?redirect=true-->
-    <retrieve-user-ex
-      v-if="usernameSubmit && username"
-      :username="username"
-    />
-
     <v-card
+      v-if="usernameSubmit && username"
       class="mt-8"
     >
       <v-card-title>
@@ -345,14 +341,12 @@ export default {
     };
   },
   watch: {
-    username() {
-      if (this.username === '') {
-        this.usernameSubmit = false;
+    usernameSubmit() {
+      if (this.usernameSubmit === true) {
+        this.getFBCollection();
       }
+      // if user false user submit to false
     },
-  },
-  created() {
-    this.getFBCollection();
   },
   methods: {
     async getFBCollection() {
