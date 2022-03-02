@@ -244,6 +244,30 @@
         </v-dialog>
       </v-list>
     </v-card>
+    <get-collection-ex />
+    <v-form>
+      <v-text-field
+        v-model="username"
+        label="Enter a user name:"
+        placeholder="gahixson"
+        solo
+        width="50px"
+      />
+      <v-btn
+        class="mr-4"
+        type="submit"
+        @click="usernameSubmit=true"
+      >
+        submit
+      </v-btn>
+    </v-form>
+    <!-- Concept: Conditional rendering: https://v2.vuejs.org/v2/guide/conditional.html
+                  Props: https://v2.vuejs.org/v2/guide/components-props.html?redirect=true-->
+    <retrieve-user-ex
+      v-if="usernameSubmit && username"
+      :username="username"
+    />
+
     <v-card
       class="mt-8"
     >
@@ -282,7 +306,7 @@ export default {
   },
   data() {
     return {
-      usernameCheck: '',
+      usernamecheck: '',
       usernameSubmit: false,
       dialog: false,
       search: '',
@@ -329,7 +353,7 @@ export default {
   },
   watch: {
     username() {
-      if (this.usernameCheck === '') {
+      if (this.username === '') {
         this.usernameSubmit = false;
       }
     },
