@@ -297,7 +297,6 @@ import { retrieveUserCurrentRes } from '../../firebase/techCenterCheckout.Data';
 
 export default {
   name: 'UserRes',
-  // Username is passed as a 'prop' from the parent component
   data() {
     return {
       username: '',
