@@ -246,6 +246,9 @@
     </v-card>
     <get-collection-ex />
     <v-form>
+      <v-form-title>
+        Enter a Username:
+      </v-form-title>
       <v-text-field
         v-model="username"
         label="Enter a user name:"
@@ -267,7 +270,9 @@
       v-if="usernameSubmit && username"
       class="mt-8"
     >
-      <v-card-title>
+      <v-card-title
+        class="black white--text mb-4"
+      >
         Items Checked Out
         <v-spacer />
         <v-text-field
@@ -289,7 +294,9 @@
       v-if="usernameSubmit && username"
       class="mt-8"
     >
-      <v-card-title>
+      <v-card-title
+        class="black white--text mb-4"
+      >
         Upcoming Reservation(s)
         <v-spacer />
         <v-text-field
@@ -332,16 +339,8 @@ export default {
       searchfuture: '',
       headers: [
         {
-          text: 'Device Name',
+          text: 'Item',
           value: 'deviceName',
-        },
-        {
-          text: 'Device Tag',
-          value: 'deviceTag',
-        },
-        {
-          text: 'Status',
-          value: 'status',
         },
         {
           text: 'Check In',
@@ -350,22 +349,6 @@ export default {
         {
           text: 'Check Out',
           value: 'checkOutDate',
-        },
-        {
-          text: 'First Name',
-          value: 'firstName',
-        },
-        {
-          text: 'Last Name',
-          value: 'lastName',
-        },
-        {
-          text: 'Reservation ID',
-          value: 'reservationID',
-        },
-        {
-          text: 'Username',
-          value: 'username',
         },
       ],
       inventory: [],
