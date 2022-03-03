@@ -56,10 +56,11 @@ async function retrieveUserCheckedOutItems(username) {
       deviceTag: doc.data().deviceTag,
       firstName: doc.data().firstName,
       lastName: doc.data().lastName,
+      maximumDuration: doc.data().maximumDuration,
+      minimumDuration: doc.data().minimumDuration,
       reservationID: doc.data().reservationID,
       status: doc.data().status,
       username: doc.data().username,
-      maximumDuration: doc.data().maximumDuration,
     };
     currentRes.push(data);
   });
@@ -80,10 +81,11 @@ async function retrieveUserUpcomingReservations(username) {
       deviceTag: doc.data().deviceTag,
       firstName: doc.data().firstName,
       lastName: doc.data().lastName,
+      maximumDuration: doc.data().maximumDuration,
+      minimumDuration: doc.data().minimumDuration,
       reservationID: doc.data().reservationID,
       status: doc.data().status,
       username: doc.data().username,
-      maximumDuration: doc.data().maximumDuration,
     };
     currentRes.push(data);
   });
