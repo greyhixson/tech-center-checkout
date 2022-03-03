@@ -51,7 +51,20 @@
           label="Search"
           single-line
           hide-details
+          class="pr-16"
         />
+        <div
+          class="text-center"
+        >
+          <v-btn
+            color="black"
+            dark
+            class="text-center"
+            v-bind="attrs"
+          >
+            New Item
+          </v-btn>
+        </div>
       </v-card-title>
       <v-data-table
         :search="search"
@@ -65,6 +78,21 @@
           >
             {{ item.status }}
           </v-chip>
+        </template>
+        <template v-slot:[`item.actions`]="{ item }">
+          <v-icon
+            small
+            class="mr-2"
+            @click="getColor(item.actions)"
+          >
+            mdi-pencil
+          </v-icon>
+          <v-icon
+            small
+            @click="getColor(item.actions)"
+          >
+            mdi-delete
+          </v-icon>
         </template>
       </v-data-table>
     </v-card>
@@ -86,6 +114,7 @@ export default {
         },
         { text: 'Name', value: 'name' },
         { text: 'Status', value: 'status' },
+        { text: 'Actions', value: 'actions', filterable: false },
       ],
       devices: [
         {
