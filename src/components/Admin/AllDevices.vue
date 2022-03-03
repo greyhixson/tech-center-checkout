@@ -31,7 +31,7 @@
           <v-icon
             size="50"
             style="padding: 0;
-                color: #00264D;"
+                color: black;"
           >
             home
           </v-icon>
