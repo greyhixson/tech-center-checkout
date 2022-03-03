@@ -245,19 +245,18 @@
       </v-list>
     </v-card>
     <get-collection-ex />
-    <v-form>
-      <v-form-title>
-        Enter a Username:
-      </v-form-title>
+    <v-form
+      class="pt-8"
+    >
       <v-text-field
         v-model="username"
-        label="Enter a user name:"
-        placeholder="gahixson"
+        label="Enter your username"
+        placeholder="Username"
         solo
         width="50px"
       />
       <v-btn
-        class="mr-4"
+        class="mr-4 mb-8"
         type="submit"
         @click="usernameSubmit=true"
       >
@@ -268,7 +267,7 @@
                   Props: https://v2.vuejs.org/v2/guide/components-props.html?redirect=true-->
     <v-card
       v-if="usernameSubmit && username"
-      class="mt-8"
+      class="mt-4"
     >
       <v-card-title
         class="black white--text mb-4"
@@ -319,7 +318,7 @@
       class="mt-t"
     >
       <v-card-title>
-        No username
+        Please enter your username to view your items checked out and upcoming reservations.
       </v-card-title>
     </v-card>
   </v-container>
