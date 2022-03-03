@@ -59,6 +59,7 @@ async function retrieveUserCheckedOutItems(username) {
       reservationID: doc.data().reservationID,
       status: doc.data().status,
       username: doc.data().username,
+      maximumDuration: doc.data().maximumDuration,
     };
     currentRes.push(data);
   });
@@ -82,6 +83,7 @@ async function retrieveUserUpcomingReservations(username) {
       reservationID: doc.data().reservationID,
       status: doc.data().status,
       username: doc.data().username,
+      maximumDuration: doc.data().maximumDuration,
     };
     currentRes.push(data);
   });

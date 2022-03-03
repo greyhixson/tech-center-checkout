@@ -35,7 +35,7 @@
         height="75%"
       />
     </v-card>
-    <v-card
+    <!--v-card
       class="mb-8"
     >
       <v-toolbar
@@ -243,10 +243,10 @@
           </v-card>
         </v-dialog>
       </v-list>
-    </v-card>
+    </v-card -->
     <get-collection-ex />
     <v-form
-      class="pt-8"
+      class="pt-4"
     >
       <v-text-field
         v-model="username"
@@ -315,11 +315,10 @@
     </v-card>
     <v-card
       v-if="username === '' && resetUserSubmit()"
-      class="mt-t"
     >
-      <v-card-title>
+      <!--v-card-title>
         Please enter your username to view your items checked out and upcoming reservations.
-      </v-card-title>
+      </v-card-title-->
     </v-card>
   </v-container>
 </template>
@@ -348,6 +347,10 @@ export default {
         {
           text: 'Check Out',
           value: 'checkOutDate',
+        },
+        {
+          text: 'Duration',
+          value: 'maximumDuration',
         },
       ],
       inventory: [],
