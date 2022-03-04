@@ -37,6 +37,7 @@
     </v-card>
     <v-form
       class="pt-4"
+      @submit.prevent="submit"
     >
       <v-text-field
         v-model="username"
@@ -48,13 +49,12 @@
       <v-btn
         class="mr-4 mb-8"
         type="submit"
-        @click="usernameSubmit=true"
+        @click="submit"
       >
         submit
       </v-btn>
     </v-form>
     <v-card
-      v-if="usernameSubmit && username"
       class="mt-4"
     >
       <v-card-title
@@ -78,7 +78,6 @@
       />
     </v-card>
     <v-card
-      v-if="usernameSubmit && username"
       class="mt-8"
     >
       <v-card-title
@@ -101,9 +100,6 @@
         :search="searchUpcoming"
       />
     </v-card>
-    <v-card
-      v-if="username === '' && resetUserSubmit()"
-    />
   </v-container>
 </template>
 
@@ -115,8 +111,6 @@ export default {
   data() {
     return {
       username: '',
-      usernameSubmit: false,
-      dialog: false,
       search: '',
       searchUpcoming: '',
       headers: [
@@ -142,15 +136,6 @@ export default {
     };
   },
 
-  watch: {
-    usernameSubmit() {
-      if (this.usernameSubmit === true) {
-        this.getFBCollection();
-        this.getUpcomingReservations();
-      }
-    },
-  },
-
   methods: {
     async getFBCollection() {
       try {
@@ -168,12 +153,9 @@ export default {
         console.log(e);
       }
     },
-    async resetUserSubmit() {
-      try {
-        this.usernameSubmit = false;
-      } catch (e) {
-        console.log(e);
-      }
+    submit() {
+      this.getFBCollection();
+      this.getUpcomingReservations();
     },
   },
 };
