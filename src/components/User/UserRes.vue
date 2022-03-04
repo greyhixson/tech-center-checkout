@@ -162,7 +162,7 @@ export default {
     },
     async getUpcomingReservations() {
       try {
-        const inventoryUpcoming= await retrieveUserUpcomingReservations(this.username);
+        const inventoryUpcoming = await retrieveUserUpcomingReservations(this.username);
         this.inventoryUpcoming = inventoryUpcoming;
       } catch (e) {
         console.log(e);
