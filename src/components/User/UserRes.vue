@@ -118,7 +118,7 @@ export default {
       usernameSubmit: false,
       dialog: false,
       search: '',
-      searchfuture: '',
+      searchUpcoming: '',
       headers: [
         {
           text: 'Item',
