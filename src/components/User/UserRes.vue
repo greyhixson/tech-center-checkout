@@ -163,7 +163,7 @@ export default {
     async getUpcomingReservations() {
       try {
         const inventoryUpcoming= await retrieveUserUpcomingReservations(this.username);
-        this.inventoryFuture = inventoryFuture;
+        this.inventoryUpcoming = inventoryUpcoming;
       } catch (e) {
         console.log(e);
       }
