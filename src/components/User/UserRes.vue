@@ -138,7 +138,7 @@ export default {
         },
       ],
       inventory: [],
-      inventoryFuture: [],
+      inventoryUpcoming: [],
     };
   },
 
