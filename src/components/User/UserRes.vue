@@ -97,7 +97,7 @@
 
       <v-data-table
         :headers="headers"
-        :items="inventoryFuture"
+        :items="inventoryUpcoming"
         :searchUpcoming="searchUpcoming"
       />
     </v-card>
