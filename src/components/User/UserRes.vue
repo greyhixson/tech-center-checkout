@@ -87,7 +87,7 @@
         Upcoming Reservation(s)
         <v-spacer />
         <v-text-field
-          v-model="searchfuture"
+          v-model="searchUpcoming"
           append-icon="mdi-magnify"
           label="Search"
           single-line
