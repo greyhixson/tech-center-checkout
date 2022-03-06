@@ -51,7 +51,6 @@
         :headers="headers"
         :items="devices"
         :search="search"
-        :sort-by=""
         class="elevation-1"
       >
         <template v-slot:top>
@@ -195,7 +194,7 @@
         <template v-slot:no-data>
           <v-btn
             color="white"
-            @click="getFBCollection"
+            @click="getAllDevicesFromFB"
           >
             Reset
           </v-btn>
@@ -246,11 +245,11 @@ export default {
   },
 
   created() {
-    this.getFBCollection();
+    this.getAllDevicesFromFB();
   },
 
   methods: {
-    async getFBCollection() {
+    async getAllDevicesFromFB() {
       try {
         const inventory = await getCollection();
         this.devices = inventory;
