@@ -1,40 +1,5 @@
 <template>
   <v-container>
-    <v-card
-      class="mb-8 mt-4 grey lighten-4"
-      style="height: 100%;"
-    >
-      <v-system-bar />
-      <v-toolbar
-        flat
-        height="65%"
-      >
-        <img
-          class="mr-3"
-          src="https://brand.uark.edu/_resources/images/shield.jpg"
-          height="55px"
-          width="55px"
-        >
-        <v-toolbar-title
-          class="text-h5"
-        >
-          My Reservations
-        </v-toolbar-title>
-        <v-btn
-          depressed
-          right
-          absolute
-          href="/#/"
-        >
-          Sign Out
-        </v-btn>
-        <v-spacer />
-      </v-toolbar>
-      <v-banner
-        single-line
-        height="75%"
-      />
-    </v-card>
     <v-form
       class="pt-4"
       @submit.prevent="submit"
@@ -105,6 +70,7 @@
 
 <script>
 import { retrieveUserCheckedOutItems, retrieveUserUpcomingReservations } from '../../firebase/techCenterCheckout.Data';
+import store from '../../store';
 
 export default {
   name: 'UserRes',
@@ -135,7 +101,9 @@ export default {
       inventoryUpcoming: [],
     };
   },
-
+  created() {
+    store.setBanner('Reservations');
+  },
   methods: {
     async getFBCollection() {
       try {

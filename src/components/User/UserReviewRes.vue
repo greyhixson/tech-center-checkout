@@ -51,6 +51,8 @@
 </template>
 
 <script>
+import store from '../../store';
+
 export default {
   name: 'UserReviewRes',
   data: () => ({
@@ -58,5 +60,8 @@ export default {
     items: ['Foo', 'Bar', 'Fizz', 'Buzz'],
     date: new Date(Date.now()).toISOString().substr(0, 10),
   }),
+  created() {
+    store.setBanner('Review Reservation');
+  },
 };
 </script>

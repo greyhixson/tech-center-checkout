@@ -63,7 +63,13 @@
 </template>
 
 <script>
+import store from '../../store';
+
 export default {
   name: 'UserHome',
+  created() {
+    store.setBanner('User Home');
+  },
 };
+
 </script>

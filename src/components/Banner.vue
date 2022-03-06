@@ -17,7 +17,7 @@
       <v-toolbar-title
         class="text-h5"
       >
-        Banner Title
+        {{ store.bannerTitle }}
       </v-toolbar-title>
       <v-btn
         depressed
@@ -44,7 +44,14 @@
 </template>
 
 <script>
+import store from '../store';
+
 export default {
   name: 'Banner',
+  data() {
+    return {
+      store,
+    };
+  },
 };
 </script>

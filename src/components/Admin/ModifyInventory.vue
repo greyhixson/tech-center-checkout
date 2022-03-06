@@ -244,6 +244,8 @@
 </template>
 
 <script>
+import store from '../../store';
+
 // eslint-disable-next-line no-unused-vars
 let deviceTag = '';
 let deviceName = '';
@@ -256,6 +258,9 @@ export default {
       yesDialog: false,
       addDialog: false,
     };
+  },
+  created() {
+    store.setBanner('Modify Inventory');
   },
   methods: {
     getTextFields() {

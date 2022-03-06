@@ -31,6 +31,8 @@
 </template>
 
 <script>
+import store from '../../store';
+
 export default {
   name: 'AdminLog',
   data() {
@@ -89,6 +91,9 @@ export default {
         },
       ],
     };
+  },
+  created() {
+    store.setBanner('Reservation Log');
   },
   methods: {
     getColor(status) {
