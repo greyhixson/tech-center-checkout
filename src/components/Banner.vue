@@ -1,45 +1,39 @@
 <template>
   <v-card
-    class="mb-8 mt-4 grey lighten-4 mx-auto"
+    class="mb-8 mt-4 lighten-4 mx-auto"
     width="85%"
   >
-    <v-system-bar />
     <v-toolbar
-      flat
-      height="65%"
+      height="80%"
     >
-      <img
+      <v-img
         class="mr-3"
         src="https://brand.uark.edu/_resources/images/shield.jpg"
-        height="55px"
-        width="55px"
-      >
+        max-height="65px"
+        max-width="65px"
+      />
       <v-toolbar-title
-        class="text-h5"
+        class="text-h4 ml-5"
       >
         {{ bannerStore.title }}
       </v-toolbar-title>
       <v-btn
-        depressed
         right
         absolute
-        to="/"
+        color="blue-grey"
+        class="ma-2 white--text"
+        :to="bannerStore.buttonRoute"
       >
-        Home
+        {{ bannerStore.buttonName }}
         <v-icon
-          size="30"
-          style="padding: 0;
-                color: #00264D;"
+          size="25"
+          class="pl-2"
+          style="color: white"
         >
-          home
+          {{ bannerStore.buttonIcon }}
         </v-icon>
       </v-btn>
-      <v-spacer />
     </v-toolbar>
-    <v-banner
-      single-line
-      height="75%"
-    />
   </v-card>
 </template>
 
