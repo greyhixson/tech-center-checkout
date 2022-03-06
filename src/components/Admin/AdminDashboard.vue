@@ -65,7 +65,7 @@
             <v-icon
               size="320"
               style="padding: 45px 0;
-                color: #00264D;
+                color: black;
                 text-align: center;"
             >schedule</v-icon>
           </span>
@@ -141,7 +141,7 @@
             <v-icon
               size="320"
               style="padding: 45px 0;
-                color: #00264D;
+                color: black;
                 text-align: center;"
             >plagiarism</v-icon>
           </span>
@@ -220,7 +220,7 @@
             <v-icon
               size="320"
               style="padding: 45px 0;
-                color: #00264D;
+                color: black;
                 text-align: center;"
             >group</v-icon>
           </span>
@@ -297,7 +297,7 @@
             <v-icon
               size="320"
               style="padding: 45px 0;
-                color: #00264D;"
+                color: black;"
             >help</v-icon>
           </span>
           <v-expand-transition>
