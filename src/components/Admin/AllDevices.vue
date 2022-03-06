@@ -2,6 +2,47 @@
   <v-container
     fluid
   >
+    <v-card
+      class="mb-16 grey lighten-4"
+      style="height: 100%;"
+    >
+      <v-system-bar />
+      <v-toolbar
+        flat
+        height="65%"
+      >
+        <img
+          class="mr-3"
+          src="https://brand.uark.edu/_resources/images/shield.jpg"
+          height="55px"
+          width="55px"
+        >
+        <v-toolbar-title
+          class="text-h5"
+        >
+          All Devices
+        </v-toolbar-title>
+        <v-btn
+          depressed
+          right
+          absolute
+          to="/AdminView"
+        >
+          <v-icon
+            size="50"
+            style="padding: 0;
+                color: black;"
+          >
+            home
+          </v-icon>
+        </v-btn>
+        <v-spacer />
+      </v-toolbar>
+      <v-banner
+        single-line
+        height="75%"
+      />
+    </v-card>
     <v-card>
       <v-card-title>
         <v-text-field

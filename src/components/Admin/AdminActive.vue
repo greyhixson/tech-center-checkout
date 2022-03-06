@@ -10,7 +10,6 @@
       item-key="reservationID"
       show-select
       class="elevation-1"
-      dark
     >
       <template v-slot:top>
         <v-switch
@@ -18,6 +17,14 @@
           label="Single select"
           class="pa-3"
         />
+      </template>
+      <template v-slot:[`item.status`]="{ item }">
+        <v-chip
+          :color="getColor(item.status)"
+          text-color="black"
+        >
+          {{ item.status }}
+        </v-chip>
       </template>
     </v-data-table>
   </v-container>
@@ -82,6 +89,15 @@ export default {
         },
       ],
     };
+  },
+  methods: {
+    getColor(status) {
+      let color = '';
+      if (status === 'Checked Out') color = 'red';
+      else if (status === 'Ready') color = 'orange';
+      else if (status === 'Checked In') color = 'green';
+      return color;
+    },
   },
 };
 </script>
