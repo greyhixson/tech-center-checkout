@@ -51,7 +51,7 @@
         :headers="headers"
         :items="devices"
         :search="search"
-        sort-by="calories"
+        :sort-by=""
         class="elevation-1"
       >
         <template v-slot:top>
