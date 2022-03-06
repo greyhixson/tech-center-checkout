@@ -20,15 +20,15 @@
       <v-btn
         right
         absolute
-        color="blue-grey"
-        class="ma-2 white--text"
+        plain
+        rounded
+        x-large
         :to="bannerStore.buttonRoute"
       >
         {{ bannerStore.buttonName }}
         <v-icon
-          size="25"
+          size="45"
           class="pl-2"
-          style="color: white"
         >
           {{ bannerStore.buttonIcon }}
         </v-icon>

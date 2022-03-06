@@ -1,6 +1,6 @@
 const bannerStore = {
   title: '',
-  buttonName: 'Home',
+  buttonName: '',
   buttonIcon: 'home',
   buttonRoute: '/',
   setTitle(newTitle) {
