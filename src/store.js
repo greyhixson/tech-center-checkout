@@ -1,7 +1,7 @@
 const bannerStore = {
   title: '',
   buttonName: '',
-  buttonIcon: 'home',
+  buttonIcon: 'mdi-home',
   buttonRoute: '/',
   setTitle(newTitle) {
     this.title = newTitle;
