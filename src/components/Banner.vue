@@ -4,7 +4,7 @@
     width="85%"
   >
     <v-toolbar
-      height="80%"
+      height="90%"
     >
       <v-img
         class="mr-3"
@@ -13,7 +13,7 @@
         max-width="65px"
       />
       <v-toolbar-title
-        class="text-h4 ml-5"
+        class="font-weight-light text-h3 ml-5"
       >
         {{ bannerStore.title }}
       </v-toolbar-title>
