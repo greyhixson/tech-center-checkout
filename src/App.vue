@@ -7,19 +7,21 @@
       <v-btn to="/AdminView">
         Admin View
       </v-btn>
+      <banner />
       <router-view />
     </v-main>
   </v-app>
 </template>
 
 <script>
+import Banner from './components/Banner.vue';
 
 export default {
-  name: 'App',
 
-  data: () => ({
-    //
-  }),
+  name: 'App',
+  components: {
+    Banner,
+  },
   computed: {
     theme() {
       return (this.$vuetify.theme.light) ? 'dark' : 'light';

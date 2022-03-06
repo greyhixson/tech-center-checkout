@@ -1,41 +1,5 @@
 <template>
   <v-container>
-    <v-card
-      class="mb-8 mt-4 grey lighten-4"
-      style="height: 100%;"
-    >
-      <v-system-bar />
-      <v-toolbar
-        flat
-        height="65%"
-      >
-        <img
-          class="mr-3"
-          src="https://brand.uark.edu/_resources/images/shield.jpg"
-          height="55px"
-          width="55px"
-        >
-
-        <v-toolbar-title
-          class="text-h5"
-        >
-          View Booking Portal
-        </v-toolbar-title>
-        <v-btn
-          depressed
-          absolute
-          right
-          href="/#/"
-        >
-          Sign Out
-        </v-btn>
-        <v-spacer />
-      </v-toolbar>
-      <v-banner
-        single-line
-        height="75%"
-      />
-    </v-card>
     <v-btn
       color="#E0E0E0"
       class="mb-8"
@@ -99,7 +63,13 @@
 </template>
 
 <script>
+import bannerStore from '../../store';
+
 export default {
   name: 'UserHome',
+  created() {
+    bannerStore.setTitle('User Home');
+  },
 };
+
 </script>

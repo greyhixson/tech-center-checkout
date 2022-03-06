@@ -2,47 +2,6 @@
   <v-container
     fluid
   >
-    <v-card
-      class="mb-16 grey lighten-4"
-      style="height: 100%;"
-    >
-      <v-system-bar />
-      <v-toolbar
-        flat
-        height="65%"
-      >
-        <img
-          class="mr-3"
-          src="https://brand.uark.edu/_resources/images/shield.jpg"
-          height="55px"
-          width="55px"
-          alt="University of Arkansas Logo"
-          left
-        >
-        <v-toolbar-title
-          class="text-h5"
-        >
-          Welcome,
-          <a
-            class="text-decoration-none red--text text--darken-4"
-          >
-            Admin
-          </a>
-        </v-toolbar-title>
-        <v-btn
-          depressed
-          right
-          absolute
-        >
-          Sign Out
-        </v-btn>
-        <v-spacer />
-      </v-toolbar>
-      <v-banner
-        single-line
-        height="75%"
-      />
-    </v-card>
     <v-row
       align="center"
       justify="center"
@@ -326,7 +285,12 @@
 </template>
 
 <script>
+import bannerStore from '../../store';
+
 export default {
   name: 'AdminDashboard',
+  created() {
+    bannerStore.setTitle('Admin Dashboard');
+  },
 };
 </script>
