@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import store from '../../store';
+import bannerStore from '../../store';
 
 export default {
   name: 'AllDevices',
@@ -83,7 +83,7 @@ export default {
     };
   },
   created() {
-    store.setBanner('All Devices');
+    bannerStore.setTitle('All Devices');
   },
   methods: {
     getColor(status) {

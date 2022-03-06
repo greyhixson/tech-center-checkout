@@ -63,12 +63,12 @@
 </template>
 
 <script>
-import store from '../../store';
+import bannerStore from '../../store';
 
 export default {
   name: 'UserHome',
   created() {
-    store.setBanner('User Home');
+    bannerStore.setTitle('User Home');
   },
 };
 

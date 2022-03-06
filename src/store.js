@@ -1,8 +1,8 @@
-const store = {
-  bannerTitle: '',
-  setBanner(title) {
-    this.bannerTitle = title;
+const bannerStore = {
+  title: '',
+  setTitle(newTitle) {
+    this.title = newTitle;
   },
 };
 
-export { store as default };
+export { bannerStore as default };

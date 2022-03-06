@@ -306,12 +306,12 @@
 </template>
 
 <script>
-import store from '../../store';
+import bannerStore from '../../store';
 
 export default {
   name: 'AdminDashboard',
   created() {
-    store.setBanner('Admin Dashboard');
+    bannerStore.setTitle('Admin Dashboard');
   },
 };
 </script>

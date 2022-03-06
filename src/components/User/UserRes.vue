@@ -70,7 +70,7 @@
 
 <script>
 import { retrieveUserCheckedOutItems, retrieveUserUpcomingReservations } from '../../firebase/techCenterCheckout.Data';
-import store from '../../store';
+import bannerStore from '../../store';
 
 export default {
   name: 'UserRes',
@@ -102,7 +102,7 @@ export default {
     };
   },
   created() {
-    store.setBanner('Reservations');
+    bannerStore.setTitle('Reservations');
   },
   methods: {
     async getFBCollection() {

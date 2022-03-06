@@ -51,7 +51,7 @@
 </template>
 
 <script>
-import store from '../../store';
+import bannerStore from '../../store';
 
 export default {
   name: 'UserReviewRes',
@@ -61,7 +61,7 @@ export default {
     date: new Date(Date.now()).toISOString().substr(0, 10),
   }),
   created() {
-    store.setBanner('Review Reservation');
+    bannerStore.setTitle('Review Reservation');
   },
 };
 </script>

@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import store from '../../store';
+import bannerStore from '../../store';
 
 export default {
   name: 'AdminLog',
@@ -93,7 +93,7 @@ export default {
     };
   },
   created() {
-    store.setBanner('Reservation Log');
+    bannerStore.setTitle('Reservation Log');
   },
   methods: {
     getColor(status) {
