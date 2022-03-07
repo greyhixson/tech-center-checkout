@@ -125,27 +125,6 @@
               >
                 All Devices
               </v-btn>
-              <v-btn
-                class="font-weight-light"
-                style="font-size: 30px;
-                          color: black;
-                          text-align: left;
-                          width: 320px;"
-              >
-                <!-- eventually get rid of the Available button; functionality is in All Devices -->
-                Available
-              </v-btn>
-              <br>
-              <v-btn
-                class="font-weight-light"
-                style="font-size: 30px;
-                          color: black;
-                          text-align: left;
-                          width: 320px;"
-                href="/#/ModifyInventory"
-              >
-                Modify
-              </v-btn>
               <span
                 class="material-icons"
                 style="justify-content: center;"
@@ -285,7 +264,7 @@
                           color: black;
                           width: 320px;"
               >
-                Website Guide
+                Submit Request
               </v-btn>
               <span
                 class="material-icons"
