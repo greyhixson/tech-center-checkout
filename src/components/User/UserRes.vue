@@ -60,10 +60,50 @@
       </v-card-title>
 
       <v-data-table
-        :headers="headers"
+        :headers="headersUpcoming"
         :items="inventoryUpcoming"
         :search="searchUpcoming"
-      />
+      >
+        <template>
+          <v-dialog
+            v-model="dialogDelete"
+            max-width="500px"
+          >
+            <v-card>
+              <v-card-title class="text-h5">
+                Are you sure you want to delete this item?
+              </v-card-title>
+              <v-card-actions>
+                <v-spacer />
+                <v-btn
+                  color="#600000"
+                  text
+                  @click="closeDelete"
+                >
+                  Cancel
+                </v-btn>
+                <v-btn
+                  color="#600000"
+                  text
+                  @click="deleteItemConfirm"
+                >
+                  OK
+                </v-btn>
+                <v-spacer />
+              </v-card-actions>
+            </v-card>
+          </v-dialog>
+        </template>
+
+        <template v-slot:[`item.actions`]="{ item }">
+          <v-icon
+            small
+            @click="deleteItem(item)"
+          >
+            mdi-delete
+          </v-icon>
+        </template>
+      </v-data-table>
     </v-card>
   </v-container>
 </template>
@@ -79,6 +119,8 @@ export default {
       username: '',
       search: '',
       searchUpcoming: '',
+      dialog: false,
+      dialogDelete: false,
       headers: [
         {
           text: 'Item',
@@ -97,6 +139,29 @@ export default {
           value: 'maximumDuration',
         },
       ],
+      headersUpcoming: [
+        {
+          text: 'Item',
+          value: 'deviceName',
+        },
+        {
+          text: 'Check In',
+          value: 'checkInDate',
+        },
+        {
+          text: 'Check Out',
+          value: 'checkOutDate',
+        },
+        {
+          text: 'Duration',
+          value: 'maximumDuration',
+        },
+        {
+          text: 'Actions',
+          value: 'actions',
+          filterable: false,
+        },
+      ],
       inventory: [],
       inventoryUpcoming: [],
     };
@@ -104,6 +169,21 @@ export default {
   created() {
     bannerStore.setTitle('Reservations');
   },
+  devices: [],
+  editedIndex: -1,
+  editedItem: {
+    deviceTag: '',
+    name: '',
+    status: '',
+  },
+  defaultItem: {
+    deviceTag: '',
+    name: '',
+    status: '',
+  },
+  dialog: false, // DO I NEED THIS
+  dialogDelete: false, // DO I NEED THIS
+
   methods: {
     async getFBCollection() {
       try {
@@ -125,6 +205,33 @@ export default {
       this.getFBCollection();
       this.getUpcomingReservations();
     },
+    deleteItem(item) {
+      console.log('in delete Item');
+      this.editedIndex = this.devices.indexOf(item);
+      this.editedItem = { ...item };
+      this.dialogDelete = true;
+    },
+    deleteItemConfirm() {
+      this.devices.splice(this.editedIndex, 1);
+      this.closeDelete();
+    },
+
+    close() {
+      this.dialog = false;
+      this.$nextTick(() => {
+        this.editedItem = { ...this.defaultItem };
+        this.editedIndex = -1;
+      });
+    },
+
+    closeDelete() {
+      this.dialogDelete = false;
+      this.$nextTick(() => {
+        this.editedItem = { ...this.defaultItem };
+        this.editedIndex = -1;
+      });
+    },
+
   },
 };
 </script>
