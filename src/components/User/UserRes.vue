@@ -67,7 +67,7 @@
         <template v-slot:[`item.actions`]="{ item }">
           <v-icon
             small
-            @click="deleteItem(item)"
+            @click="cancelItem(item)"
           >
             mdi-delete
           </v-icon>
@@ -75,28 +75,28 @@
       </v-data-table>
       <template>
         <v-dialog
-          v-model="dialogDelete"
+          v-model="dialogCancel"
           max-width="500px"
         >
           <v-card>
             <v-card-title class="text-h5">
-              Are you sure you want to delete this item?
+              Are you sure you want to cancel this reservation?
             </v-card-title>
             <v-card-actions>
               <v-spacer />
               <v-btn
                 color="#600000"
                 text
-                @click="closeDelete"
+                @click="closeCancel"
               >
-                Cancel
+                NO
               </v-btn>
               <v-btn
                 color="#600000"
                 text
-                @click="deleteItemConfirm"
+                @click="cancelItemConfirm"
               >
-                OK
+                YES
               </v-btn>
               <v-spacer />
             </v-card-actions>
@@ -137,7 +137,7 @@ export default {
         },
       ],
       dialog: false,
-      dialogDelete: false,
+      dialogCancel: false,
       headersUpcoming: [
         {
           text: 'Item',
@@ -168,7 +168,6 @@ export default {
   created() {
     bannerStore.setTitle('Reservations');
   },
-  // devices: [],
   editedIndex: -1,
   editedItem: {
     deviceName: '',
@@ -185,8 +184,6 @@ export default {
     maximumDuration: '',
     minimumDuration: '',
   },
-  // dialog: false, // DO I NEED THIS
-  // dialogDelete: false, // DO I NEED THIS
 
   methods: {
     async getFBCollection() {
@@ -209,17 +206,14 @@ export default {
       this.getFBCollection();
       this.getUpcomingReservations();
     },
-    deleteItem(item) {
-      console.log('in delete Item');
+    cancelItem(item) {
       this.editedIndex = this.inventoryUpcoming.indexOf(item);
-      console.log(this.editedIndex);
       this.editedItem = { ...item };
-      this.dialogDelete = true;
-      console.log(this.dialogDelete);
+      this.dialogCancel = true;
     },
-    deleteItemConfirm() {
+    cancelItemConfirm() {
       this.inventoryUpcoming.splice(this.editedIndex, 1);
-      this.closeDelete();
+      this.closeCancel();
     },
 
     close() {
@@ -230,8 +224,8 @@ export default {
       });
     },
 
-    closeDelete() {
-      this.dialogDelete = false;
+    closeCancel() {
+      this.dialogCancel = false;
       this.$nextTick(() => {
         this.editedItem = { ...this.defaultItem };
         this.editedIndex = -1;
