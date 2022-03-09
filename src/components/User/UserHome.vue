@@ -68,7 +68,6 @@ export default {
       deviceTag: -1,
       minimumDuration: '',
       maximumDuration: '',
-      status: '',
     },
   }),
 
