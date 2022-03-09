@@ -9,6 +9,7 @@ import AllDevices from '../components/Admin/AllDevices.vue';
 import ModifyInventory from '../components/Admin/ModifyInventory.vue';
 import UserConfirmRes from '../components/User/UserConfirmRes.vue';
 import UserReviewRes from '../components/User/UserReviewRes.vue';
+import LoginView from '../views/LoginView.vue';
 
 Vue.use(VueRouter);
 
@@ -22,6 +23,11 @@ const routes = [
     path: '/AdminView',
     name: 'AdminView',
     component: AdminView,
+  },
+  {
+    path: '/LoginView',
+    name: 'LoginView',
+    component: LoginView,
   },
   {
     path: '/AllDevices',
