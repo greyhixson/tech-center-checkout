@@ -19,6 +19,21 @@ async function getCollection() {
   return allDevices;
 }
 
+async function getAvailableReservations() {
+  const querySnapshot = await getDocs(collection(db, 'All Devices'));
+  const allDevices = [];
+  querySnapshot.forEach((doc) => {
+    const data = {
+      deviceName: doc.data().deviceName,
+      deviceTag: doc.data().deviceTag,
+      minimumDuration: doc.data().minimumDuration,
+      maximumDuration: doc.data().maximumDuration,
+    };
+    allDevices.push(data);
+  });
+  return allDevices;
+}
+
 // Read all current reservations for a user
 // Parameter - username
 async function retrieveUserCurrentRes(username) {
@@ -144,6 +159,7 @@ function getTimeAvailability() {
 
 export {
   getCollection,
+  getAvailableReservations,
   retrieveUserCurrentRes,
   retrieveUserCheckedOutItems,
   retrieveUserUpcomingReservations,
