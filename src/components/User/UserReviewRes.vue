@@ -62,6 +62,7 @@ export default {
   }),
   created() {
     bannerStore.setTitle('Review Reservation');
+    bannerStore.setButton('Home');
   },
 };
 </script>

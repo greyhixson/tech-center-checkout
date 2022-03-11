@@ -66,6 +66,7 @@ export default {
   },
   created() {
     bannerStore.setTitle('Login');
+    bannerStore.setButton('Login');
   },
   methods: {
     submit() {
@@ -75,8 +76,10 @@ export default {
     },
     redirect() {
       if (userStore.isAdmin) {
+        bannerStore.setButtonRoute('/AdminView');
         this.$router.push('/AdminView');
       } else {
+        bannerStore.setButtonRoute('/UserView');
         this.$router.push('/UserView');
       }
     },

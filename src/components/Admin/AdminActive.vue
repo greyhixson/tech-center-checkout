@@ -94,6 +94,7 @@ export default {
   },
   created() {
     bannerStore.setTitle('Admin Reservations');
+    bannerStore.setButton('Home');
   },
   methods: {
     getColor(status) {

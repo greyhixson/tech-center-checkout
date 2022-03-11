@@ -94,6 +94,7 @@ export default {
   },
   created() {
     bannerStore.setTitle('Reservation Log');
+    bannerStore.setButton('Home');
   },
   methods: {
     getColor(status) {

@@ -88,6 +88,8 @@ export default {
   },
   created() {
     bannerStore.setTitle('Reservations');
+    bannerStore.setButton('Home');
+
     this.username = userStore.username;
     this.getFBCollection();
     this.getUpcomingReservations();

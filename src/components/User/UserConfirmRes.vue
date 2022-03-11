@@ -27,6 +27,7 @@ export default {
   name: 'UserConfirmRes',
   created() {
     bannerStore.setTitle('Reservation Confirmed');
+    bannerStore.setButton('Home');
   },
 };
 </script>

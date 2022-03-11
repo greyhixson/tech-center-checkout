@@ -291,6 +291,7 @@ export default {
   name: 'AdminDashboard',
   created() {
     bannerStore.setTitle('Admin Dashboard');
+    bannerStore.setButton('Sign Out');
   },
 };
 </script>

@@ -198,6 +198,8 @@ export default {
 
   created() {
     bannerStore.setTitle('All Devices');
+    bannerStore.setButton('Home');
+
     this.getAllDevicesFromFB();
   },
   methods: {

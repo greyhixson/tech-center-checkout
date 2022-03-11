@@ -18,6 +18,7 @@
         {{ bannerStore.title }}
       </v-toolbar-title>
       <v-btn
+        v-if="bannerStore.buttonIcon || bannerStore.buttonName"
         right
         absolute
         plain
