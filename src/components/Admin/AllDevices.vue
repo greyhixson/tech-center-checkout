@@ -157,7 +157,7 @@
 
 <script>
 import { getCollection } from '../../firebase/techCenterCheckout.Data';
-import bannerStore from '../../store';
+import { bannerStore } from '../../store';
 
 export default {
   name: 'AllDevices',
@@ -198,6 +198,7 @@ export default {
 
   created() {
     bannerStore.setTitle('All Devices');
+    bannerStore.setButton('Home');
     this.getAllDevicesFromFB();
   },
   methods: {
