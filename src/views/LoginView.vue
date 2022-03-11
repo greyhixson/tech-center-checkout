@@ -1,7 +1,6 @@
 <template>
   <v-container fluid>
     <v-layout
-      align-center
       justify-center
     >
       <v-form>
