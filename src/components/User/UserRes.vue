@@ -70,7 +70,7 @@
 
 <script>
 import { retrieveUserCheckedOutItems, retrieveUserUpcomingReservations } from '../../firebase/techCenterCheckout.Data';
-import bannerStore from '../../store';
+import { bannerStore } from '../../store';
 
 export default {
   name: 'UserRes',

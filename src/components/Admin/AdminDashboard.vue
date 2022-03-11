@@ -285,7 +285,7 @@
 </template>
 
 <script>
-import bannerStore from '../../store';
+import { bannerStore } from '../../store';
 
 export default {
   name: 'AdminDashboard',

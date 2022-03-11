@@ -13,4 +13,13 @@ const bannerStore = {
   },
 };
 
-export { bannerStore as default };
+const userStore = {
+  permission: '',
+  username: '',
+  setUser(username, permission) {
+    this.username = username;
+    this.permission = permission;
+  },
+};
+
+export { bannerStore, userStore };
