@@ -5,41 +5,41 @@
       justify-center
     >
       <v-form>
-        <v-flex>
-          <v-card>
-            <v-toolbar
+        <v-card
+          min-width="600px"
+        >
+          <v-toolbar
+            color="black"
+            dark
+          >
+            <v-toolbar-title>Sign In</v-toolbar-title>
+          </v-toolbar>
+          <v-card-text>
+            <v-text-field
+              prepend-icon="person"
               color="black"
-              dark
+              name="username"
+              label="Username"
+              type="text"
+            />
+            <v-text-field
+              prepend-icon="lock"
+              color="black"
+              name="passwrod"
+              label="Password"
+              type="password"
+            />
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer />
+            <v-btn
+              color="E0E0E0"
+              to="/"
             >
-              <v-toolbar-title>Sign In</v-toolbar-title>
-            </v-toolbar>
-            <v-card-text>
-              <v-text-field
-                prepend-icon="person"
-                color="black"
-                name="username"
-                label="Username"
-                type="text"
-              />
-              <v-text-field
-                prepend-icon="lock"
-                color="black"
-                name="passwrod"
-                label="Password"
-                type="password"
-              />
-            </v-card-text>
-            <v-card-actions>
-              <v-spacer />
-              <v-btn
-                color="E0E0E0"
-                to="/"
-              >
-                Login
-              </v-btn>
-            </v-card-actions>
-          </v-card>
-        </v-flex>
+              Login
+            </v-btn>
+          </v-card-actions>
+        </v-card>
       </v-form>
     </v-layout>
   </v-container>
