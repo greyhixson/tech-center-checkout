@@ -29,12 +29,18 @@
               label="Password"
               type="password"
             />
+            <v-switch
+              v-model="isAdmin"
+              class="mx-auto"
+              :label="isAdmin ? 'Admin Enabled' : 'Admin Disabled'"
+            />
           </v-card-text>
+
           <v-card-actions>
-            <v-spacer />
             <v-btn
+              class="mx-auto mb-2"
               color="E0E0E0"
-              type="submit"
+              min-width="150px"
               @click="submit"
             >
               Login
@@ -55,6 +61,7 @@ export default {
     return {
       username: '',
       password: '',
+      isAdmin: false,
     };
   },
   created() {
@@ -62,10 +69,16 @@ export default {
   },
   methods: {
     submit() {
-      console.log(this.username);
       userStore.setUsername(this.username);
-
-      console.log(userStore.username);
+      userStore.setPermission(this.isAdmin);
+      this.redirect();
+    },
+    redirect() {
+      if (userStore.isAdmin) {
+        this.$router.push('/AdminView');
+      } else {
+        this.$router.push('/UserView');
+      }
     },
   },
 };

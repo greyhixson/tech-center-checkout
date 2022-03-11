@@ -15,8 +15,12 @@ const bannerStore = {
 
 const userStore = {
   username: '',
+  isAdmin: false,
   setUsername(username) {
     this.username = username;
+  },
+  setPermission(isAdmin) {
+    this.isAdmin = isAdmin;
   },
 };
 

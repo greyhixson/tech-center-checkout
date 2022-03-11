@@ -21,6 +21,7 @@
         :headers="headers"
         :items="inventory"
         :search="search"
+        :loading="!inventoryLoaded"
       />
     </v-card>
     <v-card
@@ -44,6 +45,7 @@
         :headers="headers"
         :items="inventoryUpcoming"
         :search="searchUpcoming"
+        :loading="!inventoryUpcomingLoaded"
       />
     </v-card>
   </v-container>
@@ -80,6 +82,8 @@ export default {
       ],
       inventory: [],
       inventoryUpcoming: [],
+      inventoryLoaded: false,
+      inventoryUpcomingLoaded: false,
     };
   },
   created() {
@@ -91,16 +95,20 @@ export default {
   methods: {
     async getFBCollection() {
       try {
+        this.inventoryLoaded = false;
         const inventory = await retrieveUserCheckedOutItems(this.username);
         this.inventory = inventory;
+        this.inventoryLoaded = true;
       } catch (e) {
         console.log(e);
       }
     },
     async getUpcomingReservations() {
       try {
+        this.inventoryUpcomingLoaded = false;
         const inventoryUpcoming = await retrieveUserUpcomingReservations(this.username);
         this.inventoryUpcoming = inventoryUpcoming;
+        this.inventoryUpcomingLoaded = true;
       } catch (e) {
         console.log(e);
       }
