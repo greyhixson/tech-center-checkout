@@ -14,11 +14,9 @@ const bannerStore = {
 };
 
 const userStore = {
-  permission: '',
   username: '',
-  setUser(username, permission) {
+  setUsername(username) {
     this.username = username;
-    this.permission = permission;
   },
 };
 

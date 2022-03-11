@@ -3,7 +3,7 @@
     <v-layout
       justify-center
     >
-      <v-form>
+      <v-form @submit.prevent="submit">
         <v-card
           min-width="600px"
         >
@@ -15,16 +15,17 @@
           </v-toolbar>
           <v-card-text>
             <v-text-field
+              v-model="username"
               prepend-icon="person"
               color="black"
-              name="username"
               label="Username"
               type="text"
             />
+
             <v-text-field
+              v-model="password"
               prepend-icon="lock"
               color="black"
-              name="passwrod"
               label="Password"
               type="password"
             />
@@ -33,7 +34,8 @@
             <v-spacer />
             <v-btn
               color="E0E0E0"
-              to="/"
+              type="submit"
+              @click="submit"
             >
               Login
             </v-btn>
@@ -45,12 +47,26 @@
 </template>
 
 <script>
-import { bannerStore } from '../store';
+import { bannerStore, userStore } from '../store';
 
 export default {
   name: 'LoginView',
+  data() {
+    return {
+      username: '',
+      password: '',
+    };
+  },
   created() {
     bannerStore.setTitle('Login');
+  },
+  methods: {
+    submit() {
+      console.log(this.username);
+      userStore.setUsername(this.username);
+
+      console.log(userStore.username);
+    },
   },
 };
 </script>

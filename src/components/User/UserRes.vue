@@ -1,24 +1,5 @@
 <template>
   <v-container>
-    <v-form
-      class="pt-4"
-      @submit.prevent="submit"
-    >
-      <v-text-field
-        v-model="username"
-        label="Enter your username"
-        placeholder="Username"
-        solo
-        width="50px"
-      />
-      <v-btn
-        class="mr-4 mb-8"
-        type="submit"
-        @click="submit"
-      >
-        submit
-      </v-btn>
-    </v-form>
     <v-card
       class="mt-4"
     >
@@ -70,7 +51,7 @@
 
 <script>
 import { retrieveUserCheckedOutItems, retrieveUserUpcomingReservations } from '../../firebase/techCenterCheckout.Data';
-import { bannerStore } from '../../store';
+import { bannerStore, userStore } from '../../store';
 
 export default {
   name: 'UserRes',
@@ -103,6 +84,9 @@ export default {
   },
   created() {
     bannerStore.setTitle('Reservations');
+    this.username = userStore.username;
+    this.getFBCollection();
+    this.getUpcomingReservations();
   },
   methods: {
     async getFBCollection() {
@@ -120,10 +104,6 @@ export default {
       } catch (e) {
         console.log(e);
       }
-    },
-    submit() {
-      this.getFBCollection();
-      this.getUpcomingReservations();
     },
   },
 };
