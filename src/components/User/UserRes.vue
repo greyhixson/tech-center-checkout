@@ -233,13 +233,6 @@ export default {
         this.editedIndex = -1;
       });
     },
-    async resetUserSubmit() {
-      try {
-        this.usernameSubmit = false;
-      } catch (e) {
-        console.log(e);
-      }
-    },
   },
 };
 </script>
