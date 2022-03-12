@@ -244,7 +244,7 @@
 </template>
 
 <script>
-import bannerStore from '../../store';
+import { bannerStore } from '../../store';
 // eslint-disable-next-line no-unused-vars
 let deviceTag = '';
 let deviceName = '';

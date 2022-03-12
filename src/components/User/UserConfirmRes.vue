@@ -21,12 +21,13 @@
 </template>
 
 <script>
-import bannerStore from '../../store';
+import { bannerStore } from '../../store';
 
 export default {
   name: 'UserConfirmRes',
   created() {
     bannerStore.setTitle('Reservation Confirmed');
+    bannerStore.setButton('Home');
   },
 };
 </script>

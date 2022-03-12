@@ -1,12 +1,18 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
+// Views
 import AdminView from '../views/AdminView.vue';
+import LoginView from '../views/LoginView.vue';
+import UserView from '../views/UserView.vue';
+
+// Admin Components
 import AdminActive from '../components/Admin/AdminActive.vue';
 import AdminLog from '../components/Admin/AdminLog.vue';
-import UserView from '../views/UserView.vue';
-import UserRes from '../components/User/UserRes.vue';
 import AllDevices from '../components/Admin/AllDevices.vue';
 import ModifyInventory from '../components/Admin/ModifyInventory.vue';
+
+// User Components
+import UserRes from '../components/User/UserRes.vue';
 import UserConfirmRes from '../components/User/UserConfirmRes.vue';
 import UserReviewRes from '../components/User/UserReviewRes.vue';
 
@@ -22,6 +28,11 @@ const routes = [
     path: '/AdminView',
     name: 'AdminView',
     component: AdminView,
+  },
+  {
+    path: '/',
+    name: 'LoginView',
+    component: LoginView,
   },
   {
     path: '/AllDevices',

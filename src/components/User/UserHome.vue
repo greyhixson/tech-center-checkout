@@ -44,7 +44,7 @@
 
 <script>
 import { getAvailableReservations } from '../../firebase/techCenterCheckout.Data';
-import bannerStore from '../../store';
+import { bannerStore } from '../../store';
 
 export default {
   name: 'UserHome',
@@ -73,6 +73,7 @@ export default {
 
   created() {
     bannerStore.setTitle('Available Reservations');
+    bannerStore.setButton('Sign Out');
     this.getAvailableResFromFB();
   },
   methods: {
@@ -87,7 +88,6 @@ export default {
     selectItem(item) {
       this.selctedIndex = this.devices.indexOf(item);
       this.selectedItem = { ...item };
-      
     },
   },
 };
