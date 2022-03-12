@@ -87,7 +87,7 @@ export default {
     selectItem(item) {
       this.selctedIndex = this.devices.indexOf(item);
       this.selectedItem = { ...item };
-      console.log(this.selectedItem.deviceName);
+      
     },
   },
 };
