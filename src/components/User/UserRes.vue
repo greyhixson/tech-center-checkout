@@ -1,24 +1,5 @@
 <template>
   <v-container>
-    <v-form
-      class="pt-4"
-      @submit.prevent="submit"
-    >
-      <v-text-field
-        v-model="username"
-        label="Enter your username"
-        placeholder="Username"
-        solo
-        width="50px"
-      />
-      <v-btn
-        class="mr-4 mb-8"
-        type="submit"
-        @click="submit"
-      >
-        submit
-      </v-btn>
-    </v-form>
     <v-card
       class="mt-4"
     >
@@ -40,6 +21,7 @@
         :headers="headers"
         :items="inventory"
         :search="search"
+        :loading="!inventoryLoaded"
       />
     </v-card>
     <v-card
@@ -63,6 +45,7 @@
         :headers="headersUpcoming"
         :items="inventoryUpcoming"
         :search="searchUpcoming"
+        :loading="!inventoryUpcomingLoaded"
       >
         <template v-slot:[`item.actions`]="{ item }">
           <v-icon
@@ -111,7 +94,7 @@
 
 <script>
 import { retrieveUserCheckedOutItems, retrieveUserUpcomingReservations } from '../../firebase/techCenterCheckout.Data';
-import bannerStore from '../../store';
+import { bannerStore, userStore } from '../../store';
 
 export default {
   name: 'UserRes',
@@ -158,17 +141,24 @@ export default {
           value: 'maximumDuration',
         },
         {
-          text: 'Actions',
+          text: 'Cancel Reservation',
           value: 'actions',
           filterable: false,
         },
       ],
       inventory: [],
       inventoryUpcoming: [],
+      inventoryLoaded: false,
+      inventoryUpcomingLoaded: false,
     };
   },
   created() {
     bannerStore.setTitle('Reservations');
+    bannerStore.setButton('Home');
+
+    this.username = userStore.username;
+    this.getFBCollection();
+    this.getUpcomingReservations();
   },
   editedIndex: -1,
   editedItem: {
@@ -190,23 +180,23 @@ export default {
   methods: {
     async getFBCollection() {
       try {
+        this.inventoryLoaded = false;
         const inventory = await retrieveUserCheckedOutItems(this.username);
         this.inventory = inventory;
+        this.inventoryLoaded = true;
       } catch (e) {
         console.log(e);
       }
     },
     async getUpcomingReservations() {
       try {
+        this.inventoryUpcomingLoaded = false;
         const inventoryUpcoming = await retrieveUserUpcomingReservations(this.username);
         this.inventoryUpcoming = inventoryUpcoming;
+        this.inventoryUpcomingLoaded = true;
       } catch (e) {
         console.log(e);
       }
-    },
-    submit() {
-      this.getFBCollection();
-      this.getUpcomingReservations();
     },
     cancelItem(item) {
       this.editedIndex = this.inventoryUpcoming.indexOf(item);
@@ -217,7 +207,6 @@ export default {
       this.inventoryUpcoming.splice(this.editedIndex, 1);
       this.closeCancel();
     },
-
     close() {
       this.dialog = false;
       this.$nextTick(() => {
@@ -225,7 +214,6 @@ export default {
         this.editedIndex = -1;
       });
     },
-
     closeCancel() {
       this.dialogCancel = false;
       this.$nextTick(() => {

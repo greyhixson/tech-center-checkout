@@ -1,6 +1,6 @@
 <template>
   <v-card
-    class="mb-8 mt-4 lighten-4 mx-auto"
+    class="mb-4 mt-4 lighten-4 mx-auto"
     width="85%"
   >
     <v-toolbar
@@ -13,11 +13,12 @@
         max-width="65px"
       />
       <v-toolbar-title
-        class="font-weight-light text-h3 ml-5"
+        class="font-weight-light text-h4 ml-5"
       >
         {{ bannerStore.title }}
       </v-toolbar-title>
       <v-btn
+        v-if="bannerStore.buttonIcon || bannerStore.buttonName"
         right
         absolute
         plain
@@ -38,7 +39,7 @@
 </template>
 
 <script>
-import bannerStore from '../store';
+import { bannerStore } from '../store';
 
 export default {
   name: 'Banner',
