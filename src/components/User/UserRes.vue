@@ -49,10 +49,10 @@
       >
         <template v-slot:[`item.actions`]="{ item }">
           <v-icon
-            small
+            color="black"
             @click="cancelItem(item)"
           >
-            mdi-delete
+            mdi-cancel
           </v-icon>
         </template>
       </v-data-table>
@@ -144,6 +144,7 @@ export default {
           text: 'Cancel Reservation',
           value: 'actions',
           filterable: false,
+          align: 'center',
         },
       ],
       inventory: [],
