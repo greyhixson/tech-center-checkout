@@ -2,10 +2,11 @@
   <v-container>
     <v-card>
       <v-toolbar
-        color="black"
-        dark
+        class="elevation-0"
       >
-        <v-toolbar-title>Apple MacBook Air</v-toolbar-title>
+        <v-toolbar-title>
+          Apple MacBook Air
+        </v-toolbar-title>
       </v-toolbar>
       <v-menu
         v-model="menu2"
@@ -57,6 +58,7 @@ export default {
   name: 'UserReviewRes',
   data: () => ({
     menu2: false,
+    props: { selectedDevice: Number },
     items: ['Foo', 'Bar', 'Fizz', 'Buzz'],
     date: new Date(Date.now()).toISOString().substr(0, 10),
   }),

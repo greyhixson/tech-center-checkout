@@ -1,76 +1,94 @@
 <template>
-  <v-container>
-    <v-btn
-      color="#E0E0E0"
-      class="mb-8"
-      href="/#/UserRes"
-      block
-      large
-    >
-      My Reservations
-    </v-btn>
+  <v-container
+    fluid
+  >
     <v-card>
-      <v-toolbar
-        color="black"
-        dark
+      <v-card-title>
+        <v-spacer />
+      </v-card-title>
+      <v-data-table
+        :headers="headers"
+        :items="devices"
+        :search="search"
+        class="elevation-1"
       >
-        <v-toolbar-title>Available Reservations</v-toolbar-title>
-      </v-toolbar>
-      <v-expansion-panels focusable>
-        <v-expansion-panel>
-          <v-expansion-panel-header>
-            Apple MacBook Air
-          </v-expansion-panel-header>
-          <v-expansion-panel-content
-            class="mt-4 mx-auto"
+        <template v-slot:top>
+          <v-toolbar
+            flat
           >
-            <v-row>
-              This can be checked out for a maximum of 7 days.
-            </v-row>
-            <v-row>
-              <v-btn
-                href="/#/UserReviewRes"
-                class="mt-2 mb-2"
-              >
-                Reserve
-              </v-btn>
-            </v-row>
-          </v-expansion-panel-content>
-        </v-expansion-panel>
-        <v-expansion-panel>
-          <v-expansion-panel-header>
-            Lenovo Mouse
-          </v-expansion-panel-header>
-          <v-expansion-panel-content
-            class="mt-4 mx-auto"
+            <v-text-field
+              v-model="search"
+              append-icon="mdi-magnify"
+              label="Search"
+              color="#600000"
+              single-line
+              hide-details
+              class="pr-16"
+              width="800px"
+            />
+            <v-spacer />
+          </v-toolbar>
+        </template>
+        <template v-slot:[`item.actions`]="{ item }">
+          <v-btn
+            href="/#/UserReviewRes"
+            @click="selectItem(item)"
           >
-            <v-row>
-              This can be checked out for a maximum of 5 hours.
-            </v-row>
-            <v-row>
-              <v-btn
-                href="/#/UserReviewRes"
-                class="mt-2 mb-2"
-              >
-                Reserve
-              </v-btn>
-            </v-row>
-          </v-expansion-panel-content>
-        </v-expansion-panel>
-      </v-expansion-panels>
+            Reserve
+          </v-btn>
+        </template>
+      </v-data-table>
     </v-card>
   </v-container>
 </template>
 
 <script>
+import { getAvailableReservations } from '../../firebase/techCenterCheckout.Data';
 import { bannerStore } from '../../store';
 
 export default {
   name: 'UserHome',
+  data: () => ({
+    search: '',
+    headers: [
+      {
+        text: 'Device Name',
+        align: 'start',
+        filterable: true,
+        value: 'deviceName',
+      },
+      { text: 'Minimum Duration', value: 'minimumDuration' },
+      { text: 'Maximum Duration', value: 'maximumDuration' },
+      { text: 'Actions', value: 'actions', filterable: false },
+    ],
+    devices: [],
+    selctedIndex: -1,
+    selectedItem: {
+      deviceName: '',
+      deviceTag: -1,
+      minimumDuration: '',
+      maximumDuration: '',
+    },
+  }),
+
   created() {
-    bannerStore.setTitle('User Home');
+    bannerStore.setTitle('Available Reservations');
     bannerStore.setButton('Sign Out');
+    this.getAvailableResFromFB();
+  },
+  methods: {
+    async getAvailableResFromFB() {
+      try {
+        const inventory = await getAvailableReservations();
+        this.devices = inventory;
+      } catch (e) {
+        console.log(e);
+      }
+    },
+    selectItem(item) {
+      this.selctedIndex = this.devices.indexOf(item);
+      this.selectedItem = { ...item };
+    },
   },
 };
-
 </script>
