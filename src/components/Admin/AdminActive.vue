@@ -7,7 +7,6 @@
       :headers="headers"
       :items="devices"
       :single-select="singleSelect"
-      item-key="reservationID"
       show-select
       class="elevation-1"
     >
@@ -32,71 +31,47 @@
 
 <script>
 import { bannerStore } from '../../store';
+import { getAdminCurrent } from '../../firebase/techCenterCheckout.Data';
 
 export default {
   name: 'AdminActive',
-  data() {
-    return {
-      singleSelect: false,
-      selected: [],
-      headers: [
-        {
-          text: 'Active/Upcoming Reservations (Reservation #)',
-          align: 'start',
-          sortable: false,
-          value: 'reservationID',
-        },
-        { text: 'Device', value: 'deviceName' },
-        { text: 'Service Tag', value: 'deviceTag' },
-        { text: 'First Name', value: 'firstName' },
-        { text: 'Last Name', value: 'lastName' },
-        { text: 'Username', value: 'username' },
-        { text: 'Check Out Date', value: 'checkOutDate' },
-        { text: 'Check In Date', value: 'checkInDate' },
-        { text: 'Status', value: 'status' },
-      ],
-      devices: [ // data entered manually, will be replaced with functions calling from database
-        {
-          reservationID: 'XT3456',
-          deviceName: 'Sony Camera',
-          deviceTag: 8888,
-          firstName: 'Janet',
-          lastName: 'Doe',
-          username: 'jdoe1',
-          checkOutDate: new Date('2022-02-11T00:30:00Z'),
-          checkInDate: new Date('2022-02-12T18:00:00Z'),
-          status: 'Checked In',
-        },
-        {
-          reservationID: 'AD1234',
-          deviceName: 'Lenovo Mouse',
-          deviceTag: 1234,
-          firstName: 'Jane',
-          lastName: 'Doe',
-          username: 'jdoe2',
-          checkOutDate: new Date('2022-02-12T19:10:00Z'),
-          checkInDate: new Date('2022-02-13T21:30:00Z'),
-          status: 'Checked Out',
-        },
-        {
-          reservationID: 'QW3248',
-          deviceName: 'Dell Laptop',
-          deviceTag: 9090,
-          firstName: 'John',
-          lastName: 'Doe',
-          username: 'jdoe3',
-          checkOutDate: new Date('2022-02-13T21:00:00Z'),
-          checkInDate: new Date('2022-02-13T22:00:00Z'),
-          status: 'Ready',
-        },
-      ],
-    };
-  },
+  data: () => ({
+    singleSelect: false,
+    selected: [],
+    headers: [
+      {
+        text: 'Active/Upcoming Reservations (Reservation #)',
+        align: 'start',
+        sortable: false,
+        value: 'reservationID',
+      },
+      { text: 'Device', value: 'deviceName' },
+      { text: 'Service Tag', value: 'deviceTag' },
+      { text: 'First Name', value: 'firstName' },
+      { text: 'Last Name', value: 'lastName' },
+      { text: 'Username', value: 'username' },
+      { text: 'Check Out Date', value: 'checkOutDate' },
+      { text: 'Check In Date', value: 'checkInDate' },
+      { text: 'Status', value: 'status' },
+    ],
+    devices: [],
+  }),
+
   created() {
     bannerStore.setTitle('Admin Reservations');
     bannerStore.setButton('Home');
+    this.getCurrentResFromFB();
   },
   methods: {
+    async getCurrentResFromFB() {
+      try {
+        const current = await getAdminCurrent();
+        this.devices = current;
+      } catch (e) {
+        console.log(e);
+      }
+    },
+
     getColor(status) {
       let color = '';
       if (status === 'Checked Out') color = 'red';

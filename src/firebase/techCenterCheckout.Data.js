@@ -19,6 +19,48 @@ async function getCollection() {
   return allDevices;
 }
 
+// Read all items from upcoming (current) reservations
+async function getAdminCurrent() {
+  const querySnapshot = await getDocs(collection(db, 'Current Reservations'));
+  const adminCurrent = [];
+  querySnapshot.forEach((doc) => {
+    const data = {
+      checkInDate: doc.data().checkInDate,
+      checkOutDate: doc.data().checkOutDate,
+      deviceName: doc.data().deviceName,
+      deviceTag: doc.data().deviceTag,
+      firstName: doc.data().firstName,
+      lastName: doc.data().lastName,
+      reservationID: doc.data().reservationID,
+      status: doc.data().status,
+      username: doc.data().username,
+    };
+    adminCurrent.push(data);
+  });
+  return adminCurrent;
+}
+
+// Read all items from past reservations (reservations log)
+async function getResLog() {
+  const querySnapshot = await getDocs(collection(db, 'Past Reservations'));
+  const resLog = [];
+  querySnapshot.forEach((doc) => {
+    const data = {
+      checkInDate: doc.data().checkInDate,
+      checkOutDate: doc.data().checkOutDate,
+      deviceName: doc.data().deviceName,
+      deviceTag: doc.data().deviceTag,
+      firstName: doc.data().firstName,
+      lastName: doc.data().lastName,
+      reservationID: doc.data().reservationID,
+      status: doc.data().status,
+      username: doc.data().username,
+    };
+    resLog.push(data);
+  });
+  return resLog;
+}
+
 // Read all current reservations for a user
 // Parameter - username
 async function retrieveUserCurrentRes(username) {
@@ -144,6 +186,8 @@ function getTimeAvailability() {
 
 export {
   getCollection,
+  getAdminCurrent,
+  getResLog,
   retrieveUserCurrentRes,
   retrieveUserCheckedOutItems,
   retrieveUserUpcomingReservations,
