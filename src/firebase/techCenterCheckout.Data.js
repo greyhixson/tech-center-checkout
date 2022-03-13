@@ -23,10 +23,11 @@ async function getCollection() {
 async function getAdminCurrent() {
   const querySnapshot = await getDocs(collection(db, 'Current Reservations'));
   const adminCurrent = [];
+  const newDate = new Date();
   querySnapshot.forEach((doc) => {
     const data = {
-      checkInDate: doc.data().checkInDate,
-      checkOutDate: doc.data().checkOutDate,
+      checkInDate: new Date(newDate.setTime(doc.data().checkInDate * 1000)),
+      checkOutDate: new Date(newDate.setTime(doc.data().checkOutDate * 1000)),
       deviceName: doc.data().deviceName,
       deviceTag: doc.data().deviceTag,
       firstName: doc.data().firstName,
@@ -44,10 +45,11 @@ async function getAdminCurrent() {
 async function getResLog() {
   const querySnapshot = await getDocs(collection(db, 'Past Reservations'));
   const resLog = [];
+  const newDate = new Date();
   querySnapshot.forEach((doc) => {
     const data = {
-      checkInDate: doc.data().checkInDate,
-      checkOutDate: doc.data().checkOutDate,
+      checkInDate: new Date(newDate.setTime(doc.data().checkInDate * 1000)),
+      checkOutDate: new Date(newDate.setTime(doc.data().checkOutDate * 1000)),
       deviceName: doc.data().deviceName,
       deviceTag: doc.data().deviceTag,
       firstName: doc.data().firstName,
