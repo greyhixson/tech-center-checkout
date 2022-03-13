@@ -2,6 +2,15 @@
   <v-container
     fluid
   >
+    <v-btn
+      color="#E0E0E0"
+      class="mb-8"
+      href="/#/UserRes"
+      block
+      large
+    >
+      My Reservations
+    </v-btn>
     <v-card>
       <v-card-title>
         <v-spacer />
