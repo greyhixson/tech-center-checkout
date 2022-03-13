@@ -42,11 +42,52 @@
       </v-card-title>
 
       <v-data-table
-        :headers="headers"
+        :headers="headersUpcoming"
         :items="inventoryUpcoming"
         :search="searchUpcoming"
         :loading="!inventoryUpcomingLoaded"
-      />
+      >
+        <template v-slot:[`item.actions`]="{ item }">
+          <v-icon
+            color="black"
+            @click="cancelItem(item)"
+          >
+            mdi-cancel
+          </v-icon>
+        </template>
+      </v-data-table>
+      <template>
+        <v-dialog
+          v-model="dialogCancel"
+          max-width="500px"
+        >
+          <v-card>
+            <v-card-title
+              class="text-h6"
+            >
+              Are you sure you want to cancel this reservation?
+            </v-card-title>
+            <v-card-actions>
+              <v-spacer />
+              <v-btn
+                color="#600000"
+                text
+                @click="closeCancel"
+              >
+                NO
+              </v-btn>
+              <v-btn
+                color="#600000"
+                text
+                @click="cancelItemConfirm"
+              >
+                YES
+              </v-btn>
+              <v-spacer />
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
+      </template>
     </v-card>
   </v-container>
 </template>
@@ -80,6 +121,32 @@ export default {
           value: 'maximumDuration',
         },
       ],
+      dialog: false,
+      dialogCancel: false,
+      headersUpcoming: [
+        {
+          text: 'Item',
+          value: 'deviceName',
+        },
+        {
+          text: 'Check In',
+          value: 'checkInDate',
+        },
+        {
+          text: 'Check Out',
+          value: 'checkOutDate',
+        },
+        {
+          text: 'Duration',
+          value: 'maximumDuration',
+        },
+        {
+          text: 'Cancel Reservation',
+          value: 'actions',
+          filterable: false,
+          align: 'center',
+        },
+      ],
       inventory: [],
       inventoryUpcoming: [],
       inventoryLoaded: false,
@@ -94,6 +161,23 @@ export default {
     this.getFBCollection();
     this.getUpcomingReservations();
   },
+  editedIndex: -1,
+  editedItem: {
+    deviceName: '',
+    checkInDate: '',
+    checkOutDate: '',
+    maximumDuration: '',
+    minimumDuration: '',
+
+  },
+  defaultItem: {
+    deviceName: '',
+    checkInDate: '',
+    checkOutDate: '',
+    maximumDuration: '',
+    minimumDuration: '',
+  },
+
   methods: {
     async getFBCollection() {
       try {
@@ -114,6 +198,29 @@ export default {
       } catch (e) {
         console.log(e);
       }
+    },
+    cancelItem(item) {
+      this.editedIndex = this.inventoryUpcoming.indexOf(item);
+      this.editedItem = { ...item };
+      this.dialogCancel = true;
+    },
+    cancelItemConfirm() {
+      this.inventoryUpcoming.splice(this.editedIndex, 1);
+      this.closeCancel();
+    },
+    close() {
+      this.dialog = false;
+      this.$nextTick(() => {
+        this.editedItem = { ...this.defaultItem };
+        this.editedIndex = -1;
+      });
+    },
+    closeCancel() {
+      this.dialogCancel = false;
+      this.$nextTick(() => {
+        this.editedItem = { ...this.defaultItem };
+        this.editedIndex = -1;
+      });
     },
   },
 };
