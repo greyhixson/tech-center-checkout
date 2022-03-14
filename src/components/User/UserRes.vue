@@ -1,5 +1,7 @@
 <template>
-  <v-container>
+  <v-container
+    align="center"
+  >
     <v-card
       class="mt-4"
     >
@@ -9,18 +11,19 @@
         Items Checked Out
         <v-spacer />
         <v-text-field
-          v-model="search"
+          v-model="searchItemsCheckedOut"
           append-icon="mdi-magnify"
           label="Search"
           single-line
           hide-details
+          dark
         />
       </v-card-title>
 
       <v-data-table
-        :headers="headers"
-        :items="inventory"
-        :search="search"
+        :headers="headersItemsCheckedOut"
+        :items="itemsCheckedOut"
+        :search="searchItemsCheckedOut"
         :loading="!inventoryLoaded"
       />
     </v-card>
@@ -33,24 +36,25 @@
         Upcoming Reservation(s)
         <v-spacer />
         <v-text-field
-          v-model="searchUpcoming"
+          v-model="searchUpcomingReservations"
           append-icon="mdi-magnify"
           label="Search"
           single-line
           hide-details
+          dark
         />
       </v-card-title>
 
       <v-data-table
-        :headers="headersUpcoming"
-        :items="inventoryUpcoming"
-        :search="searchUpcoming"
+        :headers="headersUpcomingReservations"
+        :items="upcomingReservations"
+        :search="searchUpcomingReservations"
         :loading="!inventoryUpcomingLoaded"
       >
         <template v-slot:[`item.actions`]="{ item }">
           <v-icon
             color="black"
-            @click="cancelItem(item)"
+            @click="cancelReservation(item)"
           >
             mdi-cancel
           </v-icon>
@@ -58,7 +62,7 @@
       </v-data-table>
       <template>
         <v-dialog
-          v-model="dialogCancel"
+          v-model="dialogCancelReservation"
           max-width="500px"
         >
           <v-card>
@@ -79,7 +83,7 @@
               <v-btn
                 color="#600000"
                 text
-                @click="cancelItemConfirm"
+                @click="cancelReservationConfirm"
               >
                 YES
               </v-btn>
@@ -101,9 +105,9 @@ export default {
   data() {
     return {
       username: '',
-      search: '',
-      searchUpcoming: '',
-      headers: [
+      searchItemsCheckedOut: '',
+      searchUpcomingReservations: '',
+      headersItemsCheckedOut: [
         {
           text: 'Item',
           value: 'deviceName',
@@ -122,8 +126,8 @@ export default {
         },
       ],
       dialog: false,
-      dialogCancel: false,
-      headersUpcoming: [
+      dialogCancelReservation: false,
+      headersUpcomingReservations: [
         {
           text: 'Item',
           value: 'deviceName',
@@ -147,8 +151,8 @@ export default {
           align: 'center',
         },
       ],
-      inventory: [],
-      inventoryUpcoming: [],
+      itemsCheckedOut: [],
+      upcomingReservations: [],
       inventoryLoaded: false,
       inventoryUpcomingLoaded: false,
     };
@@ -182,8 +186,8 @@ export default {
     async getFBCollection() {
       try {
         this.inventoryLoaded = false;
-        const inventory = await retrieveUserCheckedOutItems(this.username);
-        this.inventory = inventory;
+        const itemsCheckedOut = await retrieveUserCheckedOutItems(this.username);
+        this.itemsCheckedOut = itemsCheckedOut;
         this.inventoryLoaded = true;
       } catch (e) {
         console.log(e);
@@ -192,20 +196,20 @@ export default {
     async getUpcomingReservations() {
       try {
         this.inventoryUpcomingLoaded = false;
-        const inventoryUpcoming = await retrieveUserUpcomingReservations(this.username);
-        this.inventoryUpcoming = inventoryUpcoming;
+        const upcomingReservations = await retrieveUserUpcomingReservations(this.username);
+        this.upcomingReservations = upcomingReservations;
         this.inventoryUpcomingLoaded = true;
       } catch (e) {
         console.log(e);
       }
     },
-    cancelItem(item) {
-      this.editedIndex = this.inventoryUpcoming.indexOf(item);
+    cancelReservation(item) {
+      this.editedIndex = this.upcomingReservations.indexOf(item);
       this.editedItem = { ...item };
-      this.dialogCancel = true;
+      this.dialogCancelReservation = true;
     },
-    cancelItemConfirm() {
-      this.inventoryUpcoming.splice(this.editedIndex, 1);
+    cancelReservationConfirm() {
+      this.upcomingReservations.splice(this.editedIndex, 1);
       this.closeCancel();
     },
     close() {
@@ -216,7 +220,7 @@ export default {
       });
     },
     closeCancel() {
-      this.dialogCancel = false;
+      this.dialogCancelReservation = false;
       this.$nextTick(() => {
         this.editedItem = { ...this.defaultItem };
         this.editedIndex = -1;
