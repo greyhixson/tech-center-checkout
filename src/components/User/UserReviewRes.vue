@@ -2,10 +2,10 @@
   <v-container>
     <v-card>
       <v-toolbar
-        class="elevation-0"
+        class="black white--text mb-4"
       >
         <v-toolbar-title>
-          Apple MacBook Air
+          Lenovo Mouse
         </v-toolbar-title>
       </v-toolbar>
       <v-menu
@@ -32,12 +32,12 @@
         />
       </v-menu>
       <v-select
-        :items="items"
+        :items="times"
         label="Time"
         prepend-icon="mdi-clock"
       />
       <v-select
-        :items="items"
+        :items="duration"
         label="Duration"
         prepend-icon="mdi-timer"
       />
@@ -52,19 +52,31 @@
 </template>
 
 <script>
+import { getTimeAvailability } from '../../firebase/techCenterCheckout.Data';
 import { bannerStore } from '../../store';
 
 export default {
   name: 'UserReviewRes',
   data: () => ({
     menu2: false,
-    props: { selectedDevice: Number },
-    items: ['Foo', 'Bar', 'Fizz', 'Buzz'],
+    times: [],
+    duration: ['1 day', '2 days', '3 days', '4 days', '5 days', '6 days', '7 days'],
     date: new Date(Date.now()).toISOString().substr(0, 10),
   }),
   created() {
     bannerStore.setTitle('Review Reservation');
     bannerStore.setButton('Home');
+    this.getAvailablTimeFromData();
+  },
+  methods: {
+    async getAvailablTimeFromData() {
+      try {
+        const availableTimes = await getTimeAvailability();
+        this.times = availableTimes;
+      } catch (e) {
+        console.log(e);
+      }
+    },
   },
 };
 </script>
