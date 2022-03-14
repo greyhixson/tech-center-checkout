@@ -97,7 +97,7 @@
 </template>
 
 <script>
-import { retrieveUserCheckedOutItems, retrieveUserUpcomingReservations } from '../../firebase/techCenterCheckout.Data';
+import { retrieveUserCheckedOutItems, retrieveUserUpcomingReservations, deleteUpcomingReservations } from '../../firebase/techCenterCheckout.Data';
 import { bannerStore, userStore } from '../../store';
 
 export default {
@@ -152,6 +152,7 @@ export default {
         },
       ],
       itemsCheckedOut: [],
+      itemToDelete: [],
       upcomingReservations: [],
       inventoryLoaded: false,
       inventoryUpcomingLoaded: false,
@@ -164,6 +165,7 @@ export default {
     this.username = userStore.username;
     this.getFBCollection();
     this.getUpcomingReservations();
+    this.deleteReservation();
   },
   editedIndex: -1,
   editedItem: {
@@ -219,12 +221,24 @@ export default {
         this.editedIndex = -1;
       });
     },
+    deleteReservation(itemToDelete) {
+      console.log('Item Ready to Delete');
+      console.log(itemToDelete);
+      // console.log(itemToDelete);
+      try {
+        deleteUpcomingReservations(itemToDelete);
+        // console.log(deleted);
+      } catch (e) {
+        console.log(e);
+      }
+    },
     closeCancel() {
       this.dialogCancelReservation = false;
       this.$nextTick(() => {
         this.editedItem = { ...this.defaultItem };
         this.editedIndex = -1;
       });
+      this.deleteReservation(this.editedItem);
     },
   },
 };

@@ -161,6 +161,12 @@ async function getTimeAvailability() {
   return availableTimes;
 }
 
+async function deleteUpcomingReservations(itemToDelete) {
+  // db.collection('Current Reservations').doc(itemToDelete).remove();
+  db.collection('Current Reservations').doc(itemToDelete).delete();
+  console.log('Item deleted successfully');
+}
+
 export {
   getCollection,
   getAvailableReservations,
@@ -170,4 +176,5 @@ export {
   retrieveUserPastRes,
   inventoryStatusChanges,
   getTimeAvailability,
+  deleteUpcomingReservations,
 };
