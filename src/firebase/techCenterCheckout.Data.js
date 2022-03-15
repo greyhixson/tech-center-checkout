@@ -19,6 +19,21 @@ async function getCollection() {
   return allDevices;
 }
 
+async function getAvailableReservations() {
+  const querySnapshot = await getDocs(collection(db, 'All Devices'));
+  const allDevices = [];
+  querySnapshot.forEach((doc) => {
+    const data = {
+      deviceName: doc.data().deviceName,
+      deviceTag: doc.data().deviceTag,
+      minimumDuration: doc.data().minimumDuration,
+      maximumDuration: doc.data().maximumDuration,
+    };
+    allDevices.push(data);
+  });
+  return allDevices;
+}
+
 // Read all current reservations for a user
 // Parameter - username
 async function retrieveUserCurrentRes(username) {
@@ -127,27 +142,39 @@ function inventoryStatusChanges() {
   return devices;
 }
 
-function getTimeAvailability() {
+async function getTimeAvailability() {
   const x = 5; // minutes interval
-  const times = []; // time array
+  const availableTimes = []; // time array
   let tt = 0; // start time
   const ap = ['AM', 'PM']; // AM-PM
   // loop to increment the time and push results in array
   for (let i = 0; tt < 24 * 60; i += 1) {
     const hh = Math.floor(tt / 60); // getting hours of day in 0-24 format
     const mm = (tt % 60); // getting minutes of the hour in 0-55 format
-    times[i] = `${(`0${hh % 12}`).slice(-2)}:${(`0${mm}`).slice(-2)}${ap[Math.floor(hh / 12)]}`;
+    if (hh % 12 === 0) {
+      availableTimes[i] = `${('12').slice(-2)}:${(`0${mm}`).slice(-2)}${ap[Math.floor(hh / 12)]}`;
+    } else {
+      availableTimes[i] = `${(`0${hh % 12}`).slice(-2)}:${(`0${mm}`).slice(-2)}${ap[Math.floor(hh / 12)]}`;
+    }
     tt += x;
   }
-  return times;
+  return availableTimes;
+}
+
+async function deleteUpcomingReservations(itemToDelete) {
+  // db.collection('Current Reservations').doc(itemToDelete).remove();
+  db.collection('Current Reservations').doc(itemToDelete).delete();
+  console.log('Item deleted successfully');
 }
 
 export {
   getCollection,
+  getAvailableReservations,
   retrieveUserCurrentRes,
   retrieveUserCheckedOutItems,
   retrieveUserUpcomingReservations,
   retrieveUserPastRes,
   inventoryStatusChanges,
   getTimeAvailability,
+  deleteUpcomingReservations,
 };
