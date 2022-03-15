@@ -216,6 +216,12 @@ export default {
       this.editedIndex = this.devices.indexOf(item);
       this.editedItem = { ...item };
       this.dialog = true;
+      const device = JSON.stringify(this.devices);
+      const myObj = JSON.parse(device);
+      console.log(myObj.status(item));
+      const x = myObj.status;
+      console.log(x);
+      this.getColor(x);
     },
 
     deleteItem(item) {
@@ -243,6 +249,14 @@ export default {
         this.editedItem = { ...this.defaultItem };
         this.editedIndex = -1;
       });
+    },
+
+    getColor(status) {
+      let color = '';
+      if (status === 'Checked Out') color = 'red';
+      else if (status === 'Ready') color = 'orange';
+      else if (status === 'Checked In') color = 'green';
+      return color;
     },
 
     save() {
