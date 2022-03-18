@@ -175,9 +175,12 @@ async function deleteUpcomingReservations(itemToDelete) {
 }
 
 async function deleteDevice(itemToDelete) {
-  console.log('inside deleteDevice');
-  console.log(itemToDelete);
-  const x = 1;
+  const myObj = JSON.stringify(itemToDelete);
+  const myObjSplit = myObj.split('"deviceTag":');
+  const partOfString = myObjSplit[1];
+  const objCommaSplit = partOfString.split(',');
+  const deviceTag = objCommaSplit[0];
+  await deleteDoc(doc(db, 'All Devices', deviceTag));
 }
 
 export {

@@ -241,8 +241,8 @@ export default {
     },
 
     deleteItemConfirm() {
-      this.devices.splice(this.editedIndex, 1);
       this.deleteFromFB(this.devices[this.editedIndex]); // removing device from the database
+      this.devices.splice(this.editedIndex, 1);
       this.closeDelete();
     },
 
