@@ -12,7 +12,7 @@ async function getCollection() {
   querySnapshot.forEach((document) => {
     const data = {
       deviceName: document.data().deviceName,
-      deviceTag: doc.data().deviceTag,
+      deviceTag: document.data().deviceTag,
       status: document.data().status,
     };
     allDevices.push(data);
