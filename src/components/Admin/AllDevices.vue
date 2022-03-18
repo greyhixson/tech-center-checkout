@@ -111,6 +111,12 @@
                       Save
                     </v-btn>
                   </v-card-actions>
+                  <div
+                    id="errorMessage"
+                    style="margin: auto;
+                           width: 50%;
+                           color: red;"
+                  />
                 </v-card>
               </v-dialog>
             </v-toolbar>
@@ -256,6 +262,8 @@ export default {
     },
 
     close() {
+      const x = document.getElementById('errorMessage');
+      x.style.display = 'none';
       this.dialog = false;
       this.$nextTick(() => {
         this.editedItem = { ...this.defaultItem };
@@ -279,13 +287,40 @@ export default {
       return color;
     },
 
-    save() {
-      if (this.editedIndex > -1) {
-        Object.assign(this.devices[this.editedIndex], this.editedItem);
-      } else {
-        this.devices.push(this.editedItem);
+    deviceTagExists(editedItemTag) {
+      let tagExists = false;
+      // eslint-disable-next-line no-plusplus
+      for (let i = 0; i < this.devices.length; i++) {
+        if (this.devices[i].deviceTag === editedItemTag) {
+          tagExists = true;
+        }
       }
-      this.close();
+      return tagExists;
+    },
+
+    save() {
+      const deviceTagInt = parseInt(this.editedItem.deviceTag, 10);
+      console.log(deviceTagInt);
+      if (this.editedItem.deviceTag === '' || this.editedItem.deviceName === '' || this.editedItem.status === '') {
+        const x = document.getElementById('errorMessage');
+        x.style.display = 'block';
+        document.getElementById('errorMessage').innerHTML = 'Please don\'t leave any field blank.';
+      } else if (Number.isNaN(deviceTagInt) === true) {
+        const x = document.getElementById('errorMessage');
+        x.style.display = 'block';
+        document.getElementById('errorMessage').innerHTML = 'Device Tag should contain numbers only.';
+      } else if (this.deviceTagExists(deviceTagInt) === true) {
+        const x = document.getElementById('errorMessage');
+        x.style.display = 'block';
+        document.getElementById('errorMessage').innerHTML = 'Device Tag is already taken.';
+      } else {
+        if (this.editedIndex > -1) {
+          Object.assign(this.devices[this.editedIndex], this.editedItem);
+        } else {
+          this.devices.push(this.editedItem);
+        }
+        this.close();
+      }
     },
   },
 };
