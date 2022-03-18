@@ -66,8 +66,8 @@ async function retrieveUserCheckedOutItems(username) {
   const currentRes = [];
   querySnapshot.forEach((document) => {
     const data = {
-      checkInDate: document.data().checkInDate.toDate(),
-      checkOutDate: document.data().checkOutDate.toDate(),
+      pickUpDate: document.data().pickUpDate.toDate(),
+      returnDate: document.data().returnDate.toDate(),
       deviceName: document.data().deviceName,
       deviceTag: document.data().deviceTag,
       firstName: document.data().firstName,
@@ -91,8 +91,8 @@ async function retrieveUserUpcomingReservations(username) {
   const currentRes = [];
   querySnapshot.forEach((document) => {
     const data = {
-      checkInDate: document.data().checkInDate.toDate(),
-      checkOutDate: document.data().checkOutDate.toDate(),
+      pickUpDate: document.data().pickUpDate.toDate(),
+      returnDate: document.data().returnDate.toDate(),
       deviceName: document.data().deviceName,
       deviceTag: document.data().deviceTag,
       firstName: document.data().firstName,

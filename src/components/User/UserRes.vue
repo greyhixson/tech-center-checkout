@@ -113,12 +113,12 @@ export default {
           value: 'deviceName',
         },
         {
-          text: 'Check In',
-          value: 'checkInDate',
+          text: 'Pick Up Date',
+          value: 'pickUpDate',
         },
         {
-          text: 'Check Out',
-          value: 'checkOutDate',
+          text: 'Return Date',
+          value: 'returnDate',
         },
         {
           text: 'Duration',
@@ -133,12 +133,12 @@ export default {
           value: 'deviceName',
         },
         {
-          text: 'Check In',
-          value: 'checkInDate',
+          text: 'Pick Up Date',
+          value: 'pickUpDate',
         },
         {
-          text: 'Check Out',
-          value: 'checkOutDate',
+          text: 'Return Date',
+          value: 'returnDate',
         },
         {
           text: 'Duration',
@@ -170,16 +170,16 @@ export default {
   editedIndex: -1,
   editedItem: {
     deviceName: '',
-    checkInDate: '',
-    checkOutDate: '',
+    pickUpDate: '',
+    returnDate: '',
     maximumDuration: '',
     minimumDuration: '',
 
   },
   defaultItem: {
     deviceName: '',
-    checkInDate: '',
-    checkOutDate: '',
+    pickUpDate: '',
+    returnDate: '',
     maximumDuration: '',
     minimumDuration: '',
   },
@@ -213,6 +213,7 @@ export default {
     cancelReservationConfirm() {
       this.upcomingReservations.splice(this.editedIndex, 1);
       this.closeCancel();
+      this.deleteReservation(this.editedItem);
     },
     close() {
       this.dialog = false;
@@ -222,12 +223,8 @@ export default {
       });
     },
     deleteReservation(itemToDelete) {
-      console.log('Item Ready to Delete');
-      console.log(itemToDelete);
-      // console.log(itemToDelete);
       try {
         deleteUpcomingReservations(itemToDelete);
-        // console.log(deleted);
       } catch (e) {
         console.log(e);
       }
@@ -238,7 +235,6 @@ export default {
         this.editedItem = { ...this.defaultItem };
         this.editedIndex = -1;
       });
-      this.deleteReservation(this.editedItem);
     },
   },
 };
