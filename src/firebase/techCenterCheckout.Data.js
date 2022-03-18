@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import {
-  getDocs, onSnapshot, query, collection, where,
+  getDocs, onSnapshot, query, collection, where, deleteDoc, doc, getDoc,
 } from 'firebase/firestore';
 import db from './techCenterCheckout.Firestore';
 
@@ -8,11 +8,12 @@ import db from './techCenterCheckout.Firestore';
 async function getCollection() {
   const querySnapshot = await getDocs(collection(db, 'All Devices'));
   const allDevices = [];
-  querySnapshot.forEach((doc) => {
+  // used to be doc here...
+  querySnapshot.forEach((document) => {
     const data = {
-      deviceName: doc.data().deviceName,
-      deviceTag: doc.data().deviceTag,
-      status: doc.data().status,
+      deviceName: document.data().deviceName,
+      deviceTag: document.data().deviceTag,
+      status: document.data().status,
     };
     allDevices.push(data);
   });
@@ -22,12 +23,12 @@ async function getCollection() {
 async function getAvailableReservations() {
   const querySnapshot = await getDocs(collection(db, 'All Devices'));
   const allDevices = [];
-  querySnapshot.forEach((doc) => {
+  querySnapshot.forEach((document) => {
     const data = {
-      deviceName: doc.data().deviceName,
-      deviceTag: doc.data().deviceTag,
-      minimumDuration: doc.data().minimumDuration,
-      maximumDuration: doc.data().maximumDuration,
+      deviceName: document.data().deviceName,
+      deviceTag: document.data().deviceTag,
+      minimumDuration: document.data().minimumDuration,
+      maximumDuration: document.data().maximumDuration,
     };
     allDevices.push(data);
   });
@@ -40,17 +41,17 @@ async function retrieveUserCurrentRes(username) {
   const q = query(collection(db, 'Current Reservations'), where('username', '==', username));
   const querySnapshot = await getDocs(q);
   const currentRes = [];
-  querySnapshot.forEach((doc) => {
+  querySnapshot.forEach((document) => {
     const data = {
-      checkInDate: doc.data().checkInDate,
-      checkOutDate: doc.data().checkOutDate,
-      deviceName: doc.data().deviceName,
-      deviceTag: doc.data().deviceTag,
-      firstName: doc.data().firstName,
-      lastName: doc.data().lastName,
-      reservationID: doc.data().reservationID,
-      status: doc.data().status,
-      username: doc.data().username,
+      checkInDate: document.data().checkInDate,
+      checkOutDate: document.data().checkOutDate,
+      deviceName: document.data().deviceName,
+      deviceTag: document.data().deviceTag,
+      firstName: document.data().firstName,
+      lastName: document.data().lastName,
+      reservationID: document.data().reservationID,
+      status: document.data().status,
+      username: document.data().username,
     };
     currentRes.push(data);
   });
@@ -63,19 +64,19 @@ async function retrieveUserCheckedOutItems(username) {
   const q = query(collection(db, 'Current Reservations'), where('username', '==', username), where('status', '==', 'Checked Out'));
   const querySnapshot = await getDocs(q);
   const currentRes = [];
-  querySnapshot.forEach((doc) => {
+  querySnapshot.forEach((document) => {
     const data = {
-      checkInDate: doc.data().checkInDate.toDate(),
-      checkOutDate: doc.data().checkOutDate.toDate(),
-      deviceName: doc.data().deviceName,
-      deviceTag: doc.data().deviceTag,
-      firstName: doc.data().firstName,
-      lastName: doc.data().lastName,
-      maximumDuration: doc.data().maximumDuration,
-      minimumDuration: doc.data().minimumDuration,
-      reservationID: doc.data().reservationID,
-      status: doc.data().status,
-      username: doc.data().username,
+      checkInDate: document.data().checkInDate.toDate(),
+      checkOutDate: document.data().checkOutDate.toDate(),
+      deviceName: document.data().deviceName,
+      deviceTag: document.data().deviceTag,
+      firstName: document.data().firstName,
+      lastName: document.data().lastName,
+      maximumDuration: document.data().maximumDuration,
+      minimumDuration: document.data().minimumDuration,
+      reservationID: document.data().reservationID,
+      status: document.data().status,
+      username: document.data().username,
     };
     currentRes.push(data);
   });
@@ -88,19 +89,19 @@ async function retrieveUserUpcomingReservations(username) {
   const q = query(collection(db, 'Current Reservations'), where('username', '==', username), where('status', '==', 'Ready'));
   const querySnapshot = await getDocs(q);
   const currentRes = [];
-  querySnapshot.forEach((doc) => {
+  querySnapshot.forEach((document) => {
     const data = {
-      checkInDate: doc.data().checkInDate.toDate(),
-      checkOutDate: doc.data().checkOutDate.toDate(),
-      deviceName: doc.data().deviceName,
-      deviceTag: doc.data().deviceTag,
-      firstName: doc.data().firstName,
-      lastName: doc.data().lastName,
-      maximumDuration: doc.data().maximumDuration,
-      minimumDuration: doc.data().minimumDuration,
-      reservationID: doc.data().reservationID,
-      status: doc.data().status,
-      username: doc.data().username,
+      checkInDate: document.data().checkInDate.toDate(),
+      checkOutDate: document.data().checkOutDate.toDate(),
+      deviceName: document.data().deviceName,
+      deviceTag: document.data().deviceTag,
+      firstName: document.data().firstName,
+      lastName: document.data().lastName,
+      maximumDuration: document.data().maximumDuration,
+      minimumDuration: document.data().minimumDuration,
+      reservationID: document.data().reservationID,
+      status: document.data().status,
+      username: document.data().username,
     };
     currentRes.push(data);
   });
@@ -113,17 +114,17 @@ async function retrieveUserPastRes(username) {
   const q = query(collection(db, 'Past Reservations'), where('username', '==', username));
   const querySnapshot = await getDocs(q);
   const pastRes = [];
-  querySnapshot.forEach((doc) => {
+  querySnapshot.forEach((document) => {
     const data = {
-      checkInDate: doc.data().checkInDate,
-      checkOutDate: doc.data().checkOutDate,
-      deviceName: doc.data().deviceName,
-      deviceTag: doc.data().deviceTag,
-      firstName: doc.data().firstName,
-      lastName: doc.data().lastName,
-      reservationID: doc.data().reservationID,
-      status: doc.data().status,
-      username: doc.data().username,
+      checkInDate: document.data().checkInDate,
+      checkOutDate: document.data().checkOutDate,
+      deviceName: document.data().deviceName,
+      deviceTag: document.data().deviceTag,
+      firstName: document.data().firstName,
+      lastName: document.data().lastName,
+      reservationID: document.data().reservationID,
+      status: document.data().status,
+      username: document.data().username,
     };
     pastRes.push(data);
   });
@@ -135,8 +136,8 @@ function inventoryStatusChanges() {
   const q = query(collection(db, 'All Devices'), where('status', '==', 'Ready'));
   const devices = [];
   const unsub = onSnapshot(q, (querySnapshot) => {
-    querySnapshot.forEach((doc) => {
-      devices.push(doc.data().deviceTag);
+    querySnapshot.forEach((document) => {
+      devices.push(document.data().deviceTag);
     });
   });
   return devices;
@@ -162,9 +163,21 @@ async function getTimeAvailability() {
 }
 
 async function deleteUpcomingReservations(itemToDelete) {
-  // db.collection('Current Reservations').doc(itemToDelete).remove();
-  db.collection('Current Reservations').doc(itemToDelete).delete();
-  console.log('Item deleted successfully');
+  const myObj = JSON.stringify(itemToDelete);
+  const myObjSplit = myObj.split('"reservationID":');
+  const stringAfterResID = myObjSplit[1];
+  const findResID = stringAfterResID.split(',');
+  const resIDWithQuotes = findResID[0];
+  const resIDSplit = resIDWithQuotes.split('"');
+  const resID = resIDSplit[1];
+  console.log(resID);
+  await deleteDoc(doc(db, 'Current Reservations', resID));
+}
+
+async function deleteDevice(itemToDelete) {
+  console.log('inside deleteDevice');
+  console.log(itemToDelete);
+  const x = 1;
 }
 
 export {
@@ -177,4 +190,5 @@ export {
   inventoryStatusChanges,
   getTimeAvailability,
   deleteUpcomingReservations,
+  deleteDevice,
 };

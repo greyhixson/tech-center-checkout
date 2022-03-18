@@ -156,7 +156,10 @@
 </template>
 
 <script>
+// eslint-disable-next-line import/no-duplicates
 import { getCollection } from '../../firebase/techCenterCheckout.Data';
+// eslint-disable-next-line import/no-duplicates
+import { deleteDevice } from '../../firebase/techCenterCheckout.Data';
 import { bannerStore } from '../../store';
 
 export default {
@@ -211,6 +214,13 @@ export default {
       }
     },
     // need async add & delete to FB collection
+    async deleteFromFB(itemToDelete) {
+      try {
+        await deleteDevice(itemToDelete);
+      } catch (e) {
+        console.log(e);
+      }
+    },
 
     editItem(item) {
       this.editedIndex = this.devices.indexOf(item);
@@ -232,6 +242,7 @@ export default {
 
     deleteItemConfirm() {
       this.devices.splice(this.editedIndex, 1);
+      this.deleteFromFB(this.devices[this.editedIndex]); // removing device from the database
       this.closeDelete();
     },
 
