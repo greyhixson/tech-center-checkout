@@ -45,6 +45,7 @@
                     dark
                     class="mb-2 mr-15"
                     v-bind="attrs"
+                    @click="enableEdit"
                     v-on="on"
                   >
                     New Item
@@ -63,10 +64,17 @@
                           sm="6"
                           md="4"
                         >
-                          <v-text-field
-                            v-model="editedItem.deviceTag"
-                            label="Device Tag"
-                            color="black"
+                          <div id="editField">
+                            <v-text-field
+                              v-model="editedItem.deviceTag"
+                              label="Device Tag"
+                              color="black"
+                              style="color=black;"
+                            />
+                          </div>
+                          <div
+                            id="deviceTag"
+                            style="color=red;"
                           />
                         </v-col>
                         <v-col
@@ -175,6 +183,10 @@
 import { getCollection } from '../../firebase/techCenterCheckout.Data';
 // eslint-disable-next-line import/no-duplicates
 import { deleteDevice } from '../../firebase/techCenterCheckout.Data';
+// eslint-disable-next-line import/no-duplicates
+import { updateDevice } from '../../firebase/techCenterCheckout.Data';
+// eslint-disable-next-line import/no-duplicates
+import { addDevice } from '../../firebase/techCenterCheckout.Data';
 import { bannerStore } from '../../store';
 
 export default {
@@ -195,6 +207,7 @@ export default {
       { text: 'Actions', value: 'actions', filterable: false },
     ],
     devices: [],
+    title: '',
     editedIndex: -1,
     editedItem: {
       deviceTag: '',
@@ -217,9 +230,30 @@ export default {
   created() {
     bannerStore.setTitle('All Devices');
     bannerStore.setButton('Home');
+    bannerStore.setButtonRoute('AdminView');
     this.getAllDevicesFromFB();
   },
   methods: {
+    setTitle(formTitle) {
+      this.title = formTitle;
+    },
+
+    disableEdit(deviceTag) {
+      const x = document.getElementById('deviceTag');
+      const y = document.getElementById('editField');
+      x.style.display = 'block';
+      // eslint-disable-next-line prefer-template
+      x.innerHTML = 'Device Tag:<br>' + deviceTag;
+      y.style.display = 'none';
+    },
+
+    enableEdit() {
+      const x = document.getElementById('deviceTag');
+      const y = document.getElementById('editField');
+      x.style.display = 'none';
+      y.style.display = 'block';
+    },
+
     async getAllDevicesFromFB() {
       try {
         const inventory = await getCollection();
@@ -236,17 +270,32 @@ export default {
         console.log(e);
       }
     },
+    async updateItemInFB(itemToUpdate) {
+      try {
+        await updateDevice(itemToUpdate);
+      } catch (e) {
+        console.log(e);
+      }
+    },
+
+    async addToFB(itemToAdd) {
+      try {
+        await addDevice(itemToAdd);
+      } catch (e) {
+        console.log(e);
+      }
+    },
 
     editItem(item) {
       this.editedIndex = this.devices.indexOf(item);
       this.editedItem = { ...item };
       this.dialog = true;
-      const device = JSON.stringify(this.devices);
-      const myObj = JSON.parse(device);
-      console.log(myObj.status(item));
-      const x = myObj.status;
-      console.log(x);
-      this.getColor(x);
+      // eslint-disable-next-line prefer-template
+      if (this.formTitle === 'Edit Item') {
+        this.disableEdit(this.devices[this.editedIndex].deviceTag);
+      } else {
+        this.enableEdit();
+      }
     },
 
     deleteItem(item) {
@@ -256,7 +305,7 @@ export default {
     },
 
     deleteItemConfirm() {
-      this.deleteFromFB(this.devices[this.editedIndex]); // removing device from the database
+      this.deleteFromFB(this.editedItem); // removing device from the database
       this.devices.splice(this.editedIndex, 1);
       this.closeDelete();
     },
@@ -300,7 +349,6 @@ export default {
 
     save() {
       const deviceTagInt = parseInt(this.editedItem.deviceTag, 10);
-      console.log(deviceTagInt);
       if (this.editedItem.deviceTag === '' || this.editedItem.deviceName === '' || this.editedItem.status === '') {
         const x = document.getElementById('errorMessage');
         x.style.display = 'block';
@@ -309,11 +357,16 @@ export default {
         const x = document.getElementById('errorMessage');
         x.style.display = 'block';
         document.getElementById('errorMessage').innerHTML = 'Device Tag should contain numbers only.';
-      } else if (this.deviceTagExists(deviceTagInt) === true) {
+      } else if (this.deviceTagExists(deviceTagInt) === true && this.formTitle === 'New Item') {
         const x = document.getElementById('errorMessage');
         x.style.display = 'block';
         document.getElementById('errorMessage').innerHTML = 'Device Tag is already taken.';
       } else {
+        if (this.formTitle === 'New Item') {
+          this.addToFB(this.editedItem);
+        } else {
+          this.updateItemInFB(this.editedItem); // removing device from the database
+        }
         if (this.editedIndex > -1) {
           Object.assign(this.devices[this.editedIndex], this.editedItem);
         } else {

@@ -1,6 +1,7 @@
+/* eslint-disable prefer-destructuring */
 /* eslint-disable no-unused-vars */
 import {
-  getDocs, onSnapshot, query, collection, where, deleteDoc, doc, getDoc,
+  getDocs, onSnapshot, query, collection, where, deleteDoc, updateDoc, doc, ref, setDoc,
 } from 'firebase/firestore';
 import db from './techCenterCheckout.Firestore';
 
@@ -175,12 +176,82 @@ async function deleteUpcomingReservations(itemToDelete) {
 }
 
 async function deleteDevice(itemToDelete) {
+  let finalDeviceTag = -1;
   const myObj = JSON.stringify(itemToDelete);
   const myObjSplit = myObj.split('"deviceTag":');
   const partOfString = myObjSplit[1];
-  const objCommaSplit = partOfString.split(',');
-  const deviceTag = objCommaSplit[0];
-  await deleteDoc(doc(db, 'All Devices', deviceTag));
+  const objCommaSplit1 = partOfString.split(',')[0];
+  if (objCommaSplit1.includes('"')) {
+    const objQuoteSplit1 = partOfString.split('"');
+    finalDeviceTag = objQuoteSplit1[1];
+  } else {
+    finalDeviceTag = objCommaSplit1;
+  }
+  await deleteDoc(doc(db, 'All Devices', finalDeviceTag));
+}
+
+async function updateDevice(itemToUpdate) {
+  let finalDeviceTag = -1;
+  const myObj = JSON.stringify(itemToUpdate);
+  const myObj2 = JSON.stringify(itemToUpdate);
+  const myObj3 = JSON.stringify(itemToUpdate);
+  const myObjSplit = myObj.split('"deviceTag":');
+  const partOfString = myObjSplit[1];
+  const objCommaSplit1 = partOfString.split(',')[0];
+  if (objCommaSplit1.includes('"')) {
+    const objQuoteSplit1 = partOfString.split('"');
+    finalDeviceTag = objQuoteSplit1[1];
+  } else {
+    finalDeviceTag = objCommaSplit1;
+  }
+  const myObj2Split = myObj2.split('"deviceName":');
+  const partOfString2 = myObj2Split[1];
+  const objQuoteSplit = partOfString2.split('"');
+  const finalDeviceName = objQuoteSplit[1];
+
+  const myObj3Split = myObj3.split('"status":');
+  const partOfString3 = myObj3Split[1];
+  const objQuoteSplit3 = partOfString3.split('"');
+  const finalDeviceStatus = objQuoteSplit3[1];
+  // eslint-disable-next-line quote-props
+  await updateDoc(doc(db, 'All Devices', finalDeviceTag), {
+    deviceTag: finalDeviceTag,
+    deviceName: finalDeviceName,
+    status: finalDeviceStatus,
+  });
+}
+
+async function addDevice(itemToAdd) {
+  let finalDeviceTag = -1;
+  const myObj = JSON.stringify(itemToAdd);
+  const myObj2 = JSON.stringify(itemToAdd);
+  const myObj3 = JSON.stringify(itemToAdd);
+  const myObjSplit = myObj.split('"deviceTag":');
+  const partOfString = myObjSplit[1];
+  const objCommaSplit1 = partOfString.split(',')[0];
+  if (objCommaSplit1.includes('"')) {
+    const objQuoteSplit1 = partOfString.split('"');
+    finalDeviceTag = objQuoteSplit1[1];
+  } else {
+    finalDeviceTag = objCommaSplit1;
+  }
+
+  const myObj2Split = myObj2.split('"deviceName":');
+  const partOfString2 = myObj2Split[1];
+  const objQuoteSplit = partOfString2.split('"');
+  const finalDeviceName = objQuoteSplit[1];
+
+  const myObj3Split = myObj3.split('"status":');
+  const partOfString3 = myObj3Split[1];
+  const objQuoteSplit3 = partOfString3.split('"');
+  const finalDeviceStatus = objQuoteSplit3[1];
+  // eslint-disable-next-line quote-props
+  // eslint-disable-next-line prefer-template
+  await setDoc(doc(db, 'All Devices/' + finalDeviceTag), {
+    deviceTag: finalDeviceTag,
+    deviceName: finalDeviceName,
+    status: finalDeviceStatus,
+  });
 }
 
 export {
@@ -194,4 +265,6 @@ export {
   getTimeAvailability,
   deleteUpcomingReservations,
   deleteDevice,
+  updateDevice,
+  addDevice,
 };
