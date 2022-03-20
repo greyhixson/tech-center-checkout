@@ -45,7 +45,6 @@
                     dark
                     class="mb-2 mr-15"
                     v-bind="attrs"
-                    @click="enableEdit"
                     v-on="on"
                   >
                     New Item
@@ -72,10 +71,10 @@
                               style="color=black;"
                             />
                           </div>
-                          <div
+                          <!-- <div
                             id="deviceTag"
                             style="color=red;"
-                          />
+                          /> -->
                         </v-col>
                         <v-col
                           cols="12"
@@ -239,12 +238,13 @@ export default {
     },
 
     disableEdit(deviceTag) {
-      const x = document.getElementById('deviceTag');
+      console.log('inside disableEdit()');
+      // const x = document.getElementById('deviceTag');
       const y = document.getElementById('editField');
-      x.style.display = 'block';
+      // x.style.display = 'block';
       // eslint-disable-next-line prefer-template
-      x.innerHTML = 'Device Tag:<br>' + deviceTag;
-      y.style.display = 'none';
+      y.innerHTML = 'Device Tag:<br>' + deviceTag;
+      // y.style.display = 'none';
     },
 
     enableEdit() {
@@ -291,10 +291,13 @@ export default {
       this.editedItem = { ...item };
       this.dialog = true;
       // eslint-disable-next-line prefer-template
+      console.log('---editItem---');
+      console.log(this.formTitle);
       if (this.formTitle === 'Edit Item') {
-        this.disableEdit(this.devices[this.editedIndex].deviceTag);
+        console.log('inside editItem function, where formTitle = Edit Item');
+        // this.disableEdit(this.devices[this.editedIndex].deviceTag);
       } else {
-        this.enableEdit();
+        // this.enableEdit();
       }
     },
 
@@ -337,10 +340,29 @@ export default {
     },
 
     deviceTagExists(editedItemTag) {
+      // int to string
       let tagExists = false;
       // eslint-disable-next-line no-plusplus
       for (let i = 0; i < this.devices.length; i++) {
         if (this.devices[i].deviceTag === editedItemTag) {
+          tagExists = true;
+        }
+
+        if (this.devices[i].deviceTag === editedItemTag.toString()) {
+          tagExists = true;
+        }
+      }
+      return tagExists;
+    },
+
+    deviceTagExistsEditForm(editedItemTag, indexOfEditedItem) {
+      let tagExists = false;
+      // eslint-disable-next-line no-plusplus
+      for (let i = 0; i < this.devices.length; i++) {
+        if (this.devices[i].deviceTag === editedItemTag && indexOfEditedItem !== i) {
+          tagExists = true;
+        }
+        if (this.devices[i].deviceTag === editedItemTag.toString() && indexOfEditedItem !== i) {
           tagExists = true;
         }
       }
@@ -358,6 +380,11 @@ export default {
         x.style.display = 'block';
         document.getElementById('errorMessage').innerHTML = 'Device Tag should contain numbers only.';
       } else if (this.deviceTagExists(deviceTagInt) === true && this.formTitle === 'New Item') {
+        console.log('inside this.deviceTagExists...with form title == "New Item');
+        const x = document.getElementById('errorMessage');
+        x.style.display = 'block';
+        document.getElementById('errorMessage').innerHTML = 'Device Tag is already taken.';
+      } else if (this.deviceTagExistsEditForm(deviceTagInt, this.editedIndex) === true && this.formTitle === 'Edit Item') {
         const x = document.getElementById('errorMessage');
         x.style.display = 'block';
         document.getElementById('errorMessage').innerHTML = 'Device Tag is already taken.';
@@ -365,7 +392,7 @@ export default {
         if (this.formTitle === 'New Item') {
           this.addToFB(this.editedItem);
         } else {
-          this.updateItemInFB(this.editedItem); // removing device from the database
+          this.updateItemInFB(this.editedItem);
         }
         if (this.editedIndex > -1) {
           Object.assign(this.devices[this.editedIndex], this.editedItem);
