@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import {
-  getDocs, onSnapshot, query, collection, where,
+  getDocs, onSnapshot, query, collection, where, Timestamp,
 } from 'firebase/firestore';
 import db from './techCenterCheckout.Firestore';
 
@@ -23,11 +23,11 @@ async function getCollection() {
 async function getAdminCurrent() {
   const querySnapshot = await getDocs(collection(db, 'Current Reservations'));
   const adminCurrent = [];
-  const newDate = new Date();
+  const newTime = new Timestamp();
   querySnapshot.forEach((doc) => {
     const data = {
-      checkInDate: new Date(newDate.setTime(doc.data().checkInDate * 1000)),
-      checkOutDate: new Date(newDate.setTime(doc.data().checkOutDate * 1000)),
+      returnDate: new Date(newTime.toDate(doc.data().returnDate)),
+      pickUpDate: new Date(newTime.toDate(doc.data().pickUpDate)),
       deviceName: doc.data().deviceName,
       deviceTag: doc.data().deviceTag,
       firstName: doc.data().firstName,
@@ -35,6 +35,8 @@ async function getAdminCurrent() {
       reservationID: doc.data().reservationID,
       status: doc.data().status,
       username: doc.data().username,
+      maximumDuration: doc.data().maximumDuration,
+      minimumDuration: doc.data().minimumDuration,
     };
     adminCurrent.push(data);
   });
@@ -45,11 +47,11 @@ async function getAdminCurrent() {
 async function getResLog() {
   const querySnapshot = await getDocs(collection(db, 'Past Reservations'));
   const resLog = [];
-  const newDate = new Date();
+  const newTime = new Timestamp();
   querySnapshot.forEach((doc) => {
     const data = {
-      checkInDate: new Date(newDate.setTime(doc.data().checkInDate * 1000)),
-      checkOutDate: new Date(newDate.setTime(doc.data().checkOutDate * 1000)),
+      returnDate: new Date(newTime.toDate(doc.data().returnDate)),
+      pickUpDate: new Date(newTime.toDate(doc.data().pickUpDate)),
       deviceName: doc.data().deviceName,
       deviceTag: doc.data().deviceTag,
       firstName: doc.data().firstName,

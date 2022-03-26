@@ -1,33 +1,51 @@
 <template>
-  <v-container
-    fluid
+  <v-card
+    max-width="1075"
+    class="mx-auto"
   >
-    <v-data-table
-      v-model="selected"
-      :headers="headers"
-      :items="devices"
-      :single-select="singleSelect"
-      item-key="reservationID"
-      show-select
-      class="elevation-1"
+    <v-toolbar
+      color="light-grey"
+      light
     >
-      <template v-slot:top>
-        <v-switch
-          v-model="singleSelect"
-          label="Single select"
-          class="pa-3"
-        />
-      </template>
-      <template v-slot:[`item.status`]="{ item }">
-        <v-chip
-          :color="getColor(item.status)"
-          text-color="black"
-        >
-          {{ item.status }}
-        </v-chip>
-      </template>
-    </v-data-table>
-  </v-container>
+      <v-toolbar-title>Reservations Log</v-toolbar-title>
+
+      <v-spacer />
+    </v-toolbar>
+
+    <v-list
+      subheader
+    >
+      <v-list-item
+        v-for="device in devices"
+        :key="device.name"
+      >
+        <v-list-item-avatar>
+          <v-icon
+            :color="getColor(device.status)"
+            light
+          >
+            bookmark
+          </v-icon>
+        </v-list-item-avatar>
+
+        <v-list-item-content>
+          <v-list-item-title v-text="device.deviceName" />
+
+          <v-list-item-subtitle v-text="'Reservation ID: ' + device.reservationID" />
+
+          <v-list-item-subtitle v-text="'Device Tag: ' + device.deviceTag" />
+
+          <v-list-item-subtitle v-text="'Username: ' + device.username" />
+
+          <v-list-item-subtitle v-text="'First Name: ' + device.firstName" />
+
+          <v-list-item-subtitle v-text="'Last Name: ' + device.lastName" />
+
+          <v-list-item-subtitle v-text="'Return Date: ' + device.returnDate" />
+        </v-list-item-content>
+      </v-list-item>
+    </v-list>
+  </v-card>
 </template>
 
 <script>
@@ -37,24 +55,6 @@ import { getResLog } from '../../firebase/techCenterCheckout.Data';
 export default {
   name: 'AdminLog',
   data: () => ({
-    singleSelect: false,
-    selected: [],
-    headers: [
-      {
-        text: 'Reservation Log (Reservation #)',
-        align: 'start',
-        sortable: false,
-        value: 'reservationID',
-      },
-      { text: 'Device', value: 'deviceName' },
-      { text: 'Service Tag', value: 'deviceTag' },
-      { text: 'First Name', value: 'firstName' },
-      { text: 'Last Name', value: 'lastName' },
-      { text: 'Username', value: 'username' },
-      { text: 'Check Out Date', value: 'checkOutDate' },
-      { text: 'Check In Date', value: 'checkInDate' },
-      { text: 'Status', value: 'status' },
-    ],
     devices: [],
   }),
 
