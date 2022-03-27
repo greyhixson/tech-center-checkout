@@ -30,17 +30,11 @@
 
         <v-list-item-content>
           <v-list-item-title v-text="device.deviceName" />
-
           <v-list-item-subtitle v-text="'Reservation ID: ' + device.reservationID" />
-
           <v-list-item-subtitle v-text="'Device Tag: ' + device.deviceTag" />
-
           <v-list-item-subtitle v-text="'Username: ' + device.username" />
-
           <v-list-item-subtitle v-text="'First Name: ' + device.firstName" />
-
           <v-list-item-subtitle v-text="'Last Name: ' + device.lastName" />
-
           <v-list-item-subtitle v-text="'Return Date: ' + device.returnDate" />
         </v-list-item-content>
       </v-list-item>
