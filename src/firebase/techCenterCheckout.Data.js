@@ -163,15 +163,18 @@ async function getTimeAvailability() {
 }
 
 async function deleteUpcomingReservations(itemToDelete) {
-  const myObj = JSON.stringify(itemToDelete);
-  const myObjSplit = myObj.split('"reservationID":');
-  const stringAfterResID = myObjSplit[1];
-  const findResID = stringAfterResID.split(',');
-  const resIDWithQuotes = findResID[0];
-  const resIDSplit = resIDWithQuotes.split('"');
-  const resID = resIDSplit[1];
-  console.log(resID);
-  await deleteDoc(doc(db, 'Current Reservations', resID));
+  try {
+    const myObj = JSON.stringify(itemToDelete);
+    const myObjSplit = myObj.split('"reservationID":');
+    const stringAfterResID = myObjSplit[1];
+    const findResID = stringAfterResID.split(',');
+    const resIDWithQuotes = findResID[0];
+    const resIDSplit = resIDWithQuotes.split('"');
+    const resID = resIDSplit[1];
+    await deleteDoc(doc(db, 'Current Reservations', resID));
+  } catch (e) {
+    console.log(`An error has occured ${e}`);
+  }
 }
 
 export {

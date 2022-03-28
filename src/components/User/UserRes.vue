@@ -165,7 +165,7 @@ export default {
     this.username = userStore.username;
     this.getFBCollection();
     this.getUpcomingReservations();
-    this.deleteReservation();
+    // this.deleteReservation();
   },
   editedIndex: -1,
   editedItem: {
