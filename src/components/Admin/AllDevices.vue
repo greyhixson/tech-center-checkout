@@ -18,7 +18,6 @@
           :items="devices"
           :search="search"
           class="elevation-1"
-          align="center"
         >
           <template v-slot:top>
             <v-toolbar
@@ -68,13 +67,8 @@
                               v-model="editedItem.deviceTag"
                               label="Device Tag"
                               color="black"
-                              style="color=black;"
                             />
                           </div>
-                          <!-- <div
-                            id="deviceTag"
-                            style="color=red;"
-                          /> -->
                         </v-col>
                         <v-col
                           cols="12"
@@ -178,14 +172,9 @@
 </template>
 
 <script>
-// eslint-disable-next-line import/no-duplicates
-import { getCollection } from '../../firebase/techCenterCheckout.Data';
-// eslint-disable-next-line import/no-duplicates
-import { deleteDevice } from '../../firebase/techCenterCheckout.Data';
-// eslint-disable-next-line import/no-duplicates
-import { updateDevice } from '../../firebase/techCenterCheckout.Data';
-// eslint-disable-next-line import/no-duplicates
-import { addDevice } from '../../firebase/techCenterCheckout.Data';
+import {
+  getCollection, deleteDevice, updateDevice, addDevice,
+} from '../../firebase/techCenterCheckout.Data';
 import { bannerStore } from '../../store';
 
 export default {
@@ -238,13 +227,9 @@ export default {
     },
 
     disableEdit(deviceTag) {
-      console.log('inside disableEdit()');
-      // const x = document.getElementById('deviceTag');
       const y = document.getElementById('editField');
-      // x.style.display = 'block';
-      // eslint-disable-next-line prefer-template
-      y.innerHTML = 'Device Tag:<br>' + deviceTag;
-      // y.style.display = 'none';
+      y.innerHTML = 'Device Tag:<br>';
+      y.innerHTML += deviceTag;
     },
 
     enableEdit() {
@@ -262,7 +247,7 @@ export default {
         console.log(e);
       }
     },
-    // need async add & delete to FB collection
+
     async deleteFromFB(itemToDelete) {
       try {
         await deleteDevice(itemToDelete);
@@ -270,6 +255,7 @@ export default {
         console.log(e);
       }
     },
+
     async updateItemInFB(itemToUpdate) {
       try {
         await updateDevice(itemToUpdate);
@@ -290,15 +276,6 @@ export default {
       this.editedIndex = this.devices.indexOf(item);
       this.editedItem = { ...item };
       this.dialog = true;
-      // eslint-disable-next-line prefer-template
-      console.log('---editItem---');
-      console.log(this.formTitle);
-      if (this.formTitle === 'Edit Item') {
-        console.log('inside editItem function, where formTitle = Edit Item');
-        // this.disableEdit(this.devices[this.editedIndex].deviceTag);
-      } else {
-        // this.enableEdit();
-      }
     },
 
     deleteItem(item) {
@@ -308,7 +285,7 @@ export default {
     },
 
     deleteItemConfirm() {
-      this.deleteFromFB(this.editedItem); // removing device from the database
+      this.deleteFromFB(this.editedItem);
       this.devices.splice(this.editedIndex, 1);
       this.closeDelete();
     },
@@ -340,10 +317,8 @@ export default {
     },
 
     deviceTagExists(editedItemTag) {
-      // int to string
       let tagExists = false;
-      // eslint-disable-next-line no-plusplus
-      for (let i = 0; i < this.devices.length; i++) {
+      for (let i = 0; i < this.devices.length; i += 1) {
         if (this.devices[i].deviceTag === editedItemTag) {
           tagExists = true;
         }
@@ -357,8 +332,7 @@ export default {
 
     deviceTagExistsEditForm(editedItemTag, indexOfEditedItem) {
       let tagExists = false;
-      // eslint-disable-next-line no-plusplus
-      for (let i = 0; i < this.devices.length; i++) {
+      for (let i = 0; i < this.devices.length; i += 1) {
         if (this.devices[i].deviceTag === editedItemTag && indexOfEditedItem !== i) {
           tagExists = true;
         }
@@ -380,7 +354,6 @@ export default {
         x.style.display = 'block';
         document.getElementById('errorMessage').innerHTML = 'Device Tag should contain numbers only.';
       } else if (this.deviceTagExists(deviceTagInt) === true && this.formTitle === 'New Item') {
-        console.log('inside this.deviceTagExists...with form title == "New Item');
         const x = document.getElementById('errorMessage');
         x.style.display = 'block';
         document.getElementById('errorMessage').innerHTML = 'Device Tag is already taken.';
