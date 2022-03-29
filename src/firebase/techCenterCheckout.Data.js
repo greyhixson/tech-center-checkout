@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import {
-  getDocs, onSnapshot, query, collection, where, deleteDoc, doc, getDoc,
+  getDocs, onSnapshot, query, collection, where, deleteDoc, getDoc,
 } from 'firebase/firestore';
 import db from './techCenterCheckout.Firestore';
 
@@ -17,6 +17,50 @@ async function getCollection() {
     allDevices.push(data);
   });
   return allDevices;
+}
+
+// Read all items from upcoming (current) reservations
+async function getAdminCurrent() {
+  const querySnapshot = await getDocs(collection(db, 'Current Reservations'));
+  const adminCurrent = [];
+  querySnapshot.forEach((doc) => {
+    const data = {
+      returnDate: doc.data().returnDate.toDate(),
+      pickUpDate: doc.data().pickUpDate.toDate(),
+      deviceName: doc.data().deviceName,
+      deviceTag: doc.data().deviceTag,
+      firstName: doc.data().firstName,
+      lastName: doc.data().lastName,
+      reservationID: doc.data().reservationID,
+      status: doc.data().status,
+      username: doc.data().username,
+      maximumDuration: doc.data().maximumDuration,
+      minimumDuration: doc.data().minimumDuration,
+    };
+    adminCurrent.push(data);
+  });
+  return adminCurrent;
+}
+
+// Read all items from past reservations (reservations log)
+async function getResLog() {
+  const querySnapshot = await getDocs(collection(db, 'Past Reservations'));
+  const resLog = [];
+  querySnapshot.forEach((doc) => {
+    const data = {
+      returnDate: doc.data().returnDate.toDate(),
+      pickUpDate: doc.data().pickUpDate.toDate(),
+      deviceName: doc.data().deviceName,
+      deviceTag: doc.data().deviceTag,
+      firstName: doc.data().firstName,
+      lastName: doc.data().lastName,
+      reservationID: doc.data().reservationID,
+      status: doc.data().status,
+      username: doc.data().username,
+    };
+    resLog.push(data);
+  });
+  return resLog;
 }
 
 async function getAvailableReservations() {
@@ -170,7 +214,7 @@ async function deleteUpcomingReservations(itemToDelete) {
     const resIDWithQuotes = findResID[0];
     const resIDSplit = resIDWithQuotes.split('"');
     const resID = resIDSplit[1];
-    await deleteDoc(doc(db, 'Current Reservations', resID));
+    await deleteDoc(db, 'Current Reservations', resID);
   } catch (e) {
     console.log(`An error has occured ${e}`);
   }
@@ -178,6 +222,8 @@ async function deleteUpcomingReservations(itemToDelete) {
 
 export {
   getCollection,
+  getAdminCurrent,
+  getResLog,
   getAvailableReservations,
   retrieveUserCurrentRes,
   retrieveUserCheckedOutItems,
