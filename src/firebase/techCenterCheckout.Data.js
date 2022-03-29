@@ -63,7 +63,8 @@ async function getResLog() {
     resLog.push(data);
   });
   return resLog;
-  
+}
+
 async function getAvailableReservations() {
   const querySnapshot = await getDocs(collection(db, 'All Devices'));
   const allDevices = [];
