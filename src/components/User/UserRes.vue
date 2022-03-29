@@ -110,11 +110,11 @@ export default {
         },
         {
           text: 'Check In',
-          value: 'checkInDate',
+          value: 'returnDate',
         },
         {
           text: 'Check Out',
-          value: 'checkOutDate',
+          value: 'pickUpDate',
         },
         {
           text: 'Duration',
@@ -130,11 +130,11 @@ export default {
         },
         {
           text: 'Check In',
-          value: 'checkInDate',
+          value: 'returnDate',
         },
         {
           text: 'Check Out',
-          value: 'checkOutDate',
+          value: 'pickUpDate',
         },
         {
           text: 'Duration',
@@ -164,16 +164,16 @@ export default {
   editedIndex: -1,
   editedItem: {
     deviceName: '',
-    checkInDate: '',
-    checkOutDate: '',
+    pickUpDate: '',
+    returnDate: '',
     maximumDuration: '',
     minimumDuration: '',
 
   },
   defaultItem: {
     deviceName: '',
-    checkInDate: '',
-    checkOutDate: '',
+    pickUpDate: '',
+    returnDate: '',
     maximumDuration: '',
     minimumDuration: '',
   },
