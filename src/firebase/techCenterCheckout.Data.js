@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import {
-  getDocs, onSnapshot, query, collection, where,
+  getDocs, onSnapshot, query, collection, where, Timestamp,
 } from 'firebase/firestore';
 import db from './techCenterCheckout.Firestore';
 
@@ -17,6 +17,52 @@ async function getCollection() {
     allDevices.push(data);
   });
   return allDevices;
+}
+
+// Read all items from upcoming (current) reservations
+async function getAdminCurrent() {
+  const querySnapshot = await getDocs(collection(db, 'Current Reservations'));
+  const adminCurrent = [];
+  const newTime = new Timestamp();
+  querySnapshot.forEach((doc) => {
+    const data = {
+      returnDate: new Date(newTime.toDate(doc.data().returnDate)),
+      pickUpDate: new Date(newTime.toDate(doc.data().pickUpDate)),
+      deviceName: doc.data().deviceName,
+      deviceTag: doc.data().deviceTag,
+      firstName: doc.data().firstName,
+      lastName: doc.data().lastName,
+      reservationID: doc.data().reservationID,
+      status: doc.data().status,
+      username: doc.data().username,
+      maximumDuration: doc.data().maximumDuration,
+      minimumDuration: doc.data().minimumDuration,
+    };
+    adminCurrent.push(data);
+  });
+  return adminCurrent;
+}
+
+// Read all items from past reservations (reservations log)
+async function getResLog() {
+  const querySnapshot = await getDocs(collection(db, 'Past Reservations'));
+  const resLog = [];
+  const newTime = new Timestamp();
+  querySnapshot.forEach((doc) => {
+    const data = {
+      returnDate: new Date(newTime.toDate(doc.data().returnDate)),
+      pickUpDate: new Date(newTime.toDate(doc.data().pickUpDate)),
+      deviceName: doc.data().deviceName,
+      deviceTag: doc.data().deviceTag,
+      firstName: doc.data().firstName,
+      lastName: doc.data().lastName,
+      reservationID: doc.data().reservationID,
+      status: doc.data().status,
+      username: doc.data().username,
+    };
+    resLog.push(data);
+  });
+  return resLog;
 }
 
 async function getAvailableReservations() {
@@ -163,6 +209,8 @@ async function getTimeAvailability() {
 
 export {
   getCollection,
+  getAdminCurrent,
+  getResLog,
   getAvailableReservations,
   retrieveUserCurrentRes,
   retrieveUserCheckedOutItems,
