@@ -8,7 +8,6 @@ import db from './techCenterCheckout.Firestore';
 async function getCollection() {
   const querySnapshot = await getDocs(collection(db, 'All Devices'));
   const allDevices = [];
-  // used to be doc here...
   querySnapshot.forEach((document) => {
     const data = {
       deviceName: document.data().deviceName,
