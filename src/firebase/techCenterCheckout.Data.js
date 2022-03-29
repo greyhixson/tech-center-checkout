@@ -4,6 +4,11 @@ import {
 } from 'firebase/firestore';
 import db from './techCenterCheckout.Firestore';
 
+const options = {
+  hour: 'numeric',
+  minute: 'numeric',
+};
+
 // Read all items from inventory
 async function getCollection() {
   const allDevices = [];
@@ -132,8 +137,8 @@ async function retrieveUserCheckedOutItems(username) {
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
       const data = {
-        pickUpDate: doc.data().pickUpDate.toDate(),
-        returnDate: doc.data().returnDate.toDate(),
+        pickUpDate: doc.data().pickUpDate.toDate().toLocaleDateString('en-US', options),
+        returnDate: doc.data().returnDate.toDate().toLocaleDateString('en-US', options),
         deviceName: doc.data().deviceName,
         deviceTag: doc.data().deviceTag,
         firstName: doc.data().firstName,
@@ -161,8 +166,8 @@ async function retrieveUserUpcomingReservations(username) {
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
       const data = {
-        pickUpDate: doc.data().pickUpDate.toDate(),
-        returnDate: doc.data().returnDate.toDate(),
+        pickUpDate: doc.data().pickUpDate.toDate().toLocaleDateString('en-US'),
+        returnDate: doc.data().returnDate.toDate().toLocaleDateString('en-US'),
         deviceName: doc.data().deviceName,
         deviceTag: doc.data().deviceTag,
         firstName: doc.data().firstName,
