@@ -6,185 +6,229 @@ import db from './techCenterCheckout.Firestore';
 
 // Read all items from inventory
 async function getCollection() {
-  const querySnapshot = await getDocs(collection(db, 'All Devices'));
   const allDevices = [];
-  querySnapshot.forEach((doc) => {
-    const data = {
-      deviceName: doc.data().deviceName,
-      deviceTag: doc.data().deviceTag,
-      status: doc.data().status,
-    };
-    allDevices.push(data);
-  });
+  try {
+    const querySnapshot = await getDocs(collection(db, 'All Devices'));
+    querySnapshot.forEach((doc) => {
+      const data = {
+        deviceName: doc.data().deviceName,
+        deviceTag: doc.data().deviceTag,
+        status: doc.data().status,
+      };
+      allDevices.push(data);
+    });
+  } catch (e) {
+    console.log(`Exception in getCollection: ${e.message}`);
+  }
   return allDevices;
 }
 
 // Read all items from upcoming (current) reservations
 async function getAdminCurrent() {
-  const querySnapshot = await getDocs(collection(db, 'Current Reservations'));
   const adminCurrent = [];
-  const newTime = new Timestamp();
-  querySnapshot.forEach((doc) => {
-    const data = {
-      returnDate: new Date(newTime.toDate(doc.data().returnDate)),
-      pickUpDate: new Date(newTime.toDate(doc.data().pickUpDate)),
-      deviceName: doc.data().deviceName,
-      deviceTag: doc.data().deviceTag,
-      firstName: doc.data().firstName,
-      lastName: doc.data().lastName,
-      reservationID: doc.data().reservationID,
-      status: doc.data().status,
-      username: doc.data().username,
-      maximumDuration: doc.data().maximumDuration,
-      minimumDuration: doc.data().minimumDuration,
-    };
-    adminCurrent.push(data);
-  });
+  try {
+    const querySnapshot = await getDocs(collection(db, 'Current Reservations'));
+    const newTime = new Timestamp();
+    querySnapshot.forEach((doc) => {
+      const data = {
+        returnDate: new Date(newTime.toDate(doc.data().returnDate)),
+        pickUpDate: new Date(newTime.toDate(doc.data().pickUpDate)),
+        deviceName: doc.data().deviceName,
+        deviceTag: doc.data().deviceTag,
+        firstName: doc.data().firstName,
+        lastName: doc.data().lastName,
+        reservationID: doc.data().reservationID,
+        status: doc.data().status,
+        username: doc.data().username,
+        maximumDuration: doc.data().maximumDuration,
+        minimumDuration: doc.data().minimumDuration,
+      };
+      adminCurrent.push(data);
+    });
+  } catch (e) {
+    console.log(`Exception in getAdminCurrent: ${e.message}`);
+  }
   return adminCurrent;
 }
 
 // Read all items from past reservations (reservations log)
 async function getResLog() {
-  const querySnapshot = await getDocs(collection(db, 'Past Reservations'));
   const resLog = [];
-  const newTime = new Timestamp();
-  querySnapshot.forEach((doc) => {
-    const data = {
-      returnDate: new Date(newTime.toDate(doc.data().returnDate)),
-      pickUpDate: new Date(newTime.toDate(doc.data().pickUpDate)),
-      deviceName: doc.data().deviceName,
-      deviceTag: doc.data().deviceTag,
-      firstName: doc.data().firstName,
-      lastName: doc.data().lastName,
-      reservationID: doc.data().reservationID,
-      status: doc.data().status,
-      username: doc.data().username,
-    };
-    resLog.push(data);
-  });
+  try {
+    const querySnapshot = await getDocs(collection(db, 'Past Reservations'));
+    const newTime = new Timestamp();
+    querySnapshot.forEach((doc) => {
+      const data = {
+        returnDate: new Date(newTime.toDate(doc.data().returnDate)),
+        pickUpDate: new Date(newTime.toDate(doc.data().pickUpDate)),
+        deviceName: doc.data().deviceName,
+        deviceTag: doc.data().deviceTag,
+        firstName: doc.data().firstName,
+        lastName: doc.data().lastName,
+        reservationID: doc.data().reservationID,
+        status: doc.data().status,
+        username: doc.data().username,
+      };
+      resLog.push(data);
+    });
+  } catch (e) {
+    console.log(`Exception in getDocs: ${e.message}`);
+  }
   return resLog;
 }
 
 async function getAvailableReservations() {
-  const querySnapshot = await getDocs(collection(db, 'All Devices'));
   const allDevices = [];
-  querySnapshot.forEach((doc) => {
-    const data = {
-      deviceName: doc.data().deviceName,
-      deviceTag: doc.data().deviceTag,
-      minimumDuration: doc.data().minimumDuration,
-      maximumDuration: doc.data().maximumDuration,
-    };
-    allDevices.push(data);
-  });
+  try {
+    const querySnapshot = await getDocs(collection(db, 'All Devices'));
+    querySnapshot.forEach((doc) => {
+      const data = {
+        deviceName: doc.data().deviceName,
+        deviceTag: doc.data().deviceTag,
+        minimumDuration: doc.data().minimumDuration,
+        maximumDuration: doc.data().maximumDuration,
+      };
+      allDevices.push(data);
+    });
+  } catch (e) {
+    console.log(`Exception in getAvailableReservations: ${e.message}`);
+  }
   return allDevices;
 }
 
 // Read all current reservations for a user
 // Parameter - username
 async function retrieveUserCurrentRes(username) {
-  const q = query(collection(db, 'Current Reservations'), where('username', '==', username));
-  const querySnapshot = await getDocs(q);
   const currentRes = [];
-  querySnapshot.forEach((doc) => {
-    const data = {
-      checkInDate: doc.data().checkInDate,
-      checkOutDate: doc.data().checkOutDate,
-      deviceName: doc.data().deviceName,
-      deviceTag: doc.data().deviceTag,
-      firstName: doc.data().firstName,
-      lastName: doc.data().lastName,
-      reservationID: doc.data().reservationID,
-      status: doc.data().status,
-      username: doc.data().username,
-    };
-    currentRes.push(data);
-  });
+  try {
+    const q = query(collection(db, 'Current Reservations'), where('username', '==', username));
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+      const data = {
+        checkInDate: doc.data().checkInDate,
+        checkOutDate: doc.data().checkOutDate,
+        deviceName: doc.data().deviceName,
+        deviceTag: doc.data().deviceTag,
+        firstName: doc.data().firstName,
+        lastName: doc.data().lastName,
+        reservationID: doc.data().reservationID,
+        status: doc.data().status,
+        username: doc.data().username,
+      };
+      currentRes.push(data);
+    });
+  } catch (e) {
+    console.log(`Exception in retrieveUserCurrentRes: ${e.message}`);
+  }
   return currentRes;
 }
 
 // Read all current reservations for a user that are checked out
 // Parameter - username
 async function retrieveUserCheckedOutItems(username) {
-  const q = query(collection(db, 'Current Reservations'), where('username', '==', username), where('status', '==', 'Checked Out'));
-  const querySnapshot = await getDocs(q);
   const currentRes = [];
-  querySnapshot.forEach((doc) => {
-    const data = {
-      checkInDate: doc.data().checkInDate.toDate(),
-      checkOutDate: doc.data().checkOutDate.toDate(),
-      deviceName: doc.data().deviceName,
-      deviceTag: doc.data().deviceTag,
-      firstName: doc.data().firstName,
-      lastName: doc.data().lastName,
-      maximumDuration: doc.data().maximumDuration,
-      minimumDuration: doc.data().minimumDuration,
-      reservationID: doc.data().reservationID,
-      status: doc.data().status,
-      username: doc.data().username,
-    };
-    currentRes.push(data);
-  });
+  try {
+    const q = query(collection(db, 'Current Reservations'), where('username', '==', username), where('status', '==', 'Checked Out'));
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+      const data = {
+        checkInDate: doc.data()
+          .checkInDate
+          .toDate(),
+        checkOutDate: doc.data()
+          .checkOutDate
+          .toDate(),
+        deviceName: doc.data().deviceName,
+        deviceTag: doc.data().deviceTag,
+        firstName: doc.data().firstName,
+        lastName: doc.data().lastName,
+        maximumDuration: doc.data().maximumDuration,
+        minimumDuration: doc.data().minimumDuration,
+        reservationID: doc.data().reservationID,
+        status: doc.data().status,
+        username: doc.data().username,
+      };
+      currentRes.push(data);
+    });
+  } catch (e) {
+    console.log(`Exception in retrieveUserCheckedOutItems: ${e.message}`);
+  }
   return currentRes;
 }
 
 // Read all current reservations for a user that are ready
 // Parameter - username
 async function retrieveUserUpcomingReservations(username) {
-  const q = query(collection(db, 'Current Reservations'), where('username', '==', username), where('status', '==', 'Ready'));
-  const querySnapshot = await getDocs(q);
   const currentRes = [];
-  querySnapshot.forEach((doc) => {
-    const data = {
-      checkInDate: doc.data().checkInDate.toDate(),
-      checkOutDate: doc.data().checkOutDate.toDate(),
-      deviceName: doc.data().deviceName,
-      deviceTag: doc.data().deviceTag,
-      firstName: doc.data().firstName,
-      lastName: doc.data().lastName,
-      maximumDuration: doc.data().maximumDuration,
-      minimumDuration: doc.data().minimumDuration,
-      reservationID: doc.data().reservationID,
-      status: doc.data().status,
-      username: doc.data().username,
-    };
-    currentRes.push(data);
-  });
+  try {
+    const q = query(collection(db, 'Current Reservations'), where('username', '==', username), where('status', '==', 'Ready'));
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+      const data = {
+        checkInDate: doc.data()
+          .checkInDate
+          .toDate(),
+        checkOutDate: doc.data()
+          .checkOutDate
+          .toDate(),
+        deviceName: doc.data().deviceName,
+        deviceTag: doc.data().deviceTag,
+        firstName: doc.data().firstName,
+        lastName: doc.data().lastName,
+        maximumDuration: doc.data().maximumDuration,
+        minimumDuration: doc.data().minimumDuration,
+        reservationID: doc.data().reservationID,
+        status: doc.data().status,
+        username: doc.data().username,
+      };
+      currentRes.push(data);
+    });
+  } catch (e) {
+    console.log(`Exception in retrieveUserUpcomingReservations: ${e.message}`);
+  }
   return currentRes;
 }
 
 // Read all past reservations from a user
 // Parameter - username
 async function retrieveUserPastRes(username) {
-  const q = query(collection(db, 'Past Reservations'), where('username', '==', username));
-  const querySnapshot = await getDocs(q);
   const pastRes = [];
-  querySnapshot.forEach((doc) => {
-    const data = {
-      checkInDate: doc.data().checkInDate,
-      checkOutDate: doc.data().checkOutDate,
-      deviceName: doc.data().deviceName,
-      deviceTag: doc.data().deviceTag,
-      firstName: doc.data().firstName,
-      lastName: doc.data().lastName,
-      reservationID: doc.data().reservationID,
-      status: doc.data().status,
-      username: doc.data().username,
-    };
-    pastRes.push(data);
-  });
+  try {
+    const q = query(collection(db, 'Past Reservations'), where('username', '==', username));
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+      const data = {
+        checkInDate: doc.data().checkInDate,
+        checkOutDate: doc.data().checkOutDate,
+        deviceName: doc.data().deviceName,
+        deviceTag: doc.data().deviceTag,
+        firstName: doc.data().firstName,
+        lastName: doc.data().lastName,
+        reservationID: doc.data().reservationID,
+        status: doc.data().status,
+        username: doc.data().username,
+      };
+      pastRes.push(data);
+    });
+  } catch (e) {
+    console.log(`Exception in retrieveUserPastRes: ${e.message}`);
+  }
   return pastRes;
 }
 
 // Inventory listener -- constantly checking for status changes
 function inventoryStatusChanges() {
-  const q = query(collection(db, 'All Devices'), where('status', '==', 'Ready'));
   const devices = [];
-  const unsub = onSnapshot(q, (querySnapshot) => {
-    querySnapshot.forEach((doc) => {
-      devices.push(doc.data().deviceTag);
+  try {
+    const q = query(collection(db, 'All Devices'), where('status', '==', 'Ready'));
+    const unsub = onSnapshot(q, (querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        devices.push(doc.data().deviceTag);
+      });
     });
-  });
+  } catch (e) {
+    console.log(`Exception in inventoryStatusChanges: ${e.message}`);
+  }
   return devices;
 }
 
