@@ -6,6 +6,22 @@
       class="mt-4"
     >
       <v-card-title
+        v-if="itemsCheckedOut.length === 1"
+        class="black white--text mb-4"
+      >
+        Item Checked Out
+        <v-spacer />
+        <v-text-field
+          v-model="searchItemsCheckedOut"
+          append-icon="mdi-magnify"
+          label="Search"
+          single-line
+          hide-details
+          dark
+        />
+      </v-card-title>
+      <v-card-title
+        v-else
         class="black white--text mb-4"
       >
         Items Checked Out
@@ -31,9 +47,26 @@
       class="mt-8"
     >
       <v-card-title
+        v-if="upcomingReservations.length === 1"
         class="black white--text mb-4"
       >
-        Upcoming Reservation(s)
+        Upcoming Reservation
+        <v-spacer />
+        <v-text-field
+          v-model="searchUpcomingReservations"
+          append-icon="mdi-magnify"
+          label="Search"
+          single-line
+          hide-details
+          dark
+        />
+      </v-card-title>
+
+      <v-card-title
+        v-else
+        class="black white--text mb-4"
+      >
+        Upcoming Reservations
         <v-spacer />
         <v-text-field
           v-model="searchUpcomingReservations"
@@ -165,7 +198,6 @@ export default {
     this.username = userStore.username;
     this.getFBCollection();
     this.getUpcomingReservations();
-    // this.deleteReservation();
   },
   editedIndex: -1,
   editedItem: {
