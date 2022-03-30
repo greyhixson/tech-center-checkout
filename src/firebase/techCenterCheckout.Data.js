@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import {
-  getDocs, onSnapshot, query, collection, where, deleteDoc,
+  getDocs, onSnapshot, query, collection, where, deleteDoc, doc as docFire,
 } from 'firebase/firestore';
 import db from './techCenterCheckout.Firestore';
 
@@ -252,7 +252,7 @@ async function deleteUpcomingReservations(itemToDelete) {
     const resIDWithQuotes = findResID[0];
     const resIDSplit = resIDWithQuotes.split('"');
     const resID = resIDSplit[1];
-    await deleteDoc(db, 'Current Reservations', resID);
+    await deleteDoc(docFire(db, 'Current Reservations', resID));
   } catch (e) {
     console.log(`Exception in "deleteUpcomingReservations": ${e}`);
   }
