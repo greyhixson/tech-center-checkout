@@ -222,19 +222,6 @@ export default {
     this.getAllDevicesFromFB();
   },
   methods: {
-    // disableEdit(deviceTag) {
-    //   const y = document.getElementById('editField');
-    //   y.innerHTML = 'Device Tag:<br>';
-    //   y.innerHTML += deviceTag;
-    // },
-
-    // enableEdit() {
-    //   const x = document.getElementById('deviceTag');
-    //   const y = document.getElementById('editField');
-    //   x.style.display = 'none';
-    //   y.style.display = 'block';
-    // },
-
     async getAllDevicesFromFB() {
       try {
         const inventory = await getCollection();
