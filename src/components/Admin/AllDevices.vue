@@ -222,22 +222,18 @@ export default {
     this.getAllDevicesFromFB();
   },
   methods: {
-    setTitle(formTitle) {
-      this.title = formTitle;
-    },
+    // disableEdit(deviceTag) {
+    //   const y = document.getElementById('editField');
+    //   y.innerHTML = 'Device Tag:<br>';
+    //   y.innerHTML += deviceTag;
+    // },
 
-    disableEdit(deviceTag) {
-      const y = document.getElementById('editField');
-      y.innerHTML = 'Device Tag:<br>';
-      y.innerHTML += deviceTag;
-    },
-
-    enableEdit() {
-      const x = document.getElementById('deviceTag');
-      const y = document.getElementById('editField');
-      x.style.display = 'none';
-      y.style.display = 'block';
-    },
+    // enableEdit() {
+    //   const x = document.getElementById('deviceTag');
+    //   const y = document.getElementById('editField');
+    //   x.style.display = 'none';
+    //   y.style.display = 'block';
+    // },
 
     async getAllDevicesFromFB() {
       try {
@@ -333,14 +329,28 @@ export default {
     deviceTagExistsEditForm(editedItemTag, indexOfEditedItem) {
       let tagExists = false;
       for (let i = 0; i < this.devices.length; i += 1) {
-        if (this.devices[i].deviceTag === editedItemTag && indexOfEditedItem !== i) {
+        if (indexOfEditedItem !== i) {
           tagExists = true;
-        }
-        if (this.devices[i].deviceTag === editedItemTag.toString() && indexOfEditedItem !== i) {
-          tagExists = true;
+          break;
         }
       }
       return tagExists;
+    },
+
+    deviceTagSameAsBefore(editedItemTag, indexOfEditedItem) {
+      let sameTag = false;
+
+      for (let i = 0; i < this.devices.length; i += 1) {
+        if (indexOfEditedItem === i) {
+          if (editedItemTag === this.devices[i].deviceTag) {
+            sameTag = true;
+          }
+          if (editedItemTag.toString() === this.devices[i].deviceTag) {
+            sameTag = true;
+          }
+        }
+      }
+      return sameTag;
     },
 
     save() {
@@ -357,10 +367,10 @@ export default {
         const x = document.getElementById('errorMessage');
         x.style.display = 'block';
         document.getElementById('errorMessage').innerHTML = 'Device Tag is already taken.';
-      } else if (this.deviceTagExistsEditForm(deviceTagInt, this.editedIndex) === true && this.formTitle === 'Edit Item') {
+      } else if (this.deviceTagSameAsBefore(deviceTagInt, this.editedIndex) === false && this.formTitle === 'Edit Item') {
         const x = document.getElementById('errorMessage');
         x.style.display = 'block';
-        document.getElementById('errorMessage').innerHTML = 'Device Tag is already taken.';
+        document.getElementById('errorMessage').innerHTML = 'Cannot change Device Tag. If you want to change the Device Tag, please create a new item.';
       } else {
         if (this.formTitle === 'New Item') {
           this.addToFB(this.editedItem);
