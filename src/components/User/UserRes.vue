@@ -6,25 +6,9 @@
       class="mt-4"
     >
       <v-card-title
-        v-if="itemsCheckedOut.length === 1"
         class="black white--text mb-4"
       >
-        Item Checked Out
-        <v-spacer />
-        <v-text-field
-          v-model="searchItemsCheckedOut"
-          append-icon="mdi-magnify"
-          label="Search"
-          single-line
-          hide-details
-          dark
-        />
-      </v-card-title>
-      <v-card-title
-        v-else
-        class="black white--text mb-4"
-      >
-        Items Checked Out
+        {{ itemsCheckedOut.length !== 1 ? 'Items Checked Out': 'Item Checked Out' }}
         <v-spacer />
         <v-text-field
           v-model="searchItemsCheckedOut"
@@ -47,26 +31,9 @@
       class="mt-8"
     >
       <v-card-title
-        v-if="upcomingReservations.length === 1"
         class="black white--text mb-4"
       >
-        Upcoming Reservation
-        <v-spacer />
-        <v-text-field
-          v-model="searchUpcomingReservations"
-          append-icon="mdi-magnify"
-          label="Search"
-          single-line
-          hide-details
-          dark
-        />
-      </v-card-title>
-
-      <v-card-title
-        v-else
-        class="black white--text mb-4"
-      >
-        Upcoming Reservations
+        {{ upcomingReservations.length !== 1 ? 'Upcoming Reservations' : 'Upcoming Reservation' }}
         <v-spacer />
         <v-text-field
           v-model="searchUpcomingReservations"
