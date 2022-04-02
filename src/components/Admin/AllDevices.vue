@@ -120,6 +120,80 @@
                   />
                 </v-card>
               </v-dialog>
+              <v-dialog
+                v-model="editDialog"
+                max-width="500px"
+              >
+                <v-card>
+                  <v-card-title>
+                    <span class="text-h5">Edit Item</span>
+                  </v-card-title>
+
+                  <v-card-text>
+                    <v-container>
+                      <v-row>
+                        <v-col
+                          cols="12"
+                          sm="6"
+                          md="4"
+                        >
+                          <v-text-field
+                            v-model="editedItem.deviceTag"
+                            label="Device Tag"
+                            color="black"
+                            disabled
+                          />
+                        </v-col>
+                        <v-col
+                          cols="12"
+                          sm="6"
+                          md="4"
+                        >
+                          <v-text-field
+                            v-model="editedItem.deviceName"
+                            label="Name"
+                            color="black"
+                          />
+                        </v-col>
+                        <v-col
+                          cols="12"
+                          sm="6"
+                          md="4"
+                        >
+                          <v-text-field
+                            v-model="editedItem.status"
+                            label="Status"
+                            color="black"
+                          />
+                        </v-col>
+                      </v-row>
+                    </v-container>
+                  </v-card-text>
+                  <v-card-actions>
+                    <v-spacer />
+                    <v-btn
+                      color="#600000"
+                      text
+                      @click="close"
+                    >
+                      Cancel
+                    </v-btn>
+                    <v-btn
+                      color="#600000"
+                      text
+                      @click="save"
+                    >
+                      Save
+                    </v-btn>
+                  </v-card-actions>
+                  <div
+                    id="errorMessage"
+                    style="margin: auto;
+                           width: 50%;
+                           color: red;"
+                  />
+                </v-card>
+              </v-dialog>
             </v-toolbar>
             <v-dialog
               v-model="dialogDelete"
@@ -182,6 +256,7 @@ export default {
   data: () => ({
     search: '',
     dialog: false,
+    editDialog: false,
     dialogDelete: false,
     headers: [
       {
@@ -258,7 +333,7 @@ export default {
     editItem(item) {
       this.editedIndex = this.devices.indexOf(item);
       this.editedItem = { ...item };
-      this.dialog = true;
+      this.editDialog = true;
     },
 
     deleteItem(item) {
@@ -277,6 +352,7 @@ export default {
       const x = document.getElementById('errorMessage');
       x.style.display = 'none';
       this.dialog = false;
+      this.editDialog = false;
       this.$nextTick(() => {
         this.editedItem = { ...this.defaultItem };
         this.editedIndex = -1;
