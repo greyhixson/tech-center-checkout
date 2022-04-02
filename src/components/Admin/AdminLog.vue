@@ -1,10 +1,10 @@
 <template>
   <v-card
-    max-width="1075"
+    max-width="800"
     class="mx-auto"
   >
     <v-toolbar
-      color="light-grey"
+      color="light gray"
       light
     >
       <v-toolbar-title>Reservations Log</v-toolbar-title>

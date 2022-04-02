@@ -1,10 +1,10 @@
 <template>
   <v-card
-    max-width="1075"
+    max-width="800"
     class="mx-auto"
   >
     <v-toolbar
-      color="light-grey"
+      color="light gray"
       light
     >
       <v-toolbar-title>Upcoming Reservations</v-toolbar-title>
@@ -36,6 +36,47 @@
 
           <v-list-item-subtitle v-text="'Return Date: ' + device.returnDate" />
         </v-list-item-content>
+
+        <v-list-item-action>
+          <template>
+            <v-btn
+              icon
+              color="grey lighten-1"
+              @click="dialog = !dialog"
+            >
+              <v-icon>mdi-information</v-icon>
+            </v-btn>
+          </template>
+        </v-list-item-action>
+
+        <v-dialog
+          v-model="dialog"
+          max-width="500px"
+        >
+          <v-card>
+            <v-card-text>
+              <v-card-title v-text="'Additional Information'" />
+              <v-spacer />
+              <v-card-subtitle v-text="'Device Tag: ' + device.deviceTag" />
+              <v-card-subtitle v-text="'Reservation ID: ' + device.reservationID" />
+              <v-card-subtitle v-text="'Status: ' + device.status" />
+              <v-card-subtitle v-text="'Username: ' + device.username" />
+              <v-card-subtitle v-text="'First Name: ' + device.firstName" />
+              <v-card-subtitle v-text="'Last Name: ' + device.lastName" />
+            </v-card-text>
+
+            <v-card-actions>
+              <v-spacer />
+
+              <v-btn
+                text
+                @click="dialog = false"
+              >
+                Done
+              </v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
       </v-list-item>
     </v-list>
   </v-card>
@@ -48,6 +89,7 @@ import { getAdminCurrent } from '../../firebase/techCenterCheckout.Data';
 export default {
   name: 'AdminActive',
   data: () => ({
+    dialog: false,
     devices: [],
   }),
 
