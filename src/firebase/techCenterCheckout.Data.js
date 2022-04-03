@@ -158,7 +158,7 @@ async function retrieveUserCheckedOutItems(username) {
 async function retrieveUserUpcomingReservations(username) {
   const currentRes = [];
   try {
-    const q = query(collection(db, 'Current Reservations'), where('username', '==', username), where('status', '==', 'Ready'));
+    const q = query(collection(db, 'Current Reservations'), where('username', '==', username), where('status', '==', 'Ready For Pickup'));
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
       const data = {
@@ -213,7 +213,7 @@ async function retrieveUserPastRes(username) {
 function inventoryStatusChanges() {
   const devices = [];
   try {
-    const q = query(collection(db, 'All Devices'), where('status', '==', 'Ready'));
+    const q = query(collection(db, 'All Devices'), where('status', '==', 'Ready For Pickup'));
     onSnapshot(q, (querySnapshot) => {
       querySnapshot.forEach((doc) => {
         devices.push(doc.data().deviceTag);
