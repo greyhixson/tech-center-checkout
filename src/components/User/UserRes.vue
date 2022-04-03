@@ -212,6 +212,7 @@ export default {
     cancelReservationConfirm() {
       this.upcomingReservations.splice(this.editedIndex, 1);
       this.closeCancel();
+      console.log('Update All Devices now.');
       this.deleteReservation(this.editedItem);
     },
     close() {
