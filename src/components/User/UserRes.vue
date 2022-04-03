@@ -8,7 +8,7 @@
       <v-card-title
         class="black white--text mb-4"
       >
-        Items Checked Out
+        {{ itemsCheckedOut.length !== 1 ? 'Items Checked Out': 'Item Checked Out' }}
         <v-spacer />
         <v-text-field
           v-model="searchItemsCheckedOut"
@@ -33,7 +33,7 @@
       <v-card-title
         class="black white--text mb-4"
       >
-        Upcoming Reservation(s)
+        {{ upcomingReservations.length !== 1 ? 'Upcoming Reservations' : 'Upcoming Reservation' }}
         <v-spacer />
         <v-text-field
           v-model="searchUpcomingReservations"
@@ -165,7 +165,6 @@ export default {
     this.username = userStore.username;
     this.getFBCollection();
     this.getUpcomingReservations();
-    // this.deleteReservation();
   },
   editedIndex: -1,
   editedItem: {
