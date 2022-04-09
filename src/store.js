@@ -9,6 +9,17 @@ const userStore = {
   },
 };
 
+const selectionStore = {
+  deviceTag: -1,
+  deviceName: '',
+  setDeviceTag(deviceTag) {
+    this.deviceTag = deviceTag;
+  },
+  setDeviceName(deviceName) {
+    this.deviceName = deviceName;
+  },
+};
+
 const bannerStore = {
   title: '',
   buttonName: '',
@@ -41,4 +52,4 @@ const bannerStore = {
   },
 };
 
-export { bannerStore, userStore };
+export { bannerStore, selectionStore, userStore };
