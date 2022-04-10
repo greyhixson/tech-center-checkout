@@ -53,7 +53,7 @@
 
 <script>
 import { getAvailableReservations } from '../../firebase/techCenterCheckout.Data';
-import { bannerStore } from '../../store';
+import { bannerStore, selectionStore } from '../../store';
 
 export default {
   name: 'UserHome',
@@ -95,8 +95,8 @@ export default {
       }
     },
     selectItem(item) {
-      this.selctedIndex = this.devices.indexOf(item);
-      this.selectedItem = { ...item };
+      selectionStore.setDeviceTag(item.deviceTag);
+      selectionStore.setDeviceName(item.deviceName);
     },
   },
 };
