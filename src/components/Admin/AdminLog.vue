@@ -70,7 +70,7 @@ export default {
     getColor(status) {
       let color = '';
       if (status === 'Checked Out') color = 'red';
-      else if (status === 'Ready') color = 'orange';
+      else if (status === 'Ready For Pickup') color = 'orange';
       else if (status === 'Checked In') color = 'green';
       return color;
     },
