@@ -1,7 +1,6 @@
 <template>
   <v-card
-    max-width="1075"
-    class="mx-auto"
+    class="mx-16"
   >
     <v-toolbar
       color="light-grey"
