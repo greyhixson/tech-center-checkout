@@ -48,6 +48,8 @@
 </template>
 
 <script>
+// import VueCtkDateTimePicker from 'vue-ctk-date-time-picker';
+import 'vue-ctk-date-time-picker/dist/vue-ctk-date-time-picker.css';
 import {
   getTimeAvailability, getDeviceAvailabilityInfo, getSelectedDeviceInfo,
   getUserInfo, createReservation,
@@ -56,6 +58,7 @@ import { bannerStore, selectionStore, userStore } from '../../store';
 
 export default {
   name: 'UserReviewRes',
+  // components: { VueCtkDateTimePicker },
   data: () => ({
     selectionStore,
     selectedTime: '',

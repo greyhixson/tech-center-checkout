@@ -297,20 +297,32 @@ async function getUserInfo(username) {
 }
 
 async function createReservation(reservationDetails) {
-  const userInfo = [];
-  try {
-    const querySnapshot = await getDocs(collection(db, 'Users'), where('username', '==', reservationDetails));
-    querySnapshot.forEach((doc) => {
-      const data = {
-        firstName: doc.data().firstName,
-        lastName: doc.data().lastName,
-      };
-      userInfo.push(data);
-    });
-  } catch (e) {
-    console.log(`Exception in "getDeviceAvailabilityInfo": ${e}`);
+  let finalDeviceTag = -1;
+  const myObj = JSON.stringify(reservationDetails);
+  console.log(myObj);
+  const myObj2 = JSON.stringify(reservationDetails);
+  const myObj3 = JSON.stringify(reservationDetails);
+  const myObjSplit = myObj.split('"deviceTag":');
+  const partOfString = myObjSplit[1];
+  const objCommaSplit1 = partOfString.split(',')[0];
+  if (objCommaSplit1.includes('"')) {
+    const objQuoteSplit1 = partOfString.split('"');
+    finalDeviceTag = objQuoteSplit1[1];
+  } else {
+    finalDeviceTag = objCommaSplit1;
   }
-  return userInfo;
+
+  const myObj2Split = myObj2.split('"deviceName":');
+  const partOfString2 = myObj2Split[1];
+  const objQuoteSplit = partOfString2.split('"');
+  const finalDeviceName = objQuoteSplit[1];
+
+  const myObj3Split = myObj3.split('"status":');
+  const partOfString3 = myObj3Split[1];
+  const objQuoteSplit3 = partOfString3.split('"');
+  const finalDeviceStatus = objQuoteSplit3[1];
+  // eslint-disable-next-line quote-props
+  // eslint-disable-next-line prefer-template
 }
 
 async function deleteUpcomingReservations(itemToDelete) {
