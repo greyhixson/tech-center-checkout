@@ -71,13 +71,6 @@ export default {
       { text: 'Actions', value: 'actions', filterable: false },
     ],
     devices: [],
-    selctedIndex: -1,
-    selectedItem: {
-      deviceName: '',
-      deviceTag: -1,
-      minimumDuration: '',
-      maximumDuration: '',
-    },
   }),
 
   created() {

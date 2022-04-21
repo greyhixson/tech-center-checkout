@@ -244,6 +244,75 @@ async function getTimeAvailability() {
   return availableTimes;
 }
 
+async function getDeviceAvailabilityInfo(deviceTag) {
+  const deviceAvailability = [];
+  try {
+    const querySnapshot = await getDocs(collection(db, 'Current Reservations'), where('deviceTag', '==', deviceTag));
+    querySnapshot.forEach((doc) => {
+      const data = {
+        pickUpDate: doc.data().pickUpDate,
+        returnDate: doc.data().returnDate,
+      };
+      deviceAvailability.push(data);
+    });
+  } catch (e) {
+    console.log(`Exception in "getDeviceAvailabilityInfo": ${e}`);
+  }
+  return deviceAvailability;
+}
+
+async function getSelectedDeviceInfo(deviceTag) {
+  const deviceInfo = [];
+  try {
+    const querySnapshot = await getDocs(collection(db, 'All Devices'), where('deviceTag', '==', deviceTag));
+    querySnapshot.forEach((doc) => {
+      const data = {
+        maximumDuration: doc.data().maximumDuration,
+        minimumDuration: doc.data().minimumDuration,
+        status: doc.data().status,
+      };
+      deviceInfo.push(data);
+    });
+  } catch (e) {
+    console.log(`Exception in "getDeviceAvailabilityInfo": ${e}`);
+  }
+  return deviceInfo;
+}
+
+async function getUserInfo(username) {
+  const userInfo = [];
+  try {
+    const querySnapshot = await getDocs(collection(db, 'Users'), where('username', '==', username));
+    querySnapshot.forEach((doc) => {
+      const data = {
+        firstName: doc.data().firstName,
+        lastName: doc.data().lastName,
+      };
+      userInfo.push(data);
+    });
+  } catch (e) {
+    console.log(`Exception in "getDeviceAvailabilityInfo": ${e}`);
+  }
+  return userInfo;
+}
+
+async function createReservation(reservationDetails) {
+  const userInfo = [];
+  try {
+    const querySnapshot = await getDocs(collection(db, 'Users'), where('username', '==', reservationDetails));
+    querySnapshot.forEach((doc) => {
+      const data = {
+        firstName: doc.data().firstName,
+        lastName: doc.data().lastName,
+      };
+      userInfo.push(data);
+    });
+  } catch (e) {
+    console.log(`Exception in "getDeviceAvailabilityInfo": ${e}`);
+  }
+  return userInfo;
+}
+
 async function deleteUpcomingReservations(itemToDelete) {
   const myObj = JSON.stringify(itemToDelete);
   const myObjSplit = myObj.split('"reservationID":');
@@ -346,6 +415,10 @@ export {
   retrieveUserPastRes,
   inventoryStatusChanges,
   getTimeAvailability,
+  getDeviceAvailabilityInfo,
+  getSelectedDeviceInfo,
+  getUserInfo,
+  createReservation,
   deleteUpcomingReservations,
   deleteDevice,
   updateDevice,
