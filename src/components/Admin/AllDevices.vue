@@ -100,20 +100,20 @@
                     <v-btn
                       color="#600000"
                       text
-                      @click="close"
+                      @click="closeNew"
                     >
                       Cancel
                     </v-btn>
                     <v-btn
                       color="#600000"
                       text
-                      @click="save"
+                      @click="saveNew"
                     >
                       Save
                     </v-btn>
                   </v-card-actions>
                   <div
-                    id="errorMessage"
+                    id="errorMessageNew"
                     style="margin: auto;
                            width: 50%;
                            color: red;"
@@ -239,6 +239,13 @@
               mdi-delete
             </v-icon>
           </template>
+          <template v-slot:[`item.status`]="{ item }">
+            <v-chip
+              :color="getColor(item.status)"
+            >
+              {{ item.status }}
+            </v-chip>
+          </template>
         </v-data-table>
       </v-card>
     </v-layout>
@@ -348,6 +355,17 @@ export default {
       this.closeDelete();
     },
 
+    closeNew() {
+      const x = document.getElementById('errorMessageNew');
+      x.style.display = 'none';
+      this.dialog = false;
+      this.editDialog = false;
+      this.$nextTick(() => {
+        this.editedItem = { ...this.defaultItem };
+        this.editedIndex = -1;
+      });
+    },
+
     close() {
       const x = document.getElementById('errorMessage');
       x.style.display = 'none';
@@ -370,7 +388,7 @@ export default {
     getColor(status) {
       let color = '';
       if (status === 'Checked Out') color = 'red';
-      else if (status === 'Ready') color = 'orange';
+      else if (status === 'Ready For Pickup') color = 'orange';
       else if (status === 'Checked In') color = 'green';
       return color;
     },
@@ -416,6 +434,54 @@ export default {
       return sameTag;
     },
 
+    validStatus(status) {
+      let valid = false;
+
+      if (status === 'Checked In') {
+        valid = true;
+      }
+      if (status === 'Checked Out') {
+        valid = true;
+      }
+      if (status === 'Ready For Pickup') {
+        valid = true;
+      }
+      return valid;
+    },
+
+    saveNew() {
+      const deviceTagInt = parseInt(this.editedItem.deviceTag, 10);
+      if (this.editedItem.deviceTag === '' || this.editedItem.deviceName === '' || this.editedItem.status === '') {
+        const x = document.getElementById('errorMessageNew');
+        x.style.display = 'block';
+        document.getElementById('errorMessageNew').innerHTML = 'Please don\'t leave any field blank.';
+      } else if (Number.isNaN(deviceTagInt) === true) {
+        const x = document.getElementById('errorMessageNew');
+        x.style.display = 'block';
+        document.getElementById('errorMessageNew').innerHTML = 'Device Tag should contain numbers only.';
+      } else if (this.deviceTagExists(deviceTagInt) === true && this.formTitle === 'New Item') {
+        const x = document.getElementById('errorMessageNew');
+        x.style.display = 'block';
+        document.getElementById('errorMessageNew').innerHTML = 'Device Tag is already taken.';
+      } else if (this.validStatus(this.editedItem.status) === false) {
+        const x = document.getElementById('errorMessageNew');
+        x.style.display = 'block';
+        document.getElementById('errorMessageNew').innerHTML = 'Please type in a valid status for the device. Your options are: Checked In, Ready For Pickup, or Checked Out.';
+      } else {
+        if (this.formTitle === 'New Item') {
+          this.addToFB(this.editedItem);
+        } else {
+          this.updateItemInFB(this.editedItem);
+        }
+        if (this.editedIndex > -1) {
+          Object.assign(this.devices[this.editedIndex], this.editedItem);
+        } else {
+          this.devices.push(this.editedItem);
+        }
+        this.closeNew();
+      }
+    },
+
     save() {
       const deviceTagInt = parseInt(this.editedItem.deviceTag, 10);
       if (this.editedItem.deviceTag === '' || this.editedItem.deviceName === '' || this.editedItem.status === '') {
@@ -430,10 +496,10 @@ export default {
         const x = document.getElementById('errorMessage');
         x.style.display = 'block';
         document.getElementById('errorMessage').innerHTML = 'Device Tag is already taken.';
-      } else if (this.deviceTagSameAsBefore(deviceTagInt, this.editedIndex) === false && this.formTitle === 'Edit Item') {
+      } else if (this.validStatus(this.editedItem.status) === false) {
         const x = document.getElementById('errorMessage');
         x.style.display = 'block';
-        document.getElementById('errorMessage').innerHTML = 'Cannot change Device Tag. If you want to change the Device Tag, please create a new item.';
+        document.getElementById('errorMessage').innerHTML = 'Please type in a valid status for the device. Your options are: Checked In, Ready For Pickup, or Checked Out.';
       } else {
         if (this.formTitle === 'New Item') {
           this.addToFB(this.editedItem);
