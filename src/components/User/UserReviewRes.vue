@@ -5,7 +5,7 @@
         class="black white--text mb-4"
       >
         <v-toolbar-title>
-          Lenovo Mouse
+          {{ selectionStore.deviceName }}
         </v-toolbar-title>
       </v-toolbar>
       <v-menu
@@ -53,11 +53,12 @@
 
 <script>
 import { getTimeAvailability } from '../../firebase/techCenterCheckout.Data';
-import { bannerStore } from '../../store';
+import { bannerStore, selectionStore } from '../../store';
 
 export default {
   name: 'UserReviewRes',
   data: () => ({
+    selectionStore,
     menu2: false,
     times: [],
     duration: ['1 day', '2 days', '3 days', '4 days', '5 days', '6 days', '7 days'],
@@ -77,6 +78,7 @@ export default {
         console.log(e);
       }
     },
+
   },
 };
 </script>

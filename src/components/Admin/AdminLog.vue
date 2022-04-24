@@ -3,7 +3,7 @@
     class="mx-16"
   >
     <v-toolbar
-      color="light-grey"
+      color="light gray"
       light
     >
       <v-toolbar-title>Reservations Log</v-toolbar-title>

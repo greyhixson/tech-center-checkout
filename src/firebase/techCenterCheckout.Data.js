@@ -158,7 +158,7 @@ async function retrieveUserCheckedOutItems(username) {
 async function retrieveUserUpcomingReservations(username) {
   const currentRes = [];
   try {
-    const q = query(collection(db, 'Current Reservations'), where('username', '==', username), where('status', '==', 'Ready'));
+    const q = query(collection(db, 'Current Reservations'), where('username', '==', username), where('status', '==', 'Ready For Pickup'));
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
       const data = {
@@ -213,7 +213,7 @@ async function retrieveUserPastRes(username) {
 function inventoryStatusChanges() {
   const devices = [];
   try {
-    const q = query(collection(db, 'All Devices'), where('status', '==', 'Ready'));
+    const q = query(collection(db, 'All Devices'), where('status', '==', 'Ready For Pickup'));
     onSnapshot(q, (querySnapshot) => {
       querySnapshot.forEach((doc) => {
         devices.push(doc.data().deviceTag);
@@ -252,8 +252,30 @@ async function deleteUpcomingReservations(itemToDelete) {
   const resIDWithQuotes = findResID[0];
   const resIDSplit = resIDWithQuotes.split('"');
   const resID = resIDSplit[1];
-  console.log(resID);
   await deleteDoc(docFire(db, 'Current Reservations', resID));
+}
+
+async function updateDeviceStatus(itemToUpdateStatus) {
+  let finalDeviceTag = -1;
+  const myObj = JSON.stringify(itemToUpdateStatus);
+  const myObjSplit = myObj.split('"deviceTag":');
+  const partOfString = myObjSplit[1];
+  const objCommaSplit1 = partOfString.split(',')[0];
+  if (objCommaSplit1.includes('"')) {
+    const objQuoteSplit1 = partOfString.split('"');
+    finalDeviceTag = objQuoteSplit1[1];
+  } else {
+    finalDeviceTag = objCommaSplit1;
+  }
+
+  const deviceStatus = 'Checked In';
+
+  await updateDoc(docFire(db, 'All Devices', finalDeviceTag), {
+    deviceTag: finalDeviceTag,
+    status: deviceStatus,
+  });
+
+  // await deleteDoc(docFire(db, 'Current Reservations', resID));
 }
 
 async function deleteDevice(itemToDelete) {
@@ -347,6 +369,7 @@ export {
   inventoryStatusChanges,
   getTimeAvailability,
   deleteUpcomingReservations,
+  updateDeviceStatus,
   deleteDevice,
   updateDevice,
   addDevice,
