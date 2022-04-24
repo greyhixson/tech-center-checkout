@@ -28,7 +28,7 @@
         </template>
         <v-date-picker
           v-model="selectedDate"
-          :allowed-dates="disabledBeforeTodayAndAfterAWeek"
+          :allowed-dates="disablePickup"
           @input="menu = false"
         />
       </v-menu>
@@ -37,32 +37,28 @@
         type="datetime"
         format="M/D/YYYY h:mm A"
         :default-value="new Date()"
+        :disabled-date="disablePickup"
         :time-picker-options="{
           start: '08:00',
           step: '00:15',
           end: '22:00',
           format: 'h:mm A'
         }"
-        @input="onChange()"
+        @input="onPickupChange()"
       />
       <date-picker
-        v-model="time3"
+        v-model="value2"
         type="datetime"
         format="M/D/YYYY h:mm A"
-        range
-        range-separator=" - "
+        :default-value="new Date()"
         :disabled-date="disablePickup"
         :time-picker-options="{
           start: '08:00',
           step: '00:15',
           end: '22:00',
+          format: 'h:mm A'
         }"
-      />
-      <v-select
-        v-model="selectedDuration"
-        :items="duration"
-        label="Duration"
-        prepend-icon="mdi-timer"
+        @input="onReturnChange()"
       />
     </v-card>
     <v-btn
@@ -91,14 +87,12 @@ export default {
     selectedTime: '',
     selectedDuration: '',
     menu: false,
-    times: [],
-    time3: null,
     value1: '',
+    value2: '',
     deviceAvailability: [],
     pickUpArr: [],
     returnArr: [],
     disabledDates: [],
-    duration: ['1 day', '2 days', '3 days', '4 days', '5 days', '6 days', '7 days'],
     selectedDate: new Date(Date.now()).toISOString().substr(0, 10),
     reservationDetails: {
       deviceName: '',
@@ -120,7 +114,6 @@ export default {
     this.reservationDetails.username = userStore.username;
     this.reservationDetails.deviceName = selectionStore.deviceName;
     this.reservationDetails.deviceTag = selectionStore.deviceTag;
-    this.getAvailablTimeFromData();
     this.getReservationDetails();
     this.getDeviceAvailability();
   },
@@ -172,8 +165,15 @@ export default {
         console.log(e);
       }
     },
-    onChange() {
+    onPickupChange() {
       console.log(this.value1);
+      const date = Date.parse(this.value1);
+      this.reservationDetails.pickUpDate = date / 1000;
+    },
+    onReturnChange() {
+      console.log(this.value2);
+      const date = Date.parse(this.value2);
+      this.resrvationDetails.returnDate = date / 1000;
     },
   },
 };
