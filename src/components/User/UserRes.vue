@@ -97,7 +97,10 @@
 </template>
 
 <script>
-import { retrieveUserCheckedOutItems, retrieveUserUpcomingReservations, deleteUpcomingReservations } from '../../firebase/techCenterCheckout.Data';
+import {
+  retrieveUserCheckedOutItems, retrieveUserUpcomingReservations, deleteUpcomingReservations,
+  updateDeviceStatus,
+} from '../../firebase/techCenterCheckout.Data';
 import { bannerStore, userStore } from '../../store';
 
 export default {
@@ -212,6 +215,7 @@ export default {
     cancelReservationConfirm() {
       this.upcomingReservations.splice(this.editedIndex, 1);
       this.closeCancel();
+      this.updateStatus(this.editedItem);
       this.deleteReservation(this.editedItem);
     },
     close() {
@@ -224,6 +228,13 @@ export default {
     deleteReservation(itemToDelete) {
       try {
         deleteUpcomingReservations(itemToDelete);
+      } catch (e) {
+        console.log(e);
+      }
+    },
+    updateStatus(itemToDelete) {
+      try {
+        updateDeviceStatus(itemToDelete);
       } catch (e) {
         console.log(e);
       }
