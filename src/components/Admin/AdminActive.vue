@@ -1,7 +1,6 @@
 <template>
   <v-card
-    max-width="800"
-    class="mx-auto"
+    class="mx-16"
   >
     <v-toolbar
       color="light gray"
@@ -112,7 +111,7 @@ export default {
     getColor(status) {
       let color = '';
       if (status === 'Checked Out') color = 'red';
-      else if (status === 'Ready') color = 'orange';
+      else if (status === 'Ready For Pickup') color = 'orange';
       else if (status === 'Checked In') color = 'green';
       return color;
     },

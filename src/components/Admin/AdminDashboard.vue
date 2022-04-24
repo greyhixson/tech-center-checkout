@@ -33,6 +33,7 @@
         class="mt-5 ml-10"
         height="500"
         width="320"
+        href="/#/AdminLogRes"
       >
         <v-card-text
           class="text-h5 font-weight-light black--text"
