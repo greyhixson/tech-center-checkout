@@ -67,7 +67,7 @@ export default {
         value: 'deviceName',
       },
       { text: 'Minimum Duration', value: 'minimumDuration' },
-      { text: 'Maximum Duration', value: 'maximumDuration' },
+      { text: 'Device Tag', value: 'deviceTag' },
       { text: 'Actions', value: 'actions', filterable: false },
     ],
     devices: [],

@@ -11,9 +11,9 @@
     "core-js": "^3.6.5",
     "firebase": "^9.6.7",
     "vue": "^2.6.11",
-    "vue-ctk-date-time-picker": "^3.0.0-alpha.0",
+    "vue-hotel-datepicker": "^4.5.1",
     "vue-router": "^3.2.0",
-    "vue2-timepicker": "^1.1.6",
+    "vue2-datepicker": "^3.10.4",
     "vuetify": "^2.4.0"
   },
   "devDependencies": {

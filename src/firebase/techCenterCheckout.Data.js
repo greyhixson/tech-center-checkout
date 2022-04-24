@@ -245,44 +245,50 @@ async function getTimeAvailability() {
 }
 
 async function getDeviceAvailabilityInfo(deviceTag) {
-  const deviceAvailability = [];
+  const pickUpArr = [];
+  const returnArr = [];
   try {
-    const querySnapshot = await getDocs(collection(db, 'Current Reservations'), where('deviceTag', '==', deviceTag));
-    querySnapshot.forEach((doc) => {
-      const data = {
-        pickUpDate: doc.data().pickUpDate,
-        returnDate: doc.data().returnDate,
-      };
-      deviceAvailability.push(data);
-    });
+    const q = query(collection(db, 'Current Reservations'), where('deviceTag', '==', deviceTag));
+    const querySnapshot = await getDocs(q);
+    if (querySnapshot.size > 0) {
+      querySnapshot.forEach((doc) => {
+        pickUpArr.push(doc.data().pickUpDate.toDate());
+        returnArr.push(doc.data().returnDate.toDate());
+      });
+    } else {
+      console.log('document not found');
+    }
   } catch (e) {
     console.log(`Exception in "getDeviceAvailabilityInfo": ${e}`);
   }
-  return deviceAvailability;
+  return [pickUpArr, returnArr];
 }
 
 async function getSelectedDeviceInfo(deviceTag) {
   const deviceInfo = [];
   try {
-    const querySnapshot = await getDocs(collection(db, 'All Devices'), where('deviceTag', '==', deviceTag));
+    const q = query(collection(db, 'All Devices'), where('deviceTag', '==', deviceTag));
+    const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
       const data = {
-        maximumDuration: doc.data().maximumDuration,
         minimumDuration: doc.data().minimumDuration,
+        maximumDuration: doc.data().maximumDuration,
         status: doc.data().status,
       };
       deviceInfo.push(data);
     });
   } catch (e) {
-    console.log(`Exception in "getDeviceAvailabilityInfo": ${e}`);
+    console.log(`Exception in "getSelectedDeviceInfo": ${e}`);
   }
   return deviceInfo;
 }
 
+// Parameter - username
 async function getUserInfo(username) {
   const userInfo = [];
   try {
-    const querySnapshot = await getDocs(collection(db, 'Users'), where('username', '==', username));
+    const q = query(collection(db, 'Users'), where('username', '==', username));
+    const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
       const data = {
         firstName: doc.data().firstName,
@@ -291,38 +297,25 @@ async function getUserInfo(username) {
       userInfo.push(data);
     });
   } catch (e) {
-    console.log(`Exception in "getDeviceAvailabilityInfo": ${e}`);
+    console.log(`Exception in "getUserInfo": ${e}`);
   }
   return userInfo;
 }
 
-async function createReservation(reservationDetails) {
-  let finalDeviceTag = -1;
-  const myObj = JSON.stringify(reservationDetails);
-  console.log(myObj);
-  const myObj2 = JSON.stringify(reservationDetails);
-  const myObj3 = JSON.stringify(reservationDetails);
-  const myObjSplit = myObj.split('"deviceTag":');
-  const partOfString = myObjSplit[1];
-  const objCommaSplit1 = partOfString.split(',')[0];
-  if (objCommaSplit1.includes('"')) {
-    const objQuoteSplit1 = partOfString.split('"');
-    finalDeviceTag = objQuoteSplit1[1];
-  } else {
-    finalDeviceTag = objCommaSplit1;
-  }
-
-  const myObj2Split = myObj2.split('"deviceName":');
-  const partOfString2 = myObj2Split[1];
-  const objQuoteSplit = partOfString2.split('"');
-  const finalDeviceName = objQuoteSplit[1];
-
-  const myObj3Split = myObj3.split('"status":');
-  const partOfString3 = myObj3Split[1];
-  const objQuoteSplit3 = partOfString3.split('"');
-  const finalDeviceStatus = objQuoteSplit3[1];
-  // eslint-disable-next-line quote-props
-  // eslint-disable-next-line prefer-template
+async function createReservation(resToAdd) {
+  await setDoc(docFire(db, `Current Reservations/${resToAdd.reservationID}`), {
+    deviceName: resToAdd.deviceName,
+    deviceTag: resToAdd.deviceTag,
+    firstName: resToAdd.firstName,
+    lastName: resToAdd.lastName,
+    maximumDuration: resToAdd.maximumDuration,
+    minimumDuration: resToAdd.minimumDuration,
+    pickUpDate: resToAdd.pickUpDate,
+    reservationID: resToAdd.reservationID,
+    returnDate: resToAdd.returnDate,
+    status: resToAdd.status,
+    username: resToAdd.username,
+  });
 }
 
 async function deleteUpcomingReservations(itemToDelete) {
@@ -431,7 +424,7 @@ async function addDevice(itemToAdd) {
   const finalDeviceStatus = objQuoteSplit3[1];
   // eslint-disable-next-line quote-props
   // eslint-disable-next-line prefer-template
-  await setDoc(docFire(db, 'All Devices/' + finalDeviceTag), {
+  await setDoc(docFire(db, 'Current Reservations/' + itemToAdd.reser), {
     deviceTag: finalDeviceTag,
     deviceName: finalDeviceName,
     status: finalDeviceStatus,

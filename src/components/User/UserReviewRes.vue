@@ -28,9 +28,36 @@
         </template>
         <v-date-picker
           v-model="selectedDate"
+          :allowed-dates="disabledBeforeTodayAndAfterAWeek"
           @input="menu = false"
         />
       </v-menu>
+      <date-picker
+        v-model="value1"
+        type="datetime"
+        format="M/D/YYYY h:mm A"
+        :default-value="new Date()"
+        :time-picker-options="{
+          start: '08:00',
+          step: '00:15',
+          end: '22:00',
+          format: 'h:mm A'
+        }"
+        @input="onChange()"
+      />
+      <date-picker
+        v-model="time3"
+        type="datetime"
+        format="M/D/YYYY h:mm A"
+        range
+        range-separator=" - "
+        :disabled-date="disablePickup"
+        :time-picker-options="{
+          start: '08:00',
+          step: '00:15',
+          end: '22:00',
+        }"
+      />
       <v-select
         v-model="selectedDuration"
         :items="duration"
@@ -39,8 +66,8 @@
       />
     </v-card>
     <v-btn
-      href="/#/UserConfirmRes"
       class="mt-6 ml-2"
+      @click="addReservation()"
     >
       Submit
     </v-btn>
@@ -48,24 +75,29 @@
 </template>
 
 <script>
-// import VueCtkDateTimePicker from 'vue-ctk-date-time-picker';
-import 'vue-ctk-date-time-picker/dist/vue-ctk-date-time-picker.css';
+import DatePicker from 'vue2-datepicker';
+import 'vue2-datepicker/index.css';
 import {
-  getTimeAvailability, getDeviceAvailabilityInfo, getSelectedDeviceInfo,
-  getUserInfo, createReservation,
+  createReservation, getDeviceAvailabilityInfo, getSelectedDeviceInfo,
+  getUserInfo,
 } from '../../firebase/techCenterCheckout.Data';
 import { bannerStore, selectionStore, userStore } from '../../store';
 
 export default {
   name: 'UserReviewRes',
-  // components: { VueCtkDateTimePicker },
+  components: { DatePicker },
   data: () => ({
     selectionStore,
     selectedTime: '',
     selectedDuration: '',
     menu: false,
     times: [],
+    time3: null,
+    value1: '',
     deviceAvailability: [],
+    pickUpArr: [],
+    returnArr: [],
+    disabledDates: [],
     duration: ['1 day', '2 days', '3 days', '4 days', '5 days', '6 days', '7 days'],
     selectedDate: new Date(Date.now()).toISOString().substr(0, 10),
     reservationDetails: {
@@ -90,13 +122,26 @@ export default {
     this.reservationDetails.deviceTag = selectionStore.deviceTag;
     this.getAvailablTimeFromData();
     this.getReservationDetails();
+    this.getDeviceAvailability();
   },
   methods: {
+    disablePickup(date) {
+      const returnDate = new Date(this.returnArr[0]);
+      returnDate.setDate(returnDate.getDate() - 1);
+      return date > this.pickUpArr[0] && date < returnDate;
+    },
     async getDeviceAvailability() {
       try {
         const deviceAvailability = await getDeviceAvailabilityInfo(selectionStore.deviceTag);
-        this.deviceAvailability = deviceAvailability;
-        console.log(deviceAvailability);
+        [this.pickUpArr, this.returnArr] = deviceAvailability;
+        for (let i = 0; i < this.pickUpArr.length; i += 1) {
+          const currentDate = new Date(this.pickUpArr[i]);
+          while (currentDate <= this.returnArr[i]) {
+            this.disabledDates.push(new Date(currentDate));
+            currentDate.setDate(currentDate.getDate() + 1);
+          }
+        }
+        console.log(this.disabledDates);
       } catch (e) {
         console.log(e);
       }
@@ -107,7 +152,6 @@ export default {
         this.reservationDetails.maximumDuration = deviceInfo.maximumDuration;
         this.reservationDetails.minimumDuration = deviceInfo.minimumDuration;
         this.reservationDetails.status = deviceInfo.status;
-        console.log(deviceInfo);
       } catch (e) {
         console.log(e);
       }
@@ -115,7 +159,6 @@ export default {
         const userInfo = await getUserInfo(userStore.username);
         this.reservationDetails.firstName = userInfo.firstName;
         this.reservationDetails.lastName = userInfo.lastName;
-        console.log(userInfo);
       } catch (e) {
         console.log(e);
       }
@@ -129,13 +172,8 @@ export default {
         console.log(e);
       }
     },
-    async getAvailablTimeFromData() {
-      try {
-        const availableTimes = await getTimeAvailability();
-        this.times = availableTimes;
-      } catch (e) {
-        console.log(e);
-      }
+    onChange() {
+      console.log(this.value1);
     },
   },
 };
