@@ -254,7 +254,9 @@
 
 <script>
 import {
-  getCollection, deleteDevice, updateDevice, addDevice,
+  deleteDevice,
+  getCollection,
+  updateDevice,
 } from '../../firebase/techCenterCheckout.Data';
 import { bannerStore } from '../../store';
 
@@ -306,8 +308,7 @@ export default {
   methods: {
     async getAllDevicesFromFB() {
       try {
-        const inventory = await getCollection();
-        this.devices = inventory;
+        this.devices = await getCollection();
       } catch (e) {
         console.log(e);
       }
@@ -331,7 +332,7 @@ export default {
 
     async addToFB(itemToAdd) {
       try {
-        await addDevice(itemToAdd);
+        await updateDevice(itemToAdd);
       } catch (e) {
         console.log(e);
       }

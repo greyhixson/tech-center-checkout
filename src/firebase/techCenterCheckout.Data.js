@@ -1,7 +1,8 @@
 /* eslint-disable prefer-destructuring */
 /* eslint-disable no-unused-vars */
 import {
-  getDocs, onSnapshot, query, collection, where, deleteDoc, updateDoc, setDoc, doc as docFire,
+  getDocs, getDoc, onSnapshot, query,
+  collection, where, deleteDoc, updateDoc, setDoc, doc as docFire,
 } from 'firebase/firestore';
 import db from './techCenterCheckout.Firestore';
 
@@ -247,16 +248,16 @@ async function getTimeAvailability() {
 async function getDeviceAvailabilityInfo(deviceTag) {
   const pickUpArr = [];
   const returnArr = [];
+  const tagStr = deviceTag.toString();
   try {
-    const q = query(collection(db, 'Current Reservations'), where('deviceTag', '==', deviceTag));
+    const resRef = collection(db, 'Current Reservations');
+    const q = query(resRef, where('deviceTag', '==', tagStr));
     const querySnapshot = await getDocs(q);
     if (querySnapshot.size > 0) {
       querySnapshot.forEach((doc) => {
         pickUpArr.push(doc.data().pickUpDate.toDate());
         returnArr.push(doc.data().returnDate.toDate());
       });
-    } else {
-      console.log('document not found');
     }
   } catch (e) {
     console.log(`Exception in "getDeviceAvailabilityInfo": ${e}`);
@@ -267,16 +268,11 @@ async function getDeviceAvailabilityInfo(deviceTag) {
 async function getSelectedDeviceInfo(deviceTag) {
   const deviceInfo = [];
   try {
-    const q = query(collection(db, 'All Devices'), where('deviceTag', '==', deviceTag));
-    const querySnapshot = await getDocs(q);
-    querySnapshot.forEach((doc) => {
-      const data = {
-        minimumDuration: doc.data().minimumDuration,
-        maximumDuration: doc.data().maximumDuration,
-        status: doc.data().status,
-      };
-      deviceInfo.push(data);
-    });
+    const deviceRef = docFire(db, `All Devices/${deviceTag}`);
+    const deviceDoc = await getDoc(deviceRef);
+    if (deviceDoc.exists()) {
+      return deviceDoc.data();
+    }
   } catch (e) {
     console.log(`Exception in "getSelectedDeviceInfo": ${e}`);
   }
@@ -303,6 +299,9 @@ async function getUserInfo(username) {
 }
 
 async function createReservation(resToAdd) {
+  const pickUpDate = new Date(resToAdd.pickUpDate);
+  const returnDate = new Date(resToAdd.returnDate);
+  const status = 'Ready For Pickup';
   await setDoc(docFire(db, `Current Reservations/${resToAdd.reservationID}`), {
     deviceName: resToAdd.deviceName,
     deviceTag: resToAdd.deviceTag,
@@ -310,11 +309,12 @@ async function createReservation(resToAdd) {
     lastName: resToAdd.lastName,
     maximumDuration: resToAdd.maximumDuration,
     minimumDuration: resToAdd.minimumDuration,
-    pickUpDate: resToAdd.pickUpDate,
+    pickUpDate,
     reservationID: resToAdd.reservationID,
-    returnDate: resToAdd.returnDate,
-    status: resToAdd.status,
+    returnDate,
+    status,
     username: resToAdd.username,
+
   });
 }
 
@@ -341,7 +341,6 @@ async function updateDeviceStatus(itemToUpdateStatus) {
   } else {
     finalDeviceTag = objCommaSplit1;
   }
-
   const deviceStatus = 'Checked In';
 
   await updateDoc(docFire(db, 'All Devices', finalDeviceTag), {
@@ -368,67 +367,58 @@ async function deleteDevice(itemToDelete) {
 }
 
 async function updateDevice(itemToUpdate) {
-  let finalDeviceTag = -1;
-  const myObj = JSON.stringify(itemToUpdate);
-  const myObj2 = JSON.stringify(itemToUpdate);
-  const myObj3 = JSON.stringify(itemToUpdate);
-  const myObjSplit = myObj.split('"deviceTag":');
-  const partOfString = myObjSplit[1];
-  const objCommaSplit1 = partOfString.split(',')[0];
-  if (objCommaSplit1.includes('"')) {
-    const objQuoteSplit1 = partOfString.split('"');
-    finalDeviceTag = objQuoteSplit1[1];
-  } else {
-    finalDeviceTag = objCommaSplit1;
-  }
-  const myObj2Split = myObj2.split('"deviceName":');
-  const partOfString2 = myObj2Split[1];
-  const objQuoteSplit = partOfString2.split('"');
-  const finalDeviceName = objQuoteSplit[1];
-
-  const myObj3Split = myObj3.split('"status":');
-  const partOfString3 = myObj3Split[1];
-  const objQuoteSplit3 = partOfString3.split('"');
-  const finalDeviceStatus = objQuoteSplit3[1];
+  const { deviceName, deviceTag, status } = itemToUpdate;
+  const minDuration = '5 Hours';
+  const maxDuration = '7 Days';
   // eslint-disable-next-line quote-props
-  await updateDoc(docFire(db, 'All Devices', finalDeviceTag), {
-    deviceTag: finalDeviceTag,
-    deviceName: finalDeviceName,
-    status: finalDeviceStatus,
+  await setDoc(docFire(db, 'All Devices', deviceTag), {
+    deviceTag,
+    deviceName,
+    status,
+    maximumDuration: maxDuration,
+    minimumDuration: minDuration,
   });
 }
 
 async function addDevice(itemToAdd) {
-  let finalDeviceTag = -1;
-  const myObj = JSON.stringify(itemToAdd);
-  const myObj2 = JSON.stringify(itemToAdd);
-  const myObj3 = JSON.stringify(itemToAdd);
-  const myObjSplit = myObj.split('"deviceTag":');
-  const partOfString = myObjSplit[1];
-  const objCommaSplit1 = partOfString.split(',')[0];
-  if (objCommaSplit1.includes('"')) {
-    const objQuoteSplit1 = partOfString.split('"');
-    finalDeviceTag = objQuoteSplit1[1];
-  } else {
-    finalDeviceTag = objCommaSplit1;
+  try {
+    let finalDeviceTag = -1;
+    const minDuration = '5 Hours';
+    const maxDuration = '7 Days';
+    const myObj = JSON.stringify(itemToAdd);
+    const myObj2 = JSON.stringify(itemToAdd);
+    const myObj3 = JSON.stringify(itemToAdd);
+    const myObjSplit = myObj.split('"deviceTag":');
+    const partOfString = myObjSplit[1];
+    const objCommaSplit1 = partOfString.split(',')[0];
+    if (objCommaSplit1.includes('"')) {
+      const objQuoteSplit1 = partOfString.split('"');
+      finalDeviceTag = objQuoteSplit1[1];
+    } else {
+      finalDeviceTag = objCommaSplit1;
+    }
+
+    const myObj2Split = myObj2.split('"deviceName":');
+    const partOfString2 = myObj2Split[1];
+    const objQuoteSplit = partOfString2.split('"');
+    const finalDeviceName = objQuoteSplit[1];
+
+    const myObj3Split = myObj3.split('"status":');
+    const partOfString3 = myObj3Split[1];
+    const objQuoteSplit3 = partOfString3.split('"');
+    const finalDeviceStatus = objQuoteSplit3[1];
+    // eslint-disable-next-line quote-props
+    // eslint-disable-next-line prefer-template
+    await setDoc(docFire(db, 'Current Reservations/' + itemToAdd.reser), {
+      deviceTag: finalDeviceTag,
+      deviceName: finalDeviceName,
+      status: finalDeviceStatus,
+      maximumDuration: maxDuration,
+      minimumDuration: minDuration,
+    });
+  } catch (e) {
+    console.log(`Exception in "addDevice": ${e}`);
   }
-
-  const myObj2Split = myObj2.split('"deviceName":');
-  const partOfString2 = myObj2Split[1];
-  const objQuoteSplit = partOfString2.split('"');
-  const finalDeviceName = objQuoteSplit[1];
-
-  const myObj3Split = myObj3.split('"status":');
-  const partOfString3 = myObj3Split[1];
-  const objQuoteSplit3 = partOfString3.split('"');
-  const finalDeviceStatus = objQuoteSplit3[1];
-  // eslint-disable-next-line quote-props
-  // eslint-disable-next-line prefer-template
-  await setDoc(docFire(db, 'Current Reservations/' + itemToAdd.reser), {
-    deviceTag: finalDeviceTag,
-    deviceName: finalDeviceName,
-    status: finalDeviceStatus,
-  });
 }
 
 export {

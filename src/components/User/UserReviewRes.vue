@@ -1,72 +1,62 @@
 <template>
   <v-container>
-    <v-card>
-      <v-toolbar
-        class="black white--text mb-4"
-      >
-        <v-toolbar-title>
-          {{ selectionStore.deviceName }}
-        </v-toolbar-title>
-      </v-toolbar>
-      <v-menu
-        v-model="menu"
-        :close-on-content-click="false"
-        :nudge-right="40"
-        transition="scale-transition"
-        offset-y
-        min-width="auto"
-      >
-        <template v-slot:activator="{ on, attrs }">
-          <v-text-field
-            v-model="selectedDate"
-            label="Date"
-            prepend-icon="mdi-calendar"
-            readonly
-            v-bind="attrs"
-            v-on="on"
-          />
-        </template>
-        <v-date-picker
-          v-model="selectedDate"
-          :allowed-dates="disablePickup"
-          @input="menu = false"
-        />
-      </v-menu>
-      <date-picker
-        v-model="value1"
-        type="datetime"
-        format="M/D/YYYY h:mm A"
-        :default-value="new Date()"
-        :disabled-date="disablePickup"
-        :time-picker-options="{
-          start: '08:00',
-          step: '00:15',
-          end: '22:00',
-          format: 'h:mm A'
-        }"
-        @input="onPickupChange()"
-      />
-      <date-picker
-        v-model="value2"
-        type="datetime"
-        format="M/D/YYYY h:mm A"
-        :default-value="new Date()"
-        :disabled-date="disablePickup"
-        :time-picker-options="{
-          start: '08:00',
-          step: '00:15',
-          end: '22:00',
-          format: 'h:mm A'
-        }"
-        @input="onReturnChange()"
-      />
-    </v-card>
-    <v-btn
-      class="mt-6 ml-2"
-      @click="addReservation()"
-    >
-      Submit
-    </v-btn>
+    <v-row justify="center">
+      <v-col cols="8">
+        <v-card>
+          <v-toolbar
+            class="black white--text mb-4"
+          >
+            <v-toolbar-title>
+              {{ selectionStore.deviceName }}
+            </v-toolbar-title>
+          </v-toolbar>
+          <v-form class="ml-4">
+            <v-col>
+              <h2> Checkout Date </h2>
+              <date-picker
+                v-model="value1"
+                style="min-width: 300px;"
+                type="datetime"
+                format="M/D/YYYY h:mm A"
+                :disabled-date="disablePickup"
+                :default-value="new Date()"
+                :time-picker-options="{
+                  start: '08:00',
+                  step: '00:15',
+                  end: '22:00',
+                  format: 'h:mm A'
+                }"
+                @input="onPickupChange()"
+              />
+            </v-col>
+            <v-col>
+              <h2> Return Date </h2>
+              <date-picker
+                v-model="value2"
+                style="min-width: 300px;"
+                type="datetime"
+                format="M/D/YYYY h:mm A"
+                :default-value="new Date()"
+                :disabled-date="disableReturn"
+                :time-picker-options="{
+                  start: '08:00',
+                  step: '00:15',
+                  end: '22:00',
+                  format: 'h:mm A'
+                }"
+                @input="onReturnChange()"
+              />
+            </v-col>
+          </v-form>
+          <v-btn
+            class="mb-8 ml-8 mt-4"
+            @click="addReservation()"
+          >
+            Submit Reservation
+          </v-btn>
+        </v-card>
+      </v-col>
+    </v-row>
   </v-container>
 </template>
 
@@ -74,10 +64,12 @@
 import DatePicker from 'vue2-datepicker';
 import 'vue2-datepicker/index.css';
 import {
-  createReservation, getDeviceAvailabilityInfo, getSelectedDeviceInfo,
+  createReservation,
+  getDeviceAvailabilityInfo,
+  getSelectedDeviceInfo,
   getUserInfo,
-} from '../../firebase/techCenterCheckout.Data';
-import { bannerStore, selectionStore, userStore } from '../../store';
+} from '@/firebase/techCenterCheckout.Data';
+import { bannerStore, selectionStore, userStore } from '@/store';
 
 export default {
   name: 'UserReviewRes',
@@ -118,15 +110,20 @@ export default {
     this.getDeviceAvailability();
   },
   methods: {
+    disableReturn(date) {
+      const maxDate = new Date(this.value1);
+      const pastDate = new Date(this.value1);
+      maxDate.setDate(maxDate.getDate() + 7);
+      pastDate.setDate(pastDate.getDate());
+      return date > maxDate || date < pastDate;
+    },
     disablePickup(date) {
-      const returnDate = new Date(this.returnArr[0]);
-      returnDate.setDate(returnDate.getDate() - 1);
-      return date > this.pickUpArr[0] && date < returnDate;
+      return date < new Date(new Date().setHours(0, 0, 0, 0));
     },
     async getDeviceAvailability() {
       try {
-        const deviceAvailability = await getDeviceAvailabilityInfo(selectionStore.deviceTag);
-        [this.pickUpArr, this.returnArr] = deviceAvailability;
+        // eslint-disable-next-line max-len
+        [this.pickUpArr, this.returnArr] = await getDeviceAvailabilityInfo(selectionStore.deviceTag);
         for (let i = 0; i < this.pickUpArr.length; i += 1) {
           const currentDate = new Date(this.pickUpArr[i]);
           while (currentDate <= this.returnArr[i]) {
@@ -134,7 +131,6 @@ export default {
             currentDate.setDate(currentDate.getDate() + 1);
           }
         }
-        console.log(this.disabledDates);
       } catch (e) {
         console.log(e);
       }
@@ -150,8 +146,9 @@ export default {
       }
       try {
         const userInfo = await getUserInfo(userStore.username);
-        this.reservationDetails.firstName = userInfo.firstName;
-        this.reservationDetails.lastName = userInfo.lastName;
+        this.reservationDetails.firstName = userInfo[0].firstName;
+        this.reservationDetails.lastName = userInfo[0].lastName;
+        console.log(userInfo);
       } catch (e) {
         console.log(e);
       }
@@ -159,21 +156,17 @@ export default {
     async addReservation() {
       try {
         // eslint-disable-next-line max-len
-        this.reservationDetails.reservationID = this.reservationDetails.firstName.substr(0, 1) + this.reservationDetails.lastName.substr(0, 1) + Math.random().toString().substr(2, 4);
+        this.reservationDetails.reservationID = this.reservationDetails.firstName.slice(0, 1) + this.reservationDetails.lastName.slice(0, 1) + Math.random().toString().slice(2, 4);
         await createReservation(this.reservationDetails);
       } catch (e) {
         console.log(e);
       }
     },
     onPickupChange() {
-      console.log(this.value1);
-      const date = Date.parse(this.value1);
-      this.reservationDetails.pickUpDate = date / 1000;
+      this.reservationDetails.pickUpDate = this.value1;
     },
     onReturnChange() {
-      console.log(this.value2);
-      const date = Date.parse(this.value2);
-      this.resrvationDetails.returnDate = date / 1000;
+      this.reservationDetails.returnDate = this.value2;
     },
   },
 };
