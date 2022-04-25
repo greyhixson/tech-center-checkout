@@ -50,6 +50,7 @@
           </v-form>
           <v-btn
             class="mb-8 ml-8 mt-4"
+            href="/#/UserConfirmRes"
             @click="addReservation()"
           >
             Submit Reservation

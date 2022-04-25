@@ -3,7 +3,7 @@
     <h2
       class="white--text text--darken-2"
     >
-      Thank you for reserving Apple MacBook Pro.
+      Thank you for reserving {{ selectionStore.deviceName }}.
     </h2>
     <h2
       class="white--text text--darken-2"
@@ -21,10 +21,13 @@
 </template>
 
 <script>
-import { bannerStore } from '../../store';
+import { bannerStore, selectionStore } from '@/store';
 
 export default {
   name: 'UserConfirmRes',
+  data: () => ({
+    selectionStore,
+  }),
   created() {
     bannerStore.setTitle('Reservation Confirmed');
     bannerStore.setButton('Home');
