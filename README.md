@@ -1,4 +1,6 @@
-# tech-center-checkout
+# Tech Center Checkout 
+* The project was developed in a team of 6 as apart of a semester long capstone project.
+* The goal for the project was to develop a web application to replace the University of Arkansas's current device checkout and reservation management system. Work on the application has ceased but feel free to fork it and use it as you wish. 
 
 ## Project setup
 ```
